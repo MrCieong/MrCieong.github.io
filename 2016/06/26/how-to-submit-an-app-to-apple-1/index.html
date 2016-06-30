@@ -1,0 +1,600 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="App Store post," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="怎样提交一个App到Apple">
+<meta property="og:type" content="article">
+<meta property="og:title" content="怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分）">
+<meta property="og:url" content="https://MrCieong.github.io/2016/06/26/how-to-submit-an-app-to-apple-1/index.html">
+<meta property="og:site_name" content="MrCieong's Blog">
+<meta property="og:description" content="怎样提交一个App到Apple">
+<meta property="og:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/04/diagram_012-700x88.png">
+<meta property="og:image" content="https://cdn4.raywenderlich.com/wp-content/uploads/2016/03/diagram_020.png">
+<meta property="og:image" content="https://cdn2.raywenderlich.com/wp-content/uploads/2016/03/diagram_030-520x500.png">
+<meta property="og:image" content="https://cdn2.raywenderlich.com/wp-content/uploads/2016/04/diagram_040-700x348.png">
+<meta property="og:image" content="https://cdn2.raywenderlich.com/wp-content/uploads/2016/03/diagram_050-576x500.png">
+<meta property="og:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/diagram_060.png">
+<meta property="og:image" content="https://cdn2.raywenderlich.com/wp-content/uploads/2016/03/diagram_070.png">
+<meta property="og:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/diagram_080-700x482.png">
+<meta property="og:image" content="https://cdn4.raywenderlich.com/wp-content/uploads/2016/04/diagram_092-700x444.png">
+<meta property="og:updated_time" content="2016-06-29T13:23:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分）">
+<meta name="twitter:description" content="怎样提交一个App到Apple">
+<meta name="twitter:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/04/diagram_012-700x88.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://MrCieong.github.io/2016/06/26/how-to-submit-an-app-to-apple-1/"/>
+
+  <title> 怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分） | MrCieong's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">MrCieong's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-26T21:21:13+08:00" content="2016-06-26">
+              2016-06-26
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文：<a href="https://www.raywenderlich.com/127936/submit-an-app-part-1" target="_blank" rel="external">https://www.raywenderlich.com/127936/submit-an-app-part-1</a></p>
+<blockquote>
+<p>这篇文章由Tony Dahbura更新，原发布作者Gustavo Ambrozio</p>
+</blockquote>
+<p>学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。</p>
+<p>你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。</p>
+<p>为了创建这篇教程，我完整的创建了一个全新的App Store帐号与提交了一个新的app到App Store上，小心的注意着每一步骤。</p>
+<p>在这篇教程中你将提交一个叫Drop Charge的app，这个app来自<br><a href="https://www.raywenderlich.com/store/2d-ios-tvos-games-by-tutorials" target="_blank" rel="external">2D iOS &amp; tvOS Games by Tutorials</a>。这款app已经通过审核并可以从App Store上面<a href="https://itunes.apple.com/us/app/dropcharge/id1099642453?ls=1&amp;mt=8" target="_blank" rel="external">下载</a>了。</p>
+<p>这篇文章将展示你将怎么提交一个app，你需要 US$99（或等值的人民币），一张有效的信用卡与一个浏览器。当然了，你得有一台装有 OSX系统的苹果电脑。</p>
+<p>最后，你还需要装上Xcode，一款苹果软件开工具。你现在可以从Mac App store上下载或一直等到这篇文章讲完。</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>第一步注册为Apple开发者。成为Apple开发者是免费的，但没有提交app到App Store上的权力。所以你需要花费US$99才能有发布app的权力。</p>
+<p>你可能已经有了Apple开发者帐号。如果有，可以跳过这一章节。</p>
+<p>如果你没有Apple开发都帐号，去<a href="http://developer.apple.com/" target="_blank" rel="external">Apple Developer Site</a>的右上角点击<code>Account</code>链接：</p>
+<p><img src="https://cdn1.raywenderlich.com/wp-content/uploads/2016/04/diagram_012-700x88.png" alt=""></p>
+<p>下一页，你可以选择去创建一个新的、完整的Apple ID或使用已有的。如果你想，you can save time and use the Apple ID you already use for your iTunes purchases，不过最好用另一个Apple ID与你的私人的与职业生活的分开。</p>
+<p>嗯，点击 Create Apple ID：</p>
+<p><img src="https://cdn4.raywenderlich.com/wp-content/uploads/2016/03/diagram_020.png" alt=""></p>
+<p>填好你的email，密码与安全信息。使用你经常检查的email, 因为 Apple 会频繁的发送一些你提交app的审核状态信息给你。sends frequent updates on the program and on the status of apps you’ve submitted for approval.</p>
+<p><img src="https://cdn2.raywenderlich.com/wp-content/uploads/2016/03/diagram_030-520x500.png" alt=""></p>
+<p>滑到下面填完一些安全总是与验证码，然后点击<code>Continue</code>：</p>
+<p><img src="https://cdn2.raywenderlich.com/wp-content/uploads/2016/04/diagram_040-700x348.png" alt=""></p>
+<p>检查你的注册填写的email。你应该会收到一封类似下面图片一样的邮件：</p>
+<p><img src="https://cdn2.raywenderlich.com/wp-content/uploads/2016/03/diagram_050-576x500.png" alt=""></p>
+<p>下一页，会弹出一个对话框，你把上一封邮件中的code填入。然后点击 <code>Verify</code>：</p>
+<p><img src="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/diagram_060.png" alt=""></p>
+<p>你现在有一个开发者帐号Apple ID了。干的不错！:]使用你的新帐号登录进去。</p>
+<p><img src="https://cdn2.raywenderlich.com/wp-content/uploads/2016/03/diagram_070.png" alt=""></p>
+<p>下一面是“oh, so fun”合法协议。Call your lawyer and read the whole thing to him/her on the phone. As soon as you get your lawyer’s approval, click the checkbox. You may want marketing emails too, so click that checkbox if you wish.现在点击 <code>Submit</code>：</p>
+<p><img src="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/diagram_080-700x482.png" alt=""></p>
+<p>酷！你已经是一个Apple开发者了！非常棒, 但你可以开发并提交app到App Store上了吗? 好像还不行… 你可以访问库和工具, 不过你需要给Apple一些钱提交 app 到 App Store上。</p>
+<p><img src="https://cdn4.raywenderlich.com/wp-content/uploads/2016/04/diagram_092-700x444.png" alt=""></p>
+<h2 id="提交app之前加入Developer-Program"><a href="#提交app之前加入Developer-Program" class="headerlink" title="提交app之前加入Developer Program"></a>提交app之前加入Developer Program</h2>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/App-Store-post/" rel="tag">#App Store post</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/30/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Mr Cieong" />
+          <p class="site-author-name" itemprop="name">Mr Cieong</p>
+          <p class="site-description motion-element" itemprop="description">你好，我是Mr Cieong，欢迎来的我的博客！</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交app之前加入Developer-Program"><span class="nav-number">2.</span> <span class="nav-text">提交app之前加入Developer Program</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr Cieong</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
