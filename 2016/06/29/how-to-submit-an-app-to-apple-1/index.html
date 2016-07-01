@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="App Store post," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,12 +84,16 @@
 
 
 
-<meta name="description" content="怎样提交一个App到Apple">
+<meta name="description" content="学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。
+你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。
+为了创建这篇教程，我完整的创建了一个全新的App Store帐号与提交了一个新的app到App Store上，小心的注意着每一步骤。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分）">
-<meta property="og:url" content="https://MrCieong.github.io/2016/06/26/how-to-submit-an-app-to-apple-1/index.html">
+<meta property="og:url" content="https://MrCieong.github.io/2016/06/29/how-to-submit-an-app-to-apple-1/index.html">
 <meta property="og:site_name" content="MrCieong's Blog">
-<meta property="og:description" content="怎样提交一个App到Apple">
+<meta property="og:description" content="学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。
+你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。
+为了创建这篇教程，我完整的创建了一个全新的App Store帐号与提交了一个新的app到App Store上，小心的注意着每一步骤。">
 <meta property="og:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/04/diagram_012-700x88.png">
 <meta property="og:image" content="https://cdn4.raywenderlich.com/wp-content/uploads/2016/03/diagram_020.png">
 <meta property="og:image" content="https://cdn2.raywenderlich.com/wp-content/uploads/2016/03/diagram_030-520x500.png">
@@ -99,10 +103,12 @@
 <meta property="og:image" content="https://cdn2.raywenderlich.com/wp-content/uploads/2016/03/diagram_070.png">
 <meta property="og:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/diagram_080-700x482.png">
 <meta property="og:image" content="https://cdn4.raywenderlich.com/wp-content/uploads/2016/04/diagram_092-700x444.png">
-<meta property="og:updated_time" content="2016-06-29T13:23:34.000Z">
+<meta property="og:updated_time" content="2016-06-30T23:33:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分）">
-<meta name="twitter:description" content="怎样提交一个App到Apple">
+<meta name="twitter:description" content="学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。
+你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。
+为了创建这篇教程，我完整的创建了一个全新的App Store帐号与提交了一个新的app到App Store上，小心的注意着每一步骤。">
 <meta name="twitter:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/04/diagram_012-700x88.png">
 
 
@@ -124,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="https://MrCieong.github.io/2016/06/26/how-to-submit-an-app-to-apple-1/"/>
+  <link rel="canonical" href="https://MrCieong.github.io/2016/06/29/how-to-submit-an-app-to-apple-1/"/>
 
   <title> 怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分） | MrCieong's Blog </title>
 </head>
@@ -258,8 +264,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-26T21:21:13+08:00" content="2016-06-26">
-              2016-06-26
+            <time itemprop="dateCreated" datetime="2016-06-29T00:00:00+08:00" content="2016-06-29">
+              2016-06-29
             </time>
           </span>
 
@@ -305,7 +311,7 @@
 <p><img src="https://cdn4.raywenderlich.com/wp-content/uploads/2016/03/diagram_020.png" alt=""></p>
 <p>填好你的email，密码与安全信息。使用你经常检查的email, 因为 Apple 会频繁的发送一些你提交app的审核状态信息给你。sends frequent updates on the program and on the status of apps you’ve submitted for approval.</p>
 <p><img src="https://cdn2.raywenderlich.com/wp-content/uploads/2016/03/diagram_030-520x500.png" alt=""></p>
-<p>滑到下面填完一些安全总是与验证码，然后点击<code>Continue</code>：</p>
+<p>滑到下面填完一些安全问题与验证码，然后点击<code>Continue</code>：</p>
 <p><img src="https://cdn2.raywenderlich.com/wp-content/uploads/2016/04/diagram_040-700x348.png" alt=""></p>
 <p>检查你的注册填写的email。你应该会收到一封类似下面图片一样的邮件：</p>
 <p><img src="https://cdn2.raywenderlich.com/wp-content/uploads/2016/03/diagram_050-576x500.png" alt=""></p>
@@ -336,12 +342,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/App-Store-post/" rel="tag">#App Store post</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
@@ -351,8 +351,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/30/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/01/how-to-submit-an-app-to-apple-2/" rel="prev" title="怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分）">
+                怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -421,7 +421,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
