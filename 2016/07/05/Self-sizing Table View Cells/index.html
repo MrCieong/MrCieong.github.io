@@ -1,0 +1,597 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="If you’ve ever created custom table view cells before, chances are good that you have spent a lot of time sizing table view cells in code. You may even be familiar with having to manually calculate th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Self-sizing Table View Cells">
+<meta property="og:url" content="https://MrCieong.github.io/2016/07/05/Self-sizing Table View Cells/index.html">
+<meta property="og:site_name" content="MrCieong's Blog">
+<meta property="og:description" content="If you’ve ever created custom table view cells before, chances are good that you have spent a lot of time sizing table view cells in code. You may even be familiar with having to manually calculate th">
+<meta property="og:image" content="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-1.png">
+<meta property="og:image" content="https://cdn3.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-2.png">
+<meta property="og:image" content="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-3.png">
+<meta property="og:image" content="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/Screen-Shot-2016-03-30-at-8.59.22-PM.png">
+<meta property="og:image" content="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-7.png">
+<meta property="og:image" content="https://cdn5.raywenderlich.com/wp-content/uploads/2016/04/Screen-Shot-2016-04-10-at-9.49.10-PM.png">
+<meta property="og:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-39.png">
+<meta property="og:image" content="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-40.png">
+<meta property="og:image" content="https://cdn3.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-37-1.png">
+<meta property="og:image" content="https://cdn3.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-38.png">
+<meta property="og:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-34.png">
+<meta property="og:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-38.png">
+<meta property="og:updated_time" content="2016-07-05T13:47:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Self-sizing Table View Cells">
+<meta name="twitter:description" content="If you’ve ever created custom table view cells before, chances are good that you have spent a lot of time sizing table view cells in code. You may even be familiar with having to manually calculate th">
+<meta name="twitter:image" content="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://MrCieong.github.io/2016/07/05/Self-sizing Table View Cells/"/>
+
+  <title> Self-sizing Table View Cells | MrCieong's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">MrCieong's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Self-sizing Table View Cells
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-05T00:00:00+08:00" content="2016-07-05">
+              2016-07-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文：<a href="https://www.raywenderlich.com/129059/self-sizing-table-view-cells" target="_blank" rel="external">https://www.raywenderlich.com/129059/self-sizing-table-view-cells</a></p>
+<blockquote>
+<p>这篇文章由Bradley更新使用Xcode7.3，iOS9与Swift2.2，原发布作者Joshua Greene。</p>
+</blockquote>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>通过这篇文章您将掌握以下技术：</p>
+<ol>
+<li>使用Auto Layout创建你的Table View Cells。</li>
+<li>设置table view的rowHeight为UITableViewAutomaticDimension。</li>
+<li>设置estimatedRowHeight或都实现高估计的delegate方法。</li>
+</ol>
+<h2 id="教程App概述"><a href="#教程App概述" class="headerlink" title="教程App概述"></a>教程App概述</h2><p>首先下载<a href="https://cdn1.raywenderlich.com/wp-content/uploads/2016/05/Artistry-Starter.zip" target="_blank" rel="external">Artistry-Starter</a>并解压。<br>打开Main.storyboard你将看到下面的场景：<br><img src="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-1.png" alt=""><br>从左到右依次是：</p>
+<ul>
+<li>顶级NavigationController</li>
+<li>ArtistListViewController 显示画家列表</li>
+<li>ArtistDetailViewController 展示了每一个画家的工作及信息</li>
+</ul>
+<p>Build并run，展示如下：<br><img src="https://cdn3.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-2.png" alt=""></p>
+<h2 id="Self-Sizing-Table-View-Cells"><a href="#Self-Sizing-Table-View-Cells" class="headerlink" title="Self-Sizing Table View Cells"></a>Self-Sizing Table View Cells</h2><p>选择Views并右击创建一个新的Cocoa Touch Class命名为ArtistTableViewCell并继承UITableViewCell。<br>打开ArtistTableViewCell.swift并删除两个自动生成的方法然后添加下面的属性：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@IBOutlet var <span class="symbol">bioLabel:</span> UILabel!</div></pre></td></tr></table></figure></p>
+<p><img src="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-3.png" alt=""></p>
+<p><img src="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/Screen-Shot-2016-03-30-at-8.59.22-PM.png" alt=""></p>
+<p><img src="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-7.png" alt=""></p>
+<p><img src="https://cdn5.raywenderlich.com/wp-content/uploads/2016/04/Screen-Shot-2016-04-10-at-9.49.10-PM.png" alt=""></p>
+<p><img src="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-39.png" alt=""></p>
+<h2 id="配置Table-View"><a href="#配置Table-View" class="headerlink" title="配置Table View"></a>配置Table View</h2><p>打开ArtistListViewController.swift并使用下列代码替换tableView(_:cellForRowAtIndexPath:)：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">func tableView(<span class="symbol">tableView:</span> UITableView,</div><div class="line">               cellForRowAtIndexPath <span class="symbol">indexPath:</span> NSIndexPath) -&gt; UITableViewCell &#123;</div><div class="line">  let cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"Cell"</span>,</div><div class="line">                                                         <span class="symbol">forIndexPath:</span> indexPath) as! ArtistTableViewCell</div><div class="line"> </div><div class="line">  let artist = artists[indexPath.row]</div><div class="line">  cell.bioLabel.text = artist.bio</div><div class="line">  cell.bioLabel.textColor = UIColor(<span class="symbol">red:</span> <span class="number">114</span> / <span class="number">255</span>,</div><div class="line">                                    <span class="symbol">green:</span> <span class="number">114</span> / <span class="number">255</span>,</div><div class="line">                                    <span class="symbol">blue:</span> <span class="number">114</span> / <span class="number">255</span>,</div><div class="line">                                    <span class="symbol">alpha:</span> <span class="number">1.0</span>)</div><div class="line">  <span class="keyword">return</span> cell</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>回到ArtistListViewController.swift添加下面2行代码到viewDidLoad()方法的底部：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tableView.rowHeight = UITableViewAutomaticDimension</div><div class="line">tableView.estimatedRowHeight = <span class="number">140</span></div></pre></td></tr></table></figure></p>
+<p><img src="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-40.png" alt=""></p>
+<h2 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h2><h2 id="Show-me-the-Art"><a href="#Show-me-the-Art" class="headerlink" title="Show me the Art!"></a>Show me the Art!</h2><p><img src="https://cdn3.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-37-1.png" alt=""></p>
+<h2 id="Expanding-Cells"><a href="#Expanding-Cells" class="headerlink" title="Expanding Cells"></a>Expanding Cells</h2><p><img src="https://cdn3.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-38.png" alt=""></p>
+<h2 id="Dynamic-Type"><a href="#Dynamic-Type" class="headerlink" title="Dynamic Type"></a>Dynamic Type</h2><p><img src="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-34.png" alt=""></p>
+<p><img src="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-38.png" alt=""></p>
+<h2 id="Where-to-Go-From-Here"><a href="#Where-to-Go-From-Here" class="headerlink" title="Where to Go From Here"></a>Where to Go From Here</h2>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/01/how-to-setup-blog-on-github-with-hexo/" rel="next" title="如何使用Hexo在Github上搭建一个博客">
+                <i class="fa fa-chevron-left"></i> 如何使用Hexo在Github上搭建一个博客
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Mr Cieong" />
+          <p class="site-author-name" itemprop="name">Mr Cieong</p>
+          <p class="site-description motion-element" itemprop="description">你好，我是Mr Cieong，欢迎来到我的博客！</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#教程App概述"><span class="nav-number">2.</span> <span class="nav-text">教程App概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Self-Sizing-Table-View-Cells"><span class="nav-number">3.</span> <span class="nav-text">Self-Sizing Table View Cells</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Table-View"><span class="nav-number">4.</span> <span class="nav-text">配置Table View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加图片"><span class="nav-number">5.</span> <span class="nav-text">添加图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Show-me-the-Art"><span class="nav-number">6.</span> <span class="nav-text">Show me the Art!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expanding-Cells"><span class="nav-number">7.</span> <span class="nav-text">Expanding Cells</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Type"><span class="nav-number">8.</span> <span class="nav-text">Dynamic Type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Where-to-Go-From-Here"><span class="nav-number">9.</span> <span class="nav-text">Where to Go From Here</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr Cieong</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

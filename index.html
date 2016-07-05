@@ -238,6 +238,102 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/05/Self-sizing Table View Cells/" itemprop="url">
+                  Self-sizing Table View Cells
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-05T00:00:00+08:00" content="2016-07-05">
+              2016-07-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          If you’ve ever created custom table view cells before, chances are good that you have spent a lot of time sizing table view cells in code. You may even be familiar with having to manually calculate the height of every label, image view, text field, and everything else within the cell. Frankly, this approach is mind-boggling and error prone. In this self-sizing table view cells tutorial, you’ll learn how to create and dynamically size table view cells to fit their contents. You might be thinking, “That’s going to take a lot of work…!
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/05/Self-sizing Table View Cells/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/01/how-to-setup-blog-on-github-with-hexo/" itemprop="url">
                   如何使用Hexo在Github上搭建一个博客
                 </a>
@@ -314,9 +410,9 @@
 <p>添加下列代码到配置文件的底部用于部署到github repo    。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">deploy:</span></div><div class="line">  <span class="symbol">type:</span> git</div><div class="line">  <span class="symbol">repo:</span> &#123;your github repo url&#125;</div><div class="line">  <span class="symbol">branch:</span> master</div><div class="line">  <span class="symbol">message:</span> <span class="string">"Site updated: &#123;&#123; now('YYYY-MM-DD HH:mm:ss') &#125;&#125;"</span></div></pre></td></tr></table></figure></p>
 <h3 id="部署博客"><a href="#部署博客" class="headerlink" title="部署博客"></a>部署博客</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ npm i -S hexo-deployer-git</div><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
 <p>到这里，你打开<a href="http://{blogname}.github.io可以浏览你的博客了。" target="_blank" rel="external">http://{blogname}.github.io可以浏览你的博客了。</a></p>
-<h3 id="添加源码到github-repository-可选"><a href="#添加源码到github-repository-可选" class="headerlink" title="添加源码到github repository(可选)"></a>添加源码到github repository(可选)</h3><p>维持你的代码版本，你可制造另一个分支并且push them commits。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git remote add origin &#123;your-git-repo-url&#125;</div><div class="line">$ git checkout -b source </div><div class="line">$ git push origin source</div></pre></td></tr></table></figure></p>
+<h3 id="添加源码到github-repository-可选"><a href="#添加源码到github-repository-可选" class="headerlink" title="添加源码到github repository(可选)"></a>添加源码到github repository(可选)</h3><p>维护你的代码版本，你可以制造另一个分支并且push the commits。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git remote add origin &#123;your-git-repo-url&#125;</div><div class="line">$ git checkout -b source </div><div class="line">$ git push origin source</div></pre></td></tr></table></figure></p>
 <h3 id="发布新的文章"><a href="#发布新的文章" class="headerlink" title="发布新的文章"></a>发布新的文章</h3><p>生成一篇新的文章<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new &#123;postname&#125;</div></pre></td></tr></table></figure></p>
-<p>篇写新文章<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi source/_posts/&#123;postname&#125;.md</div></pre></td></tr></table></figure></p>
+<p>编写新文章<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi source/_posts/&#123;postname&#125;.md</div></pre></td></tr></table></figure></p>
 <p>重新生成并发布博客文件<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate -d</div></pre></td></tr></table></figure></p>
 <p>愉快的发布你的文章吧！</p>
 
@@ -582,7 +678,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
