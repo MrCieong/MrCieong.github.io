@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://cdn3.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-38.png">
 <meta property="og:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-34.png">
 <meta property="og:image" content="https://cdn1.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-38.png">
-<meta property="og:updated_time" content="2016-07-05T13:47:34.000Z">
+<meta property="og:updated_time" content="2016-07-05T14:07:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Self-sizing Table View Cells">
 <meta name="twitter:description" content="If you’ve ever created custom table view cells before, chances are good that you have spent a lot of time sizing table view cells in code. You may even be familiar with having to manually calculate th">
@@ -293,7 +293,9 @@
 <blockquote>
 <p>这篇文章由Bradley更新使用Xcode7.3，iOS9与Swift2.2，原发布作者Joshua Greene。</p>
 </blockquote>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>通过这篇文章您将掌握以下技术：</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>回到iOS6的日子，Apple介绍了一个令人赞叹的新技术：Auto Layout。开发者们欢欣鼓舞；街道上载歌载舞；乐队写歌来庆祝它的伟大……</p>
+<p>不好意思，牛吹得有点大了。</p>
+<p>除去一些细节，你真正要做的是下面几条：</p>
 <ol>
 <li>使用Auto Layout创建你的Table View Cells。</li>
 <li>设置table view的rowHeight为UITableViewAutomaticDimension。</li>
@@ -306,6 +308,7 @@
 <li>ArtistDetailViewController 展示了每一个画家的工作及信息</li>
 </ul>
 <p>Build并run，展示如下：<br><img src="https://cdn3.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-2.png" alt=""></p>
+<p>你将在ArtistListViewController中开始实现动态的cell高。</p>
 <h2 id="Self-Sizing-Table-View-Cells"><a href="#Self-Sizing-Table-View-Cells" class="headerlink" title="Self-Sizing Table View Cells"></a>Self-Sizing Table View Cells</h2><p>选择Views并右击创建一个新的Cocoa Touch Class命名为ArtistTableViewCell并继承UITableViewCell。<br>打开ArtistTableViewCell.swift并删除两个自动生成的方法然后添加下面的属性：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@IBOutlet var <span class="symbol">bioLabel:</span> UILabel!</div></pre></td></tr></table></figure></p>
 <p><img src="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/rw-self-sizing-2-3.png" alt=""></p>
 <p><img src="https://cdn5.raywenderlich.com/wp-content/uploads/2016/03/Screen-Shot-2016-03-30-at-8.59.22-PM.png" alt=""></p>
@@ -351,6 +354,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/06/iOS Bubble Animation Tutorial/" rel="prev" title="iOS Bubble Animation Tutorial">
+                iOS Bubble Animation Tutorial <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -418,7 +425,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
