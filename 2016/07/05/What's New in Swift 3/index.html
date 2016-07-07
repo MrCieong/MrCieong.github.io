@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。 你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。">
+<meta name="description" content="Apple integrated Swift 3 into Xcode 8 beta at WWDC and will release the final version later on this year. This is the language’s first version that is open source and works both on Mac OS X and Linux.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分）">
-<meta property="og:url" content="https://MrCieong.github.io/2016/07/01/how-to-submit-an-app-to-apple-2/index.html">
+<meta property="og:title" content="What's New in Swift 3">
+<meta property="og:url" content="https://MrCieong.github.io/2016/07/05/What's New in Swift 3/index.html">
 <meta property="og:site_name" content="MrCieong's Blog">
-<meta property="og:description" content="学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。 你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。">
-<meta property="og:updated_time" content="2016-06-30T16:31:37.000Z">
+<meta property="og:description" content="Apple integrated Swift 3 into Xcode 8 beta at WWDC and will release the final version later on this year. This is the language’s first version that is open source and works both on Mac OS X and Linux.">
+<meta property="og:updated_time" content="2016-07-07T15:15:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分）">
-<meta name="twitter:description" content="学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。 你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。">
+<meta name="twitter:title" content="What's New in Swift 3">
+<meta name="twitter:description" content="Apple integrated Swift 3 into Xcode 8 beta at WWDC and will release the final version later on this year. This is the language’s first version that is open source and works both on Mac OS X and Linux.">
 
 
 
@@ -114,9 +114,9 @@
 
 
 
-  <link rel="canonical" href="https://MrCieong.github.io/2016/07/01/how-to-submit-an-app-to-apple-2/"/>
+  <link rel="canonical" href="https://MrCieong.github.io/2016/07/05/What's New in Swift 3/"/>
 
-  <title> 怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分） | MrCieong's Blog </title>
+  <title> What's New in Swift 3 | MrCieong's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +236,7 @@
             
             
               
-                怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分）
+                What's New in Swift 3
               
             
           </h1>
@@ -248,8 +248,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-01T00:00:00+08:00" content="2016-07-01">
-              2016-07-01
+            <time itemprop="dateCreated" datetime="2016-07-05T00:00:00+08:00" content="2016-07-05">
+              2016-07-05
             </time>
           </span>
 
@@ -276,11 +276,15 @@
       
 
       
-        <p>原文：<a href="https://www.raywenderlich.com/127939/submit-an-app-part-2" target="_blank" rel="external">https://www.raywenderlich.com/127939/submit-an-app-part-2</a></p>
-<blockquote>
-<p>这篇文章由Tony Dahbura更新，原发布作者Gustavo Ambrozio</p>
-</blockquote>
-
+        <p>原文：<a href="http://www.appcoda.com/swift3-changes/" target="_blank" rel="external">http://www.appcoda.com/swift3-changes/</a></p>
+<p>Apple integrated Swift 3 into Xcode 8 beta at WWDC and will release the final version later on this year. This is the language’s first version that is open source and works both on Mac OS X and Linux. If you have followed the <a href="https://github.com/apple/swift-evolution" target="_blank" rel="external">Swift Evolution</a> process since December last year and even already played with it in the <a href="https://swiftlang.ng.bluemix.net/#/repl" target="_blank" rel="external">IBM sandbox</a>, you know that there are a lot of changes. It is quite sure if you compile your app in Xcode 8, it will break your code.</p>
+<p>The changes of Swift 3 can be grouped into two major categories:</p>
+<ul>
+<li>Removed features that have already been deprecated in Swift 2.2</li>
+<li>Language modernisation issues</li>
+</ul>
+<p>Let’s start with the removed ones, since they are easier to understand and you may have encountered them before as warnings in Xcode 7.3.</p>
+<h2 id="and-—-Operators"><a href="#and-—-Operators" class="headerlink" title="++ and — Operators"></a>++ and — Operators</h2><h2 id="C-style-for-Loop-is-History"><a href="#C-style-for-Loop-is-History" class="headerlink" title="C-style for Loop is History"></a>C-style for Loop is History</h2><h2 id="Remove-var-from-Function-Parameters"><a href="#Remove-var-from-Function-Parameters" class="headerlink" title="Remove var from Function Parameters"></a>Remove var from Function Parameters</h2><h2 id="Consistent-Label-Behaviour-for-Function-Parameters"><a href="#Consistent-Label-Behaviour-for-Function-Parameters" class="headerlink" title="Consistent Label Behaviour for Function Parameters"></a>Consistent Label Behaviour for Function Parameters</h2><h2 id="Selectors-as-Strings-No-Longer-Works"><a href="#Selectors-as-Strings-No-Longer-Works" class="headerlink" title="Selectors as Strings No Longer Works"></a>Selectors as Strings No Longer Works</h2><h2 id="Key-paths-as-Strings"><a href="#Key-paths-as-Strings" class="headerlink" title="Key-paths as Strings"></a>Key-paths as Strings</h2><h2 id="Drop-NS-Prefix-for-Foundation-Types"><a href="#Drop-NS-Prefix-for-Foundation-Types" class="headerlink" title="Drop NS Prefix for Foundation Types"></a>Drop NS Prefix for Foundation Types</h2><h2 id="M-PI-vs-pi"><a href="#M-PI-vs-pi" class="headerlink" title="M_PI vs .pi"></a>M_PI vs .pi</h2><h2 id="Grand-Central-Dispatch"><a href="#Grand-Central-Dispatch" class="headerlink" title="Grand Central Dispatch"></a>Grand Central Dispatch</h2><h2 id="Core-Graphics-is-Now-More-Swifty"><a href="#Core-Graphics-is-Now-More-Swifty" class="headerlink" title="Core Graphics is Now More Swifty"></a>Core Graphics is Now More Swifty</h2><h2 id="Verbs-vs-Nouns-Naming-Convention"><a href="#Verbs-vs-Nouns-Naming-Convention" class="headerlink" title="Verbs vs Nouns Naming Convention"></a>Verbs vs Nouns Naming Convention</h2><h2 id="Swiftier-APIs"><a href="#Swiftier-APIs" class="headerlink" title="Swiftier APIs"></a>Swiftier APIs</h2><h2 id="Enumeration-Cases"><a href="#Enumeration-Cases" class="headerlink" title="Enumeration Cases"></a>Enumeration Cases</h2><h2 id="discardableResult"><a href="#discardableResult" class="headerlink" title="@discardableResult"></a>@discardableResult</h2><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2>
       
     </div>
 
@@ -304,16 +308,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/29/how-to-submit-an-app-to-apple-1/" rel="next" title="怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分）">
-                <i class="fa fa-chevron-left"></i> 怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分）
+              <a href="/2016/07/01/how-to-setup-blog-on-github-with-hexo/" rel="next" title="如何使用Hexo在Github上搭建一个博客">
+                <i class="fa fa-chevron-left"></i> 如何使用Hexo在Github上搭建一个博客
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/01/how-to-setup-blog-on-github-with-hexo/" rel="prev" title="如何使用Hexo在Github上搭建一个博客">
-                如何使用Hexo在Github上搭建一个博客 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/05/Self-sizing Table View Cells/" rel="prev" title="Self-sizing Table View Cells">
+                Self-sizing Table View Cells <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -421,7 +425,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#and-—-Operators"><span class="nav-number">1.</span> <span class="nav-text">++ and — Operators</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-style-for-Loop-is-History"><span class="nav-number">2.</span> <span class="nav-text">C-style for Loop is History</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Remove-var-from-Function-Parameters"><span class="nav-number">3.</span> <span class="nav-text">Remove var from Function Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consistent-Label-Behaviour-for-Function-Parameters"><span class="nav-number">4.</span> <span class="nav-text">Consistent Label Behaviour for Function Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selectors-as-Strings-No-Longer-Works"><span class="nav-number">5.</span> <span class="nav-text">Selectors as Strings No Longer Works</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Key-paths-as-Strings"><span class="nav-number">6.</span> <span class="nav-text">Key-paths as Strings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Drop-NS-Prefix-for-Foundation-Types"><span class="nav-number">7.</span> <span class="nav-text">Drop NS Prefix for Foundation Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#M-PI-vs-pi"><span class="nav-number">8.</span> <span class="nav-text">M_PI vs .pi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grand-Central-Dispatch"><span class="nav-number">9.</span> <span class="nav-text">Grand Central Dispatch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Core-Graphics-is-Now-More-Swifty"><span class="nav-number">10.</span> <span class="nav-text">Core Graphics is Now More Swifty</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verbs-vs-Nouns-Naming-Convention"><span class="nav-number">11.</span> <span class="nav-text">Verbs vs Nouns Naming Convention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swiftier-APIs"><span class="nav-number">12.</span> <span class="nav-text">Swiftier APIs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enumeration-Cases"><span class="nav-number">13.</span> <span class="nav-text">Enumeration Cases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#discardableResult"><span class="nav-number">14.</span> <span class="nav-text">@discardableResult</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">15.</span> <span class="nav-text">Summary</span></a></li></ol></div>
             
           </div>
         </section>
