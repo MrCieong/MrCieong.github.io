@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="MrCieong's Blog">
 <meta property="og:description" content="Swift3的改变，主要划分为两个部分：1.删除了Swift2.2已经过时的特性。(Removed features that have already been deprecated in Swift 2.2) 2.语言现代化的问题。(Language modernisation issues)">
 <meta property="og:image" content="http://www.appcoda.com/wp-content/uploads/2016/06/discardable-result-1.png">
-<meta property="og:updated_time" content="2016-07-09T02:03:15.000Z">
+<meta property="og:updated_time" content="2016-07-09T02:06:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="What's New in Swift 3">
 <meta name="twitter:description" content="Swift3的改变，主要划分为两个部分：1.删除了Swift2.2已经过时的特性。(Removed features that have already been deprecated in Swift 2.2) 2.语言现代化的问题。(Language modernisation issues)">
@@ -347,21 +347,21 @@
 </blockquote>
 <h2 id="Swiftier-APIs"><a href="#Swiftier-APIs" class="headerlink" title="Swiftier APIs"></a>Swiftier APIs</h2><p>Swift3在APIs上采用了简单的哲学。删除一些不需要的词语，比如一些冗余的或者通过上下文可以推断出来的：</p>
 <ul>
-<li><code>XCPlaygroundPage.currentPage</code> becomes <code>PlaygroundPage.current</code></li>
-<li><code>button.setTitle(forState)</code> becomes <code>button.setTitle(for)</code></li>
-<li><code>button.addTarget(action, forControlEvents)</code> becomes <code>button.addTarget(action, for)</code></li>
-<li><code>NSBundle.mainBundle()</code> becomes <code>Bundle.main()</code></li>
-<li><code>NSData(contentsOfURL)</code> becomes <code>URL(contentsOf)</code></li>
-<li><code>NSJSONSerialization.JSONObjectWithData()</code> becomes <code>JSONSerialization.jsonObject(with)</code></li>
-<li><code>UIColor.blueColor()</code> becomes <code>UIColor.blue()</code></li>
-<li><code>UIColor.redColor()</code> becomes <code>UIColor.red()</code></li>
+<li><code>XCPlaygroundPage.currentPage</code> 变成 <code>PlaygroundPage.current</code></li>
+<li><code>button.setTitle(forState)</code> 变成 <code>button.setTitle(for)</code></li>
+<li><code>button.addTarget(action, forControlEvents)</code> 变成 <code>button.addTarget(action, for)</code></li>
+<li><code>NSBundle.mainBundle()</code> 变成 <code>Bundle.main()</code></li>
+<li><code>NSData(contentsOfURL)</code> 变成 <code>URL(contentsOf)</code></li>
+<li><code>NSJSONSerialization.JSONObjectWithData()</code> 变成 <code>JSONSerialization.jsonObject(with)</code></li>
+<li><code>UIColor.blueColor()</code> 变成 <code>UIColor.blue()</code></li>
+<li><code>UIColor.redColor()</code> 变成 <code>UIColor.red()</code></li>
 </ul>
 <h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>Swift3处理Enumeration Cases类似于属性，所以使用了小写驼峰代替大写驼峰法：</p>
 <ul>
-<li><code>.System</code> becomes <code>.system</code></li>
-<li><code>.TouchUpInside</code> becomes <code>.touchUpInside</code></li>
-<li><code>.FillStroke</code> becomes <code>.fillStroke</code></li>
-<li><code>.CGColor</code> becomes <code>.cgColor</code></li>
+<li><code>.System</code> 变成 <code>.system</code></li>
+<li><code>.TouchUpInside</code> 变成 <code>.touchUpInside</code></li>
+<li><code>.FillStroke</code> 变成 <code>.fillStroke</code></li>
+<li><code>.CGColor</code> 变成 <code>.cgColor</code></li>
 </ul>
 <h2 id="discardableResult"><a href="#discardableResult" class="headerlink" title="@discardableResult"></a>@discardableResult</h2><p>在Swift3中，如果你调用了一个函数或方法，而没有使用它的返回值。Xcode将会显示一条警告信息：<br><img src="http://www.appcoda.com/wp-content/uploads/2016/06/discardable-result-1.png" alt=""><br>这种情况下你可以使用<code>@discardableResult</code>来忽略警告：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">override func viewDidLoad() &#123;</div><div class="line">    <span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line">    printMessage(<span class="symbol">message:</span> <span class="string">"Hello Swift 3!"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">@discardableResult</div><div class="line">func printMessage(<span class="symbol">message:</span> String) -&gt; String &#123;</div><div class="line">    let outputMessage = <span class="string">"Output : \(message)"</span></div><div class="line">    print(outputMessage)</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> outputMessage</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇教程所有的代码可以从<a href="https://github.com/appcoda/Swift3Playgrounds/blob/master/Swift%203.playground.zip?raw=true" target="_blank" rel="external">Playground project</a>获得。我使用的是Xcode 8 Beta版。所以要确保你是在Xcode 8上运行。<br>如果你任何问题或建议，请告诉我。愉快的编码吧！🙂</p>
