@@ -1,0 +1,648 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Swift," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Swift3的改变，主要划分为两个部分：1.删除了Swift2.2已经过时的特性。(Removed features that have already been deprecated in Swift 2.2) 2.语言现代化的问题。(Language modernisation issues)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What's New in Swift 3">
+<meta property="og:url" content="https://MrCieong.github.io/2016/07/09/What's New in Swift 3/index.html">
+<meta property="og:site_name" content="MrCieong's Blog">
+<meta property="og:description" content="Swift3的改变，主要划分为两个部分：1.删除了Swift2.2已经过时的特性。(Removed features that have already been deprecated in Swift 2.2) 2.语言现代化的问题。(Language modernisation issues)">
+<meta property="og:image" content="http://www.appcoda.com/wp-content/uploads/2016/06/discardable-result-1.png">
+<meta property="og:updated_time" content="2016-07-09T02:03:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="What's New in Swift 3">
+<meta name="twitter:description" content="Swift3的改变，主要划分为两个部分：1.删除了Swift2.2已经过时的特性。(Removed features that have already been deprecated in Swift 2.2) 2.语言现代化的问题。(Language modernisation issues)">
+<meta name="twitter:image" content="http://www.appcoda.com/wp-content/uploads/2016/06/discardable-result-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://MrCieong.github.io/2016/07/09/What's New in Swift 3/"/>
+
+  <title> What's New in Swift 3 | MrCieong's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">MrCieong's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                What's New in Swift 3
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-09T00:00:00+08:00" content="2016-07-09">
+              2016-07-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文：<a href="http://www.appcoda.com/swift3-changes/" target="_blank" rel="external">http://www.appcoda.com/swift3-changes/</a></p>
+<p>Swift3的改变，主要划分为下面两个部分：</p>
+<ul>
+<li>删除了Swift2.2已经过时的特性。(Removed features that have already been deprecated in Swift 2.2)</li>
+<li>语言现代化的问题。(Language modernisation issues)</li>
+</ul>
+<h2 id="自增与自减操作-、"><a href="#自增与自减操作-、" class="headerlink" title="自增与自减操作(++、--)"></a>自增与自减操作(<code>++</code>、<code>--</code>)</h2><p>继承自C的自增与自减操作符：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var i = <span class="number">0</span></div><div class="line">i++</div><div class="line">++i</div><div class="line">i--</div><div class="line">--i</div></pre></td></tr></table></figure></p>
+<p>使用<code>+=</code>与<code>-=</code>代替：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var i = <span class="number">0</span></div><div class="line">i += <span class="number">1</span></div><div class="line">i -= <span class="number">1</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>进一步的阅读：</strong> If you want to learn more about the motivation behind this change, check out <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0004-remove-pre-post-inc-decrement.md" target="_blank" rel="external">Chris Lattner’s proposal</a> on the removal of ++ and — operators.</p>
+</blockquote>
+<h2 id="C样式循环成为过去式-C-style"><a href="#C样式循环成为过去式-C-style" class="headerlink" title="C样式循环成为过去式(C-style)"></a>C样式循环成为过去式(<code>C-style</code>)</h2><p>如果打印数字1到10，你以前可能会这样写：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</div><div class="line"></div><div class="line">  print(i)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在Swifty 3中不再允许这样做，将采用下面的代码代替：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span>...<span class="number">10</span> &#123;</div><div class="line">	print(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>或者你可以采用闭包的简短参数写法<code>循环相关</code><a href="https://cosminpupaza.wordpress.com/2015/12/04/for-vs-while-a-beginners-approach/" target="_blank" rel="external">点击这里</a>)：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(<span class="number">1</span>...<span class="number">10</span>).forEach &#123;</div><div class="line">	print($0)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="从函数参数中删除var"><a href="#从函数参数中删除var" class="headerlink" title="从函数参数中删除var"></a>从函数参数中删除var</h2><p>函数参数通常定义为常量，当然在Swift2中函数参数可以用<code>var</code>修饰。<br>举个例子，下面的函数计算一个给定两个数的最大公约数。如果你忘记了高等数学课程，<a href="https://en.wikipedia.org/wiki/Greatest_common_divisor" target="_blank" rel="external">点击这里</a>。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">func gcd(var <span class="symbol">a:</span> Int, var <span class="symbol">b:</span> Int) -&gt; Int &#123;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (a == b) &#123;</div><div class="line">    <span class="keyword">return</span> a</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  repeat &#123;</div><div class="line">    <span class="keyword">if</span> (a &gt; b) &#123;</div><div class="line">      a = a - b</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      b = b - a</div><div class="line">    &#125;</div><div class="line">  &#125; <span class="keyword">while</span> (a != b)</div><div class="line"></div><div class="line">  <span class="keyword">return</span> a</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在Swift3中不再允许，因为上面的做法可会混淆<code>var</code>与<code>inout</code>。所以最新的Swift版本删除了var作为函数参数的修饰。<br>所以改写上面的例子，你需要用本地变量保存传入的值：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">func gcd(<span class="symbol">a:</span> Int, <span class="symbol">b:</span> Int) -&gt; Int &#123;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (a == b) &#123;</div><div class="line">    <span class="keyword">return</span> a</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  var c = a</div><div class="line">  var d = b</div><div class="line"></div><div class="line">  repeat &#123;</div><div class="line">    <span class="keyword">if</span> (c &gt; d) &#123;</div><div class="line">      c = c - d</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      d = d - c</div><div class="line">    &#125;</div><div class="line">  &#125; <span class="keyword">while</span> (c != d)</div><div class="line"></div><div class="line">  <span class="keyword">return</span> c</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>进一步的阅读：</strong> If you want to learn more about the motivation behind the removal, you can check out the <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0003-remove-var-parameters.md" target="_blank" rel="external">original proposal</a>.</p>
+</blockquote>
+<h2 id="函数参数标签行为始终如一-Consistent-Label-Behaviour-for-Function-Parameters"><a href="#函数参数标签行为始终如一-Consistent-Label-Behaviour-for-Function-Parameters" class="headerlink" title="函数参数标签行为始终如一(Consistent Label Behaviour for Function Parameters)"></a>函数参数标签行为始终如一(Consistent Label Behaviour for Function Parameters)</h2><p>拿上面的gcd()做例子。你可以这样调用它：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcd(<span class="number">8</span>, <span class="symbol">b:</span><span class="number">12</span>)</div></pre></td></tr></table></figure></p>
+<p>或者你可以用下面这种元组方式调用：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let number = (<span class="number">8</span>, <span class="symbol">b:</span> <span class="number">12</span>)</div><div class="line">gcd(number)</div></pre></td></tr></table></figure></p>
+<p>正如你所看到的，在Swift2中调用函数，你不需要指定第一个参数的标签。不过，无论怎样你都需要指定第二个参数的标签。<br>这种语法会使初学者产生迷惑，所以在Swift3中被设置为标准化的标签行为。如下所示：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gcd(<span class="symbol">a:</span> <span class="number">8</span>, <span class="symbol">b:</span> <span class="number">12</span>)</div></pre></td></tr></table></figure></p>
+<p>如果你把第一个参数的标签省略掉，那么在Xocde8中将会提示错误。<br>当然Apple提供采用<code>_</code>来隐藏函数调用时的第一个参数标签，如下：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">func gcd(<span class="number">_</span> <span class="symbol">a:</span> Int, <span class="symbol">b:</span> Int) -&gt; Int &#123;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>进一步阅读：</strong> For the motivation and intent behind this change, you can check out <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0046-first-label.md" target="_blank" rel="external">this proposal</a>.</p>
+</blockquote>
+<h2 id="字符串形式的Selectors不再工作"><a href="#字符串形式的Selectors不再工作" class="headerlink" title="字符串形式的Selectors不再工作"></a>字符串形式的Selectors不再工作</h2><p>创建一个Button并添加你点击它时去做某件事。使用playgrounds：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">// 1</div><div class="line">import UIKit</div><div class="line">import XCPlayground</div><div class="line"></div><div class="line">// 2</div><div class="line">class Responder: NSObject &#123;</div><div class="line"></div><div class="line">  func tap() &#123;</div><div class="line">    print("Button pressed")</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">let responder = Responder()</div><div class="line"></div><div class="line">// 3</div><div class="line">let button = UIButton(type: .System)</div><div class="line">button.setTitle("Button", forState: .Normal)</div><div class="line">button.addTarget(responder, action: "tap", forControlEvents: .TouchUpInside)</div><div class="line">button.sizeToFit()</div><div class="line">button.center = CGPoint(x: 50, y: 25)</div><div class="line"></div><div class="line">// 4</div><div class="line">let frame = CGRect(x: 0, y: 0, width: 100, height: 50)</div><div class="line">let view = UIView(frame: frame)</div><div class="line">view.addSubview(button)</div><div class="line">XCPlaygroundPage.currentPage.liveView = view</div></pre></td></tr></table></figure></p>
+<p>上面使用了字符串做为一个selector。如果你输错了，这段代码是允许编译通过的，但是在运行中如果找不到相关的selector，将会crash掉。<br>Swift3使用<code>#selector()</code>关键字替代它。在编译期间提前检查方法名是否正确。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">button.addTarget(responder, <span class="symbol">action:</span> <span class="comment">#selector(Responder.tap), for: .touchUpInside)</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>进一步的阅读：</strong> For the motivation and intent behind this change, you can check out <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0022-objc-selectors.md" target="_blank" rel="external">Doug Gregor’s proposal</a>.</p>
+</blockquote>
+<p>上面这些是删除的特性，接下来是最精彩部分 – <code>语言现代化</code></p>
+<h2 id="字符串形式的Key-paths"><a href="#字符串形式的Key-paths" class="headerlink" title="字符串形式的Key-paths"></a>字符串形式的Key-paths</h2><p>这一特性跟前面一节相似，不过这次是应用在key-value coding(KVC)与key-value observing(KVO)：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>: <span class="title">NSObject</span> &#123;</span></div><div class="line">  var <span class="symbol">name:</span> String = <span class="string">""</span></div><div class="line"></div><div class="line">  init(<span class="symbol">name:</span> String) &#123;</div><div class="line">    <span class="keyword">self</span>.name = name</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">let me = Person(<span class="symbol">name:</span> <span class="string">"Cosmin"</span>)</div><div class="line">me.valueForKeyPath(<span class="string">"name"</span>)</div></pre></td></tr></table></figure></p>
+<p>同样的，如果你输入错了，什么事都可能发生，这样的话我怎能开心起来！🙁<br>幸运的是，这一切不会发生在Swift3中。使用<code>#keyPath()</code>表达代替它：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>: <span class="title">NSObject</span> &#123;</span></div><div class="line">  var <span class="symbol">name:</span> String = <span class="string">""</span></div><div class="line"></div><div class="line">  init(<span class="symbol">name:</span> String) &#123;</div><div class="line">    <span class="keyword">self</span>.name = name</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">let me = Person(<span class="symbol">name:</span> <span class="string">"Cosmin"</span>)</div><div class="line">me.value(<span class="symbol">forKeyPath:</span> <span class="comment">#keyPath(Person.name))</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>进一步的阅读：</strong> For the motivation and intent behind this change, you can check out <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0062-objc-keypaths.md" target="_blank" rel="external">David Hart’s proposal</a>.</p>
+</blockquote>
+<h2 id="去掉Foundation类型的NS前缀"><a href="#去掉Foundation类型的NS前缀" class="headerlink" title="去掉Foundation类型的NS前缀"></a>去掉Foundation类型的NS前缀</h2><p>一个典型的JSON解析例子：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let file = NSBundle.mainBundle().pathForResource(<span class="string">"tutorials"</span>, <span class="symbol">ofType:</span> <span class="string">"json"</span>)</div><div class="line">let url = NSURL(<span class="symbol">fileURLWithPath:</span> file!)</div><div class="line">let data = NSData(<span class="symbol">contentsOfURL:</span> url)</div><div class="line">let json = try! NSJSONSerialization.JSONObjectWithData(data!, <span class="symbol">options:</span> [])</div><div class="line">print(json)</div></pre></td></tr></table></figure></p>
+<p>采用下面代码代替：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let file = Bundle.main().pathForResource(<span class="string">"tutorials"</span>, <span class="symbol">ofType:</span> <span class="string">"json"</span>)</div><div class="line">let url = URL(<span class="symbol">fileURLWithPath:</span> file!)</div><div class="line">let data = try! Data(<span class="symbol">contentsOf:</span> url)</div><div class="line">let json = try! JSONSerialization.jsonObject(<span class="symbol">with:</span> data)</div><div class="line">print(json)</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>进一步的阅读：</strong> For this naming convention change, you can check out <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0086-drop-foundation-ns.md" target="_blank" rel="external">this proposal</a> written by Tony Parker and Philippe Hausler.</p>
+</blockquote>
+<h2 id="M-PI-vs-pi"><a href="#M-PI-vs-pi" class="headerlink" title="M_PI vs .pi"></a>M_PI vs .pi</h2><p>用已知圆的半径来计算它的周长与面积：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let r = <span class="number">3</span></div><div class="line">let circumference = <span class="number">2</span> * M_PI * r</div><div class="line">let area = M_PI * r * r</div></pre></td></tr></table></figure></p>
+<p>老版本的Swift采用<code>M_PI</code>引用pi常量。Swift3中<code>Float</code>，<code>Double</code>与<code>CGFloat</code>都整合了pi常量：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Float.pi</div><div class="line">Double.pi</div><div class="line">CGFloat.pi</div></pre></td></tr></table></figure></p>
+<p>所以上面计算面积、周长的代码，在Siwft3中将会是这样写：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let r = <span class="number">3</span></div><div class="line">let circumference = <span class="number">2</span> * Double.pi * r</div><div class="line">let area = Double.pi * r * r</div></pre></td></tr></table></figure></p>
+<p>当然使用类型推断你可以删除<code>Double</code>等类型。下面是简短的写法：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let r = <span class="number">3</span></div><div class="line">let circumference = <span class="number">2</span> * .pi * r</div><div class="line">let area = .pi * r * r</div></pre></td></tr></table></figure></p>
+<h2 id="Grand-Central-Dispatch"><a href="#Grand-Central-Dispatch" class="headerlink" title="Grand Central Dispatch"></a>Grand Central Dispatch</h2><p>gcd是使用C写的API，比如下面创建了一个异步队列：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let queue = dispatch_queue_create(<span class="string">"Swift 2.2"</span>, <span class="literal">nil</span>)</div><div class="line">dispatch_async(queue) &#123;</div><div class="line">	print(<span class="string">"Swift 2.2 queue"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在Swift3中删除了冗余的东西，更接近面向对象的方式：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let queue = DispatchQueue(<span class="symbol">label:</span> <span class="string">"Swift 3"</span>)</div><div class="line">queue.async &#123;</div><div class="line">	print(<span class="string">"Swift 3 queue"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>进一步的阅读：</strong> For further information about this change, you can check out <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0088-libdispatch-for-swift3.md" target="_blank" rel="external">this proposal</a> written by Matt Wright.</p>
+</blockquote>
+<h2 id="Core-Graphics更加的Swifty化"><a href="#Core-Graphics更加的Swifty化" class="headerlink" title="Core Graphics更加的Swifty化"></a>Core Graphics更加的Swifty化</h2><p>Core Graphics 是一个强大的绘制框架，但它使用了类似于GCD的C样式API写法：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">let frame = CGRect(<span class="symbol">x:</span> <span class="number">0</span>, <span class="symbol">y:</span> <span class="number">0</span>, <span class="symbol">width:</span> <span class="number">100</span>, <span class="symbol">height:</span> <span class="number">50</span>)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">View</span>: <span class="title">UIView</span> &#123;</span></div><div class="line"></div><div class="line">  override func drawRect(<span class="symbol">rect:</span> CGRect) &#123;</div><div class="line">    let context = UIGraphicsGetCurrentContext()</div><div class="line">    let blue = UIColor.blueColor().CGColor</div><div class="line">    CGContextSetFillColorWithColor(context, blue)</div><div class="line">    let red = UIColor.redColor().CGColor</div><div class="line">    CGContextSetStrokeColorWithColor(context, red)</div><div class="line">    CGContextSetLineWidth(context, <span class="number">10</span>)</div><div class="line">    CGContextAddRect(context, frame)</div><div class="line">    CGContextDrawPath(context, .FillStroke)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">let aView = View(<span class="symbol">frame:</span> frame)</div></pre></td></tr></table></figure></p>
+<p>而Swift3采用不一样的方法。先解包当前的graphics context然后再执行所有的相关操作：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">let frame = CGRect(<span class="symbol">x:</span> <span class="number">0</span>, <span class="symbol">y:</span> <span class="number">0</span>, <span class="symbol">width:</span> <span class="number">100</span>, <span class="symbol">height:</span> <span class="number">50</span>)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">View</span>: <span class="title">UIView</span> &#123;</span></div><div class="line"></div><div class="line">  override func draw(<span class="number">_</span> <span class="symbol">rect:</span> CGRect) &#123;</div><div class="line">    guard let context = UIGraphicsGetCurrentContext() <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">return</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    let blue = UIColor.blue().cgColor</div><div class="line">    context.setFillColor(blue)</div><div class="line">    let red = UIColor.red().cgColor</div><div class="line">    context.setStrokeColor(red)</div><div class="line">    context.setLineWidth(<span class="number">10</span>)</div><div class="line">    context.addRect(frame)</div><div class="line">    context.drawPath(<span class="symbol">using:</span> .fillStroke)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">let aView = View(<span class="symbol">frame:</span> frame)</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>注意：</strong> The context is nil before the view calls its drawRect() method, so you unwrap it with the <a href="https://cosminpupaza.wordpress.com/2015/11/20/if-vs-guard-a-beginners-approach/" target="_blank" rel="external">guard</a> statement – read more about this <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIKitFunctionReference/index.html#//apple_ref/c/func/UIGraphicsGetCurrentContext" target="_blank" rel="external">here</a>. </p>
+</blockquote>
+<h2 id="动词-VS-名词命名规则"><a href="#动词-VS-名词命名规则" class="headerlink" title="动词 VS 名词命名规则"></a>动词 VS 名词命名规则</h2><p>这里是一个打印10到1的代码块：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">1</span>...<span class="number">10</span>).reverse() &#123;</div><div class="line">  print(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Swift3加了<code>ed</code>后缀：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">1</span>...<span class="number">10</span>).reversed() &#123;</div><div class="line">  print(i)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用元组打印数组：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var array = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>]</div><div class="line"><span class="keyword">for</span> (index, value) <span class="keyword">in</span> array.enumerate() &#123;</div><div class="line">  print(<span class="string">"\(index + 1) \(value)"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Swift3加了<code>ed</code>后缀：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var array = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>]</div><div class="line"><span class="keyword">for</span> (index, value) <span class="keyword">in</span> array.enumerated() &#123;</div><div class="line">  print(<span class="string">"\(index + 1) \(value)"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>别一个数组排序的例子：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var array = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>]</div><div class="line">let sortedArray = array.sort()</div><div class="line">print(sortedArray)</div></pre></td></tr></table></figure></p>
+<p>Swift3使用<code>sorted</code>命名：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var array = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>]</div><div class="line">let sortedArray = array.sorted()</div><div class="line">print(sortedArray)</div></pre></td></tr></table></figure></p>
+<p>用点方法来排序数组，不使用中间变量。在Swift2中的写法是这样的：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var array = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>]</div><div class="line">array.sortInPlace()</div><div class="line">print(array)</div></pre></td></tr></table></figure></p>
+<p>Swift3使用<code>sort()</code>代替：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var array = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>]</div><div class="line">array.sort()</div><div class="line">print(array)</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>进一步阅读：</strong> For details of the naming convention, you can check out <a href="https://swift.org/documentation/api-design-guidelines/" target="_blank" rel="external">API Design Guidelines</a>.</p>
+</blockquote>
+<h2 id="Swiftier-APIs"><a href="#Swiftier-APIs" class="headerlink" title="Swiftier APIs"></a>Swiftier APIs</h2><p>Swift3在APIs上采用了简单的哲学。删除一些不需要的词语，比如一些冗余的或者通过上下文可以推断出来的：</p>
+<ul>
+<li><code>XCPlaygroundPage.currentPage</code> becomes <code>PlaygroundPage.current</code></li>
+<li><code>button.setTitle(forState)</code> becomes <code>button.setTitle(for)</code></li>
+<li><code>button.addTarget(action, forControlEvents)</code> becomes <code>button.addTarget(action, for)</code></li>
+<li><code>NSBundle.mainBundle()</code> becomes <code>Bundle.main()</code></li>
+<li><code>NSData(contentsOfURL)</code> becomes <code>URL(contentsOf)</code></li>
+<li><code>NSJSONSerialization.JSONObjectWithData()</code> becomes <code>JSONSerialization.jsonObject(with)</code></li>
+<li><code>UIColor.blueColor()</code> becomes <code>UIColor.blue()</code></li>
+<li><code>UIColor.redColor()</code> becomes <code>UIColor.red()</code></li>
+</ul>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>Swift3处理Enumeration Cases类似于属性，所以使用了小写驼峰代替大写驼峰法：</p>
+<ul>
+<li><code>.System</code> becomes <code>.system</code></li>
+<li><code>.TouchUpInside</code> becomes <code>.touchUpInside</code></li>
+<li><code>.FillStroke</code> becomes <code>.fillStroke</code></li>
+<li><code>.CGColor</code> becomes <code>.cgColor</code></li>
+</ul>
+<h2 id="discardableResult"><a href="#discardableResult" class="headerlink" title="@discardableResult"></a>@discardableResult</h2><p>在Swift3中，如果你调用了一个函数或方法，而没有使用它的返回值。Xcode将会显示一条警告信息：<br><img src="http://www.appcoda.com/wp-content/uploads/2016/06/discardable-result-1.png" alt=""><br>这种情况下你可以使用<code>@discardableResult</code>来忽略警告：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">override func viewDidLoad() &#123;</div><div class="line">    <span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line">    printMessage(<span class="symbol">message:</span> <span class="string">"Hello Swift 3!"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">@discardableResult</div><div class="line">func printMessage(<span class="symbol">message:</span> String) -&gt; String &#123;</div><div class="line">    let outputMessage = <span class="string">"Output : \(message)"</span></div><div class="line">    print(outputMessage)</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> outputMessage</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇教程所有的代码可以从<a href="https://github.com/appcoda/Swift3Playgrounds/blob/master/Swift%203.playground.zip?raw=true" target="_blank" rel="external">Playground project</a>获得。我使用的是Xcode 8 Beta版。所以要确保你是在Xcode 8上运行。<br>如果你任何问题或建议，请告诉我。愉快的编码吧！🙂</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swift/" rel="tag">#Swift</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/06/iOS Bubble Animation Tutorial/" rel="next" title="iOS Bubble Animation Tutorial">
+                <i class="fa fa-chevron-left"></i> iOS Bubble Animation Tutorial
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Mr Cieong" />
+          <p class="site-author-name" itemprop="name">Mr Cieong</p>
+          <p class="site-description motion-element" itemprop="description">你好，我是Mr Cieong，欢迎来到我的博客！</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自增与自减操作-、"><span class="nav-number">1.</span> <span class="nav-text">自增与自减操作(++、--)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C样式循环成为过去式-C-style"><span class="nav-number">2.</span> <span class="nav-text">C样式循环成为过去式(C-style)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从函数参数中删除var"><span class="nav-number">3.</span> <span class="nav-text">从函数参数中删除var</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数参数标签行为始终如一-Consistent-Label-Behaviour-for-Function-Parameters"><span class="nav-number">4.</span> <span class="nav-text">函数参数标签行为始终如一(Consistent Label Behaviour for Function Parameters)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串形式的Selectors不再工作"><span class="nav-number">5.</span> <span class="nav-text">字符串形式的Selectors不再工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串形式的Key-paths"><span class="nav-number">6.</span> <span class="nav-text">字符串形式的Key-paths</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#去掉Foundation类型的NS前缀"><span class="nav-number">7.</span> <span class="nav-text">去掉Foundation类型的NS前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#M-PI-vs-pi"><span class="nav-number">8.</span> <span class="nav-text">M_PI vs .pi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grand-Central-Dispatch"><span class="nav-number">9.</span> <span class="nav-text">Grand Central Dispatch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Core-Graphics更加的Swifty化"><span class="nav-number">10.</span> <span class="nav-text">Core Graphics更加的Swifty化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动词-VS-名词命名规则"><span class="nav-number">11.</span> <span class="nav-text">动词 VS 名词命名规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swiftier-APIs"><span class="nav-number">12.</span> <span class="nav-text">Swiftier APIs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举"><span class="nav-number">13.</span> <span class="nav-text">枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#discardableResult"><span class="nav-number">14.</span> <span class="nav-text">@discardableResult</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">15.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr Cieong</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
