@@ -238,6 +238,119 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/26/Stack/" itemprop="url">
+                  Swift Algorithm Glub:堆栈【译】
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-26T20:12:21+08:00" content="2017-03-26">
+              2017-03-26
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原文：<a href="https://github.com/raywenderlich/swift-algorithm-club/tree/master/Stack" target="_blank" rel="external">https://github.com/raywenderlich/swift-algorithm-club/tree/master/Stack</a></p>
+<h3 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h3><p>堆栈就像数组，不过功能有限。你只能通过Push添加一个新元素到堆栈的顶部，使用Pop从栈顶删除元素，可以不用Pop一个元素来查看栈顶的元素。</p>
+<p>你为什么要这样做呢？是这样的，在很多算法中你想在某一时间段添加一些对象到一个临时数组，然后晚些时候又把这些对象从数组中拉出来。通常顺序是处决于你添加与删除对象情况。</p>
+<p>一个堆栈给你一个后进先出或LIFO的顺序。最后Push进来的元素，第一个被Pop出来。（一个非常相似的数组结构，<a href="https://github.com/raywenderlich/swift-algorithm-club/blob/master/Queue" target="_blank" rel="external">队列</a>，先进先出 或者 FIFO）。</p>
+<p>举个例子，让我们Push一个数字到堆栈：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stack.push(<span class="number">10</span>)</div></pre></td></tr></table></figure>
+<p>这个堆栈现在是[10]。Push下一个数字：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stack.push(<span class="number">3</span>)</div></pre></td></tr></table></figure>
+<p>这个堆栈现在是[10, 3]。再Push一个数字：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stack.push(57)</div></pre></td></tr></table></figure>
+<p>这个堆栈现在是[10, 3, 57]。让我们从栈顶Pop出一个数字：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stack.pop()</div></pre></td></tr></table></figure>
+<p>返回值为57。因为它是最近Push到栈中的。堆栈又变为[10, 3]。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stack.pop()</div></pre></td></tr></table></figure>
+<p>这时返回值为3，诸此类推。如果这个堆栈为空，将返回nil或者是给定实现的错误信息（’stack underflow’）。</p>
+<p>用Swift实现一个堆栈很简单。底层用一个数组封装，可以让你Push、Pop、查看栈顶元素：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">publich <span class="class"><span class="keyword">struct</span> <span class="title">Stack</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">  fileprivate <span class="keyword">var</span> array = [<span class="type">T</span>]()</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> isEmpty: <span class="type">Bool</span> &#123;</div><div class="line">    <span class="keyword">return</span> array.isEmpty</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> array.<span class="built_in">count</span></div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">push</span><span class="params">(<span class="number">_</span> element: T)</span></span> &#123;</div><div class="line">    array.append(element)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">pop</span><span class="params">()</span></span> -&gt; <span class="type">T</span>? &#123;</div><div class="line">    <span class="keyword">return</span> array.popList()</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> top: <span class="type">T</span>? &#123;</div><div class="line">    <span class="keyword">return</span> array.last</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意Push是将一个元素添加到数组尾部，而不是首部。插入到数组首部开销非常大的，为O(n)操作，因为这样操作必须挪动数组中所有已存在元素的内存地址。而添加到数组尾部是O(1)操作；这样做，不管理数组大小，所花时间都是同样的。</p>
+<p>一个关于堆栈的有趣事实：你每次调用函数或方法时，CPU会把返回地址放置在堆栈上。当函数结束时，CPU会使用这个返回跳回到调用者。这就是为什么你调用太多函数方法时（举个例子在递归函数中它永远不结束）你会得到一叫“stack overflow” 就是CPU运行出界。</p>
+<p><em>写自 Swift Algorithm Club 的 Matthijs Hollemans</em></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/03/26/Arnold-Dumbbell-Press/" itemprop="url">
                   阿诺德哑铃推举【译】
                 </a>
@@ -290,7 +403,7 @@
 <h4 id="阿诺德哑铃推举图"><a href="#阿诺德哑铃推举图" class="headerlink" title="阿诺德哑铃推举图"></a>阿诺德哑铃推举图</h4><p><img src="http://www.bodybuilding.com/exercises/exerciseImages/sequences/82/Male/l/82_1.jpg" alt=""></p>
 <p><img src="https://www.bodybuilding.com/exercises/exerciseImages/sequences/82/Male/m/82_2.jpg" alt=""></p>
 <h4 id="指南"><a href="#指南" class="headerlink" title="指南"></a>指南</h4><ol>
-<li><p>坐在有背部支撑的训练椅上，双手持哑铃弯曲手肘，使哑铃与胸部的位置，手掌朝向你的身体；</p>
+<li><p>坐在有背部支撑的训练椅上，双手持哑铃弯曲手肘，使哑铃到胸部的位置，手掌朝向你的身体；</p>
 </li>
 <li><p>现在开始训练动作，举起哑铃并按手掌朝前的方向旋转手臂；</p>
 </li>
@@ -1179,102 +1292,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/01/how-to-submit-an-app-to-apple-2/" itemprop="url">
-                  怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-01T00:00:00+08:00" content="2016-07-01">
-              2016-07-01
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。 你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/01/how-to-submit-an-app-to-apple-2/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1320,7 +1337,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1330,7 +1347,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

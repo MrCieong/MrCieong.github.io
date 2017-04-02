@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="数据结构," />
 
 
 
@@ -84,16 +84,22 @@
 
 
 
-<meta name="description" content="学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。 你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。">
+<meta name="description" content="原文：https://github.com/raywenderlich/swift-algorithm-club/tree/master/Stack
+堆栈堆栈就像数组，不过功能有限。你只能通过Push添加一个新元素到堆栈的顶部，使用Pop从栈顶删除元素，可以不用Pop一个元素来查看栈顶的元素。
+你为什么要这样做呢？是这样的，在很多算法中你想在某一时间段添加一些对象到一个临时数组，然后晚些时候又把这">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分）">
-<meta property="og:url" content="https://MrCieong.github.io/2016/07/01/how-to-submit-an-app-to-apple-2/index.html">
+<meta property="og:title" content="Swift Algorithm Glub:堆栈【译】">
+<meta property="og:url" content="https://MrCieong.github.io/2017/03/26/Stack/index.html">
 <meta property="og:site_name" content="MrCieong's Blog">
-<meta property="og:description" content="学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。 你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。">
-<meta property="og:updated_time" content="2016-06-30T16:31:37.000Z">
+<meta property="og:description" content="原文：https://github.com/raywenderlich/swift-algorithm-club/tree/master/Stack
+堆栈堆栈就像数组，不过功能有限。你只能通过Push添加一个新元素到堆栈的顶部，使用Pop从栈顶删除元素，可以不用Pop一个元素来查看栈顶的元素。
+你为什么要这样做呢？是这样的，在很多算法中你想在某一时间段添加一些对象到一个临时数组，然后晚些时候又把这">
+<meta property="og:updated_time" content="2017-04-02T03:01:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分）">
-<meta name="twitter:description" content="学习怎样提交一个app到Apple系列文章有两篇。这篇文章包含了从没有帐号到在App Store发布的所有步骤。 你将看到怎样去注册一个苹果开发者帐号，怎样创建各种各样所需要的证书，怎样去配置你的app与怎样提交一个app到App Store审核。">
+<meta name="twitter:title" content="Swift Algorithm Glub:堆栈【译】">
+<meta name="twitter:description" content="原文：https://github.com/raywenderlich/swift-algorithm-club/tree/master/Stack
+堆栈堆栈就像数组，不过功能有限。你只能通过Push添加一个新元素到堆栈的顶部，使用Pop从栈顶删除元素，可以不用Pop一个元素来查看栈顶的元素。
+你为什么要这样做呢？是这样的，在很多算法中你想在某一时间段添加一些对象到一个临时数组，然后晚些时候又把这">
 
 
 
@@ -114,9 +120,9 @@
 
 
 
-  <link rel="canonical" href="https://MrCieong.github.io/2016/07/01/how-to-submit-an-app-to-apple-2/"/>
+  <link rel="canonical" href="https://MrCieong.github.io/2017/03/26/Stack/"/>
 
-  <title> 怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分） | MrCieong's Blog </title>
+  <title> Swift Algorithm Glub:堆栈【译】 | MrCieong's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +242,7 @@
             
             
               
-                怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分）
+                Swift Algorithm Glub:堆栈【译】
               
             
           </h1>
@@ -248,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-01T00:00:00+08:00" content="2016-07-01">
-              2016-07-01
+            <time itemprop="dateCreated" datetime="2017-03-26T20:12:21+08:00" content="2017-03-26">
+              2017-03-26
             </time>
           </span>
 
@@ -276,10 +282,26 @@
       
 
       
-        <p>原文：<a href="https://www.raywenderlich.com/127939/submit-an-app-part-2" target="_blank" rel="external">https://www.raywenderlich.com/127939/submit-an-app-part-2</a></p>
-<blockquote>
-<p>这篇文章由Tony Dahbura更新，原发布作者Gustavo Ambrozio</p>
-</blockquote>
+        <p>原文：<a href="https://github.com/raywenderlich/swift-algorithm-club/tree/master/Stack" target="_blank" rel="external">https://github.com/raywenderlich/swift-algorithm-club/tree/master/Stack</a></p>
+<h3 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h3><p>堆栈就像数组，不过功能有限。你只能通过Push添加一个新元素到堆栈的顶部，使用Pop从栈顶删除元素，可以不用Pop一个元素来查看栈顶的元素。</p>
+<p>你为什么要这样做呢？是这样的，在很多算法中你想在某一时间段添加一些对象到一个临时数组，然后晚些时候又把这些对象从数组中拉出来。通常顺序是处决于你添加与删除对象情况。</p>
+<p>一个堆栈给你一个后进先出或LIFO的顺序。最后Push进来的元素，第一个被Pop出来。（一个非常相似的数组结构，<a href="https://github.com/raywenderlich/swift-algorithm-club/blob/master/Queue" target="_blank" rel="external">队列</a>，先进先出 或者 FIFO）。</p>
+<p>举个例子，让我们Push一个数字到堆栈：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stack.push(<span class="number">10</span>)</div></pre></td></tr></table></figure>
+<p>这个堆栈现在是[10]。Push下一个数字：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stack.push(<span class="number">3</span>)</div></pre></td></tr></table></figure>
+<p>这个堆栈现在是[10, 3]。再Push一个数字：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stack.push(57)</div></pre></td></tr></table></figure>
+<p>这个堆栈现在是[10, 3, 57]。让我们从栈顶Pop出一个数字：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stack.pop()</div></pre></td></tr></table></figure>
+<p>返回值为57。因为它是最近Push到栈中的。堆栈又变为[10, 3]。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stack.pop()</div></pre></td></tr></table></figure>
+<p>这时返回值为3，诸此类推。如果这个堆栈为空，将返回nil或者是给定实现的错误信息（’stack underflow’）。</p>
+<p>用Swift实现一个堆栈很简单。底层用一个数组封装，可以让你Push、Pop、查看栈顶元素：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">publich <span class="class"><span class="keyword">struct</span> <span class="title">Stack</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">  fileprivate <span class="keyword">var</span> array = [<span class="type">T</span>]()</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> isEmpty: <span class="type">Bool</span> &#123;</div><div class="line">    <span class="keyword">return</span> array.isEmpty</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> array.<span class="built_in">count</span></div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">push</span><span class="params">(<span class="number">_</span> element: T)</span></span> &#123;</div><div class="line">    array.append(element)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">pop</span><span class="params">()</span></span> -&gt; <span class="type">T</span>? &#123;</div><div class="line">    <span class="keyword">return</span> array.popList()</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> top: <span class="type">T</span>? &#123;</div><div class="line">    <span class="keyword">return</span> array.last</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意Push是将一个元素添加到数组尾部，而不是首部。插入到数组首部开销非常大的，为O(n)操作，因为这样操作必须挪动数组中所有已存在元素的内存地址。而添加到数组尾部是O(1)操作；这样做，不管理数组大小，所花时间都是同样的。</p>
+<p>一个关于堆栈的有趣事实：你每次调用函数或方法时，CPU会把返回地址放置在堆栈上。当函数结束时，CPU会使用这个返回跳回到调用者。这就是为什么你调用太多函数方法时（举个例子在递归函数中它永远不结束）你会得到一叫“stack overflow” 就是CPU运行出界。</p>
+<p><em>写自 Swift Algorithm Club 的 Matthijs Hollemans</em></p>
 
       
     </div>
@@ -299,22 +321,24 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag">#数据结构</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/29/how-to-submit-an-app-to-apple-1/" rel="next" title="怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分）">
-                <i class="fa fa-chevron-left"></i> 怎样提交一个 app 到 Apple：从没帐号到App Store（第1部分）
+              <a href="/2017/03/26/Arnold-Dumbbell-Press/" rel="next" title="阿诺德哑铃推举【译】">
+                <i class="fa fa-chevron-left"></i> 阿诺德哑铃推举【译】
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/01/how-to-setup-blog-on-github-with-hexo/" rel="prev" title="如何使用Hexo在Github上搭建一个博客">
-                如何使用Hexo在Github上搭建一个博客 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -421,7 +445,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#堆栈"><span class="nav-number">1.</span> <span class="nav-text">堆栈</span></a></li></ol></div>
             
           </div>
         </section>
