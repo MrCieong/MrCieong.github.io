@@ -238,7 +238,7 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/26/Stack/" itemprop="url">
+                <a class="post-title-link" href="/2017/03/26/Swift_Algorithm_Club_Stack/" itemprop="url">
                   Swift Algorithm Glub:堆栈【译】
                 </a>
               
@@ -300,7 +300,7 @@
 <p>用Swift实现一个堆栈很简单。底层用一个数组封装，可以让你Push、Pop、查看栈顶元素：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">publich <span class="class"><span class="keyword">struct</span> <span class="title">Stack</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">  fileprivate <span class="keyword">var</span> array = [<span class="type">T</span>]()</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> isEmpty: <span class="type">Bool</span> &#123;</div><div class="line">    <span class="keyword">return</span> array.isEmpty</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> array.<span class="built_in">count</span></div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">push</span><span class="params">(<span class="number">_</span> element: T)</span></span> &#123;</div><div class="line">    array.append(element)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">pop</span><span class="params">()</span></span> -&gt; <span class="type">T</span>? &#123;</div><div class="line">    <span class="keyword">return</span> array.popList()</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> top: <span class="type">T</span>? &#123;</div><div class="line">    <span class="keyword">return</span> array.last</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>注意Push是将一个元素添加到数组尾部，而不是首部。插入到数组首部开销非常大的，为O(n)操作，因为这样操作必须挪动数组中所有已存在元素的内存地址。而添加到数组尾部是O(1)操作；这样做，不管理数组大小，所花时间都是同样的。</p>
-<p>一个关于堆栈的有趣事实：你每次调用函数或方法时，CPU会把返回地址放置在堆栈上。当函数结束时，CPU会使用这个返回跳回到调用者。这就是为什么你调用太多函数方法时（举个例子在递归函数中它永远不结束）你会得到一叫“stack overflow” 就是CPU运行出界。</p>
+<p>一个关于堆栈的有趣事实：你每次调用函数或方法时，CPU会把返回地址放置在堆栈上。当函数结束时，CPU会使用这个返回跳回到调用者。这就是为什么你调用太多函数方法时（举个例子在递归函数中它永远不结束）你会得到一叫“stack overflow” 就是CPU运行空间不足。</p>
 <p><em>写自 Swift Algorithm Club 的 Matthijs Hollemans</em></p>
 
           
