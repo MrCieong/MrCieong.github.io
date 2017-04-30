@@ -1,0 +1,662 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据结构 算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="原文：Insertion sort
+插入排序目标：排序一个数组从底到高（或从高到底）。
+给你一个数字数组并需要把它们排成正确的顺序。插入排序算法的工作步骤：
+
+把所有的数字放到堆中。这个堆是无序的；
+从堆中取出一个数字。取哪个数字都无所谓，但最简单的做法是从堆顶取；
+把这个数字插入到新的数组中；
+从无序堆中取出下一个数字并同样的插入到数组中。它在第一个被选出来的数字的前面或者后面，这样这两个数字排">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Algorithm Club：插入排序">
+<meta property="og:url" content="https://MrCieong.github.io/2017/04/22/Swift-Algorithm-Club-Insertion-Sort/index.html">
+<meta property="og:site_name" content="MrCieong's Blog">
+<meta property="og:description" content="原文：Insertion sort
+插入排序目标：排序一个数组从底到高（或从高到底）。
+给你一个数字数组并需要把它们排成正确的顺序。插入排序算法的工作步骤：
+
+把所有的数字放到堆中。这个堆是无序的；
+从堆中取出一个数字。取哪个数字都无所谓，但最简单的做法是从堆顶取；
+把这个数字插入到新的数组中；
+从无序堆中取出下一个数字并同样的插入到数组中。它在第一个被选出来的数字的前面或者后面，这样这两个数字排">
+<meta property="og:updated_time" content="2017-04-30T05:26:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift Algorithm Club：插入排序">
+<meta name="twitter:description" content="原文：Insertion sort
+插入排序目标：排序一个数组从底到高（或从高到底）。
+给你一个数字数组并需要把它们排成正确的顺序。插入排序算法的工作步骤：
+
+把所有的数字放到堆中。这个堆是无序的；
+从堆中取出一个数字。取哪个数字都无所谓，但最简单的做法是从堆顶取；
+把这个数字插入到新的数组中；
+从无序堆中取出下一个数字并同样的插入到数组中。它在第一个被选出来的数字的前面或者后面，这样这两个数字排">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://MrCieong.github.io/2017/04/22/Swift-Algorithm-Club-Insertion-Sort/"/>
+
+  <title> Swift Algorithm Club：插入排序 | MrCieong's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">MrCieong's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Swift Algorithm Club：插入排序
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-04-22T09:39:31+08:00" content="2017-04-22">
+              2017-04-22
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文：<a href="https://github.com/raywenderlich/swift-algorithm-club/tree/master/Insertion%20Sort" target="_blank" rel="external">Insertion sort</a></p>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>目标：排序一个数组从底到高（或从高到底）。</p>
+<p>给你一个数字数组并需要把它们排成正确的顺序。插入排序算法的工作步骤：</p>
+<ul>
+<li>把所有的数字放到堆中。这个堆是无序的；</li>
+<li>从堆中取出一个数字。取哪个数字都无所谓，但最简单的做法是从堆顶取；</li>
+<li>把这个数字插入到新的数组中；</li>
+<li>从无序堆中取出下一个数字并同样的插入到数组中。它在第一个被选出来的数字的前面或者后面，这样这两个数字排好序了；</li>
+<li>再次，从无序堆中取出数字插入到新数组相应的有序位置；</li>
+<li>不断重复直到无序堆中没有任何数字。堆为空时结束，并数组也排好序了。</li>
+</ul>
+<p>这就是为什么被称为“插入”排序的原因，因为你从堆中取出一个数字然后把它插入到数组中相应的有序位置。</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>比如说，这是一个需要排序的<code>[8, 3, 5, 4, 6]</code>。这是我们的无序堆。</p>
+<p>取出第一个数字，<code>8</code>,并插入到新数组。这个数组中什么都没有，所以这步很简单。现在这个有序数组为<code>[8]</code>，堆为<code>[3, 5, 4, 6]</code>。</p>
+<p>从堆中取出下一个数字，<code>3</code>，并且插入到有序数组中。它应该放在<code>8</code>前面，所以有序数组现为<code>[3, 8]</code>，堆为<code>[5, 4, 6]</code>。</p>
+<p>从堆中取出下一个数字，<code>5</code>，并且插入到有序数组中。它应该放在<code>3</code> 与<code>8</code>之间。有序数组为<code>[3, 5, 8]</code>，堆为<code>[4, 6]</code>。</p>
+<p>重复这个过程直到堆为空。</p>
+<h4 id="In-place（就地）-排序"><a href="#In-place（就地）-排序" class="headerlink" title="In-place（就地） 排序"></a>In-place（就地） 排序</h4><p>上面的解释使它看起来好像你需要两个数组：一个是无序堆，另一个用来装排好序的数字。</p>
+<p>不过你可以<strong>In-place（就地）</strong>排序，不需要额外的数组。你只要记录哪部分是已经排好序的数组和哪部分是未排序的堆。</p>
+<p>开始时，这个数组是<code>[8, 3, 5, 4, 6]</code>。这<code>|</code>竖线显示在排好序部分的末端，在无序堆的首端：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[| <span class="number">8</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">6</span>]</div></pre></td></tr></table></figure>
+<p>上面显示了排序部分为空，而无序堆从<code>8</code>开始。</p>
+<p>处理第一个数字后，变为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="number">8</span> | <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">6</span>]</div></pre></td></tr></table></figure>
+<p>排序部分是<code>[8]</code>，无序堆为<code>[ 3, 5, 4, 6 ]</code>。<code>|</code>竖线向右挪了一位。</p>
+<p>下面展示了在排序过程中数组内容的变化：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[| <span class="number">8</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">6</span> ]</div><div class="line">[ <span class="number">8</span> | <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">6</span> ]</div><div class="line">[ <span class="number">3</span>, <span class="number">8</span> | <span class="number">5</span>, <span class="number">4</span>, <span class="number">6</span> ]</div><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span> | <span class="number">4</span>, <span class="number">6</span> ]</div><div class="line">[ <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">8</span> | <span class="number">6</span> ]</div><div class="line">[ <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">8</span> |]</div></pre></td></tr></table></figure>
+<p>每一步，<code>|</code>都向后移动一步。正如你所看到的，数组起始到<code>|</code>之简的部分都排好序的。无序堆减一，而排序部分增一。直到无序堆为空，不再有无序数字可移动。</p>
+<h4 id="怎样插入"><a href="#怎样插入" class="headerlink" title="怎样插入"></a>怎样插入</h4><p>每一步，你取出无序堆最前面的数字，然后插入到排序数组部分中。你必须把这个数字放到排序部分的合适位置。这一步怎么做呢？</p>
+<p>比如说，我们已经完成了前面几步，然后数组就像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span> | <span class="number">4</span>, <span class="number">6</span> ]</div></pre></td></tr></table></figure>
+<p>下一个要排序的数字是4。我们需要把它插入到排序部分<code>[ 3, 5, 8 ]</code>数组的某位置。</p>
+<p>这里有一个方法可以实现它：查看前一个元素，<code>8</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">4</span> | <span class="number">6</span> ]</div><div class="line">        ^</div></pre></td></tr></table></figure>
+<p>是否大于<code>4</code>？大于，所以<code>4</code>应该在<code>8</code>的前面。交换它们的位置得到：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">8</span> | <span class="number">6</span> ]</div><div class="line">        &lt;--&gt;</div><div class="line">        交换后</div></pre></td></tr></table></figure>
+<p>还没完。前面的新元素，<code>5</code>，又大于<code>4</code>。同样的，交换它们：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[ <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">8</span> | <span class="number">6</span> ]</div><div class="line">     &lt;--&gt;</div><div class="line">    交换后</div></pre></td></tr></table></figure>
+<p>再次，查看前面的元素。<code>3</code>大于<code>4</code>？不大于，这意味着<code>4</code>已经完成操作。开始部分的数组又变为有序了。</p>
+<p>这是内循环插入排序算法的描述，你会在下一章看到。它采用数字交换的方法，把数字从截头部插入到有序部分。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>这里采用Swift实现插入排序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSort</span><span class="params">(<span class="number">_</span> array: [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</div><div class="line">  <span class="keyword">var</span> a = array	<span class="comment">//1</span></div><div class="line">  <span class="keyword">for</span> x <span class="keyword">in</span> <span class="number">1</span>..&lt;a.<span class="built_in">count</span> &#123;	<span class="comment">//2</span></div><div class="line">    <span class="keyword">var</span> y = x							</div><div class="line">    <span class="keyword">while</span> y &gt; <span class="number">0</span> &amp;&amp; a[y] &lt; a[y-<span class="number">1</span>] &#123;	<span class="comment">//3</span></div><div class="line">      <span class="built_in">swap</span>(&amp;a[y-<span class="number">1</span>], &amp;a[y])</div><div class="line">      y -= <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> a</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用Playground测试上面的代码，例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> list = [<span class="number">10</span>, -<span class="number">1</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">27</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">26</span> ]</div><div class="line"><span class="built_in">insertionSort</span>(list)</div></pre></td></tr></table></figure>
+<p>这里解释下，上面的代码怎么运行：</p>
+<ol>
+<li>复制array。这一步是必须的，因为我们不能直接修改参数变量array。就像Swift自带的<code>sort()</code>，<code>insertionSort()</code>函数将返回原始数组复制后的排序数组。</li>
+<li>这里有两个循环在这个函数中。外循环依次查询数组中的所有元素；用来从堆中取出最上面的数字。<code>x</code>变量用来标识排好序部分的结尾与堆起始位置（即<code>|</code>的位置）。记住，任何时刻，数组的起始 — 从0到<code>x</code> — 总是排好序的。剩余的，从<code>x</code>到最后一个元素，是无序堆。</li>
+<li>内循环从<code>x</code>下标的元素开始。这是堆最顶端的数字，它可能小于前面所有元素。内循环一步步向后通过排序数组；每次查找前一个元素是否大于它，如果大于则交换位置。当内循环完成后，数组起始部分们又变成有序了，并且有序部分增加一个元素。</li>
+</ol>
+<p>[^footnote]: <strong><em>注意：</em></strong> 外循环从下标1开始而不是0。移动第一个元素从堆到排序部分，没有发生实质的变化，所以我们跳过了它。</p>
+<h4 id="去掉交换"><a href="#去掉交换" class="headerlink" title="去掉交换"></a>去掉交换</h4><p>上面的版本工作的很好，不过可以删除<code>swap()</code>来提升一些速度。</p>
+<p>你已经知道，我们通过交换数字来移动下一个元素到排序位置：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">4</span> | <span class="number">6</span> ]</div><div class="line">        &lt;--&gt;</div><div class="line">        交换</div><div class="line">        </div><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">8</span> | <span class="number">6</span> ]</div><div class="line">     &lt;--&gt;</div><div class="line">     交换</div></pre></td></tr></table></figure>
+<p>替代的做法是，我们只要向右挪动这些元素一个位置，然后复制一个新数字到目标位置即可：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">4</span> | <span class="number">6</span> ]   记住 <span class="number">4</span></div><div class="line">           *</div><div class="line"></div><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">8</span> | <span class="number">6</span> ]   把 <span class="number">8</span> 向右挪动</div><div class="line">        ---&gt;</div><div class="line">        </div><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">8</span> | <span class="number">6</span> ]   把 <span class="number">5</span> 向右挪动</div><div class="line">     ---&gt;</div><div class="line">     </div><div class="line">[ <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">8</span> | <span class="number">6</span> ]   复制 <span class="number">4</span> 到这个位置</div><div class="line">     *</div></pre></td></tr></table></figure>
+<p>在代码中，就像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSort</span><span class="params">(<span class="number">_</span> array: [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</div><div class="line">  <span class="keyword">var</span> a = array</div><div class="line">  <span class="keyword">for</span> x <span class="keyword">in</span> <span class="number">1</span>..&lt;a.<span class="built_in">count</span> &#123;</div><div class="line">    <span class="keyword">var</span> y = x</div><div class="line">    <span class="keyword">let</span> temp = a[y]</div><div class="line">    <span class="keyword">while</span> y &gt; <span class="number">0</span> &amp;&amp; temp &lt; a[y - <span class="number">1</span>] &#123;</div><div class="line">      a[y] = a[y - <span class="number">1</span>]                <span class="comment">// 1</span></div><div class="line">      y -= <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    a[y] = temp                      <span class="comment">// 2</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> a</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>//1</code>行的代码是挪动前一个元素一个位置。在内循环的最后，<code>y</code>是新元素插入到有序数组部分的目标位置，<code>//2</code>行表示复制这个数字到目标位置。</p>
+<h4 id="增加泛型"><a href="#增加泛型" class="headerlink" title="增加泛型"></a>增加泛型</h4><p>如果可以用来排序其他类型，那就更好了。我们可以给数组的数据类型添加泛型并使用用户提供（user-supplied）函数（或闭包）去执行小于号比较，这只需要改变函数中两个地方。</p>
+<p>函数的参数签名变为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSort</span>&lt;T&gt;<span class="params">(<span class="number">_</span> array: [T], <span class="number">_</span> isOrderedBefore: <span class="params">(T, T)</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; [<span class="type">T</span>] &#123;</div></pre></td></tr></table></figure>
+<p>数组为类型<code>[T]</code>,<code>T</code>表示通用的占位类型。现在<code>insertionSort()</code>函数可以接受任何类型的数组了，无论它包含数字，字符串，或者其他对象。</p>
+<p>新参数<code>isOrderedBefore: (T, T) -&gt; Bool</code>是一个函数，这个函数比较两个<code>T</code>对象，当第一个对象在第二个对象前面时返回true，相反时，返回false。这跟Swift内置函数<code>sort()</code>的做法一样。</p>
+<p>其他只要改变的地方在内循环中，现在改为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> y &gt; <span class="number">0</span> &amp;&amp; isOrderedBefore(temp, a[y-<span class="number">1</span>]) &#123;&#125;</div></pre></td></tr></table></figure>
+<p>我们调用<code>isOrderedBefore()</code>函数来替换<code>temp &lt; a[y-1]</code>。这样是完全相同的，除了我们现在可以比较任何类型的对象，不仅仅只是数字。</p>
+<p>在playground中做如下测试：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> numbers = [ <span class="number">10</span>, -<span class="number">1</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">27</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">26</span> ]</div><div class="line"><span class="built_in">insertionSort</span>(numbers, &lt;)</div><div class="line"><span class="built_in">insertionSort</span>(numbers, &gt;)</div></pre></td></tr></table></figure>
+<p><code>&lt;</code>与<code>&gt;</code>决定排序顺序，相当于底-高，高-底。</p>
+<p>当然，你也可以使用其他对象进行排序，比如字符串：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> strings = [ <span class="string">"b"</span>, <span class="string">"a"</span>, <span class="string">"d"</span>, <span class="string">"c"</span>, <span class="string">"e"</span> ]</div><div class="line"><span class="built_in">insertionSort</span>(strings, &lt;)</div></pre></td></tr></table></figure>
+<p>或者，较复杂的对象：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> objects = [ obj1, obj2, obj3, ... ]</div><div class="line"><span class="built_in">insertionSort</span>(objects) &#123; $<span class="number">0</span>.priority &lt; $<span class="number">1</span>.priority &#125;</div></pre></td></tr></table></figure>
+<p>闭包告诉<code>insertionSort()</code>函数，使用对象的<code>priority</code>属性来排序。</p>
+<p>插入排序是<em>稳定排序</em>。稳定排序是指当元素中有相同的元素，当排序完成后相同元素将保持原有的顺序。这不是很重要，对于简单值来说，比如：数字和字符串，不过对于较复杂的对象来说非常重要。在上面的例子中，如果两个对象有相同的<code>priority</code>，不管他们的属性的值是多少，他们都不会交换位置。</p>
+<h4 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h4><p>如果是已经排好序的数组那么插入排序非常的快。这听起来显而易见，不过这对于所有的搜索算法来说不太正确。在实际情况中，大部分数据已经排好序了，所以在这种情况下，插入排序工作的不错。</p>
+<p>插入排序的最坏和平均的时间复杂度为<strong>O(n^2)</strong>。因为函数中有两个嵌套循环。其他排序算法，比如快速排序与合并排序的时间复杂度为<strong>O(n log n)</strong>，它们输入数据很快。</p>
+<p>在排好序的小数组使用插入排序是非常快的。有些标准库中，当数组分配粒度为10或更小时，使用插入排序代替快速排序。</p>
+<p>我做过一个快速测试，来比较我们的<code>insertionSort()</code>与Swift内置的<code>sort()</code>。使用大小大约为100的数组，它们的时间花费差距非常小。然而，如果你输入一个比较大的数组，<strong>O(n^2)</strong>比<strong>O(n log n)</strong>开始有非常大的性能差距，并且插入排序不能工作。</p>
+<h4 id="参考阅读"><a href="#参考阅读" class="headerlink" title="参考阅读"></a>参考阅读</h4><p><a href="https://en.wikipedia.org/wiki/Insertion_sort" target="_blank" rel="external">Insertion sort on Wikipedia</a></p>
+<p><em>Written for Swift Algorithm Club by Matthijs Hollemans</em></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构-算法/" rel="tag">#数据结构 算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/16/Swift-Algorithm-Club-What-are-algorithms-and-data-structures/" rel="next" title="Swift Algorithm Club：算法与数据结构是什么？">
+                <i class="fa fa-chevron-left"></i> Swift Algorithm Club：算法与数据结构是什么？
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Mr Cieong" />
+          <p class="site-author-name" itemprop="name">Mr Cieong</p>
+          <p class="site-description motion-element" itemprop="description">If you do not conquer self, you will be conquered by self.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#插入排序"><span class="nav-number">1.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#In-place（就地）-排序"><span class="nav-number">1.2.</span> <span class="nav-text">In-place（就地） 排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎样插入"><span class="nav-number">1.3.</span> <span class="nav-text">怎样插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">1.4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#去掉交换"><span class="nav-number">1.5.</span> <span class="nav-text">去掉交换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增加泛型"><span class="nav-number">1.6.</span> <span class="nav-text">增加泛型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能"><span class="nav-number">1.7.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考阅读"><span class="nav-number">1.8.</span> <span class="nav-text">参考阅读</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr Cieong</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
