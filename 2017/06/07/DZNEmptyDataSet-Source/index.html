@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Swift," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,26 +84,61 @@
 
 
 
-<meta name="description" content="30天学习Swift">
+<meta name="description" content="组成分类：
+
+UIScrollView (DZNEmptyDataSet)
+UIView (DZNConstraintBasedLayoutExtensions)
+
+协议：
+
+DZNEmptyDataSetSource
+DZNEmptyDataSetDelegate
+
+类：
+
+DZNEmptyDataSetView
+DZNWeakObjectContainer
+
+UIScrollView (DZN">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MC30DaysOfSwift">
-<meta property="og:url" content="https://MrCieong.github.io/2016/07/14/MC30DaysOfSwift/index.html">
+<meta property="og:title" content="阅读DZNEmptyDataSet源码笔记">
+<meta property="og:url" content="https://MrCieong.github.io/2017/06/07/DZNEmptyDataSet-Source/index.html">
 <meta property="og:site_name" content="MrCieong's Blog">
-<meta property="og:description" content="30天学习Swift">
-<meta property="og:image" content="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/ChangFont.gif">
-<meta property="og:image" content="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/PlayLocalVideo.gif">
-<meta property="og:image" content="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/TapOrHold.gif">
-<meta property="og:image" content="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/DeletingAndRearranging.gif">
-<meta property="og:image" content="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/Self-sizingTableViewCells.gif">
-<meta property="og:image" content="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/SwipeToDismissKeyboard.gif">
-<meta property="og:image" content="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/AnimateTableViewCell.gif">
-<meta property="og:image" content="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/ImagePickerController.gif">
-<meta property="og:image" content="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/CustomTransitions.gif">
-<meta property="og:updated_time" content="2016-07-14T12:58:35.000Z">
+<meta property="og:description" content="组成分类：
+
+UIScrollView (DZNEmptyDataSet)
+UIView (DZNConstraintBasedLayoutExtensions)
+
+协议：
+
+DZNEmptyDataSetSource
+DZNEmptyDataSetDelegate
+
+类：
+
+DZNEmptyDataSetView
+DZNWeakObjectContainer
+
+UIScrollView (DZN">
+<meta property="og:updated_time" content="2017-06-07T13:54:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MC30DaysOfSwift">
-<meta name="twitter:description" content="30天学习Swift">
-<meta name="twitter:image" content="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/ChangFont.gif">
+<meta name="twitter:title" content="阅读DZNEmptyDataSet源码笔记">
+<meta name="twitter:description" content="组成分类：
+
+UIScrollView (DZNEmptyDataSet)
+UIView (DZNConstraintBasedLayoutExtensions)
+
+协议：
+
+DZNEmptyDataSetSource
+DZNEmptyDataSetDelegate
+
+类：
+
+DZNEmptyDataSetView
+DZNWeakObjectContainer
+
+UIScrollView (DZN">
 
 
 
@@ -124,9 +159,9 @@
 
 
 
-  <link rel="canonical" href="https://MrCieong.github.io/2016/07/14/MC30DaysOfSwift/"/>
+  <link rel="canonical" href="https://MrCieong.github.io/2017/06/07/DZNEmptyDataSet-Source/"/>
 
-  <title> MC30DaysOfSwift | MrCieong's Blog </title>
+  <title> 阅读DZNEmptyDataSet源码笔记 | MrCieong's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -246,7 +281,7 @@
             
             
               
-                MC30DaysOfSwift
+                阅读DZNEmptyDataSet源码笔记
               
             
           </h1>
@@ -258,8 +293,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-14T00:00:00+08:00" content="2016-07-14">
-              2016-07-14
+            <time itemprop="dateCreated" datetime="2017-06-07T21:54:15+08:00" content="2017-06-07">
+              2017-06-07
             </time>
           </span>
 
@@ -286,51 +321,35 @@
       
 
       
-        <p>源码：<a href="https://github.com/MrCieong/MC30DaysOfSwift" target="_blank" rel="external">https://github.com/MrCieong/MC30DaysOfSwift</a></p>
-<h2 id="30天学习Swift"><a href="#30天学习Swift" class="headerlink" title="30天学习Swift"></a>30天学习Swift</h2><p>参考了SAM LU的<a href="http://samvlu.com" target="_blank" rel="external">100 Days of Swift</a>及allenwong的30DaysofSwift：<a href="http://weibo.com/ttarticle/p/show?id=2309403942494873235448" target="_blank" rel="external">博文</a></p>
-<h3 id="自定义字体"><a href="#自定义字体" class="headerlink" title="自定义字体"></a>自定义字体</h3><p><img src="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/ChangFont.gif" alt=""></p>
-<h3 id="播放本地视频"><a href="#播放本地视频" class="headerlink" title="播放本地视频"></a>播放本地视频</h3><p>tips:在类头部连续打三个<code>/</code> 生成 <code>// MARK: -</code></p>
-<p><img src="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/PlayLocalVideo.gif" alt=""></p>
-<h3 id="TAP-OR-HOLD-COUNTER"><a href="#TAP-OR-HOLD-COUNTER" class="headerlink" title="TAP OR HOLD COUNTER"></a>TAP OR HOLD COUNTER</h3><p><img src="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/TapOrHold.gif" alt=""></p>
+        <h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>分类：</p>
 <ul>
-<li>使用及检测Long Press Gestures</li>
-<li>同一个UIButton上多种操作</li>
+<li><strong>UIScrollView (DZNEmptyDataSet)</strong></li>
+<li>UIView (DZNConstraintBasedLayoutExtensions)</li>
 </ul>
-<h3 id="DELETING-AND-REARRANGING"><a href="#DELETING-AND-REARRANGING" class="headerlink" title="DELETING AND REARRANGING"></a>DELETING AND REARRANGING</h3><p><img src="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/DeletingAndRearranging.gif" alt=""></p>
+<p>协议：</p>
 <ul>
-<li>从数据源删除数据</li>
-<li>删除Table Row</li>
-<li>重新排列Table Rows</li>
-<li>支持Swipe删除Table Row</li>
+<li><strong>DZNEmptyDataSetSource</strong></li>
+<li><strong>DZNEmptyDataSetDelegate</strong></li>
 </ul>
-<h3 id="Add-Self-sizing-Table-View-Cells"><a href="#Add-Self-sizing-Table-View-Cells" class="headerlink" title="Add Self-sizing Table View Cells"></a>Add Self-sizing Table View Cells</h3><p><img src="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/Self-sizingTableViewCells.gif" alt=""></p>
+<p>类：</p>
 <ul>
-<li>Self-Sizing Table View Cells</li>
-<li>Expanding Cells</li>
-<li>Dynamic Type<br>原文：<a href="https://www.raywenderlich.com/129059/self-sizing-table-view-cells" target="_blank" rel="external">https://www.raywenderlich.com/129059/self-sizing-table-view-cells</a></li>
+<li><strong>DZNEmptyDataSetView</strong></li>
+<li>DZNWeakObjectContainer</li>
 </ul>
-<h3 id="Swipe-To-Dismiss-Keyboard"><a href="#Swipe-To-Dismiss-Keyboard" class="headerlink" title="Swipe To Dismiss Keyboard"></a>Swipe To Dismiss Keyboard</h3><p><img src="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/SwipeToDismissKeyboard.gif" alt=""></p>
+<h3 id="UIScrollView-DZNEmptyDataSet"><a href="#UIScrollView-DZNEmptyDataSet" class="headerlink" title="UIScrollView (DZNEmptyDataSet)"></a>UIScrollView (DZNEmptyDataSet)</h3><p>使用运行时添加的属性：</p>
 <ul>
-<li>当view加载后自启动键盘</li>
-<li>添加向下的Swipe手势关闭键盘</li>
-<li>在prepareForSegue中传递数据</li>
+<li>emptyDataSetSource</li>
+<li>emptyDataSetDelegate</li>
+<li>isEmptyDataSetVisible</li>
 </ul>
-<h3 id="AnimateTableViewCell"><a href="#AnimateTableViewCell" class="headerlink" title="AnimateTableViewCell"></a>AnimateTableViewCell</h3><p><img src="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/AnimateTableViewCell.gif" alt=""></p>
+<p>使用runtime Swizzling为<code>reloadData</code>添加方法：</p>
 <ul>
-<li>给TableViewCell添加动画</li>
-<li>绘制CAGradientLayer</li>
-</ul>
-<h3 id="ImagePickerController"><a href="#ImagePickerController" class="headerlink" title="ImagePickerController"></a>ImagePickerController</h3><p><img src="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/ImagePickerController.gif" alt=""></p>
-<ul>
-<li>使用UIImagePickerController添加图片</li>
-<li>使用stroyboard添加ImageView到UIScrollView中，设置约束及ImageView的Intrinsic Size：Placeholder</li>
-<li><p>添加图片缩放功能</p>
-<h3 id="CustomTransitions"><a href="#CustomTransitions" class="headerlink" title="CustomTransitions"></a>CustomTransitions</h3><p><img src="https://github.com/MrCieong/MC30DaysOfSwift/blob/master/gif/CustomTransitions.gif" alt=""></p>
+<li><p>dzn_reloadEmptyDataSet </p>
+<p>即当tableView或collectionView 调用<code>reloadData</code>方法时会执行<code>dzn_reloadEmptyDataSet</code>。这是整个框架的<strong>核心</strong>方法。</p>
+<p>​</p>
 </li>
-<li><p>使用UICollectionView展示图片</p>
-</li>
-<li>自定义UINavigationController Transition Animations</li>
 </ul>
+<h4 id="dzn-reloadEmptyDataSet方法"><a href="#dzn-reloadEmptyDataSet方法" class="headerlink" title="dzn_reloadEmptyDataSet方法"></a>dzn_reloadEmptyDataSet方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">- (void)dzn_reloadEmptyDataSet</div><div class="line">&#123;</div><div class="line">  	//1.是否能显示 empty dataset view</div><div class="line">    if (![self dzn_canDisplay]) &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">  	//2.一、询问emptyDataSetDelegate是否应该显示  二、itemsCount是否为0：tableView根据tableView:numberOfRowsInSection方法，collectionView根据 collectionView: numberOfItemsInSection:方法</div><div class="line">    if (([self dzn_shouldDisplay] &amp;&amp; [self dzn_itemsCount] == 0) || [self dzn_shouldBeForcedToDisplay])</div><div class="line">    &#123;</div><div class="line">      	//3.创建empty dataset view(空数据View)</div><div class="line">        // Notifies that the empty dataset view will appear</div><div class="line">      	//3.1通知emptyDataSetDelegate代理，dataset view即将显示</div><div class="line">        [self dzn_willAppear];</div><div class="line">      </div><div class="line">        //3.2 创建</div><div class="line">        DZNEmptyDataSetView *view = self.emptyDataSetView;</div><div class="line">        </div><div class="line">        if (!view.superview) &#123;</div><div class="line">          	//3.3添加到ScrollView</div><div class="line">            // Send the view all the way to the back, in case a header and/or footer is present, as well as for sectionHeaders or any other content</div><div class="line">            if (([self isKindOfClass:[UITableView class]] || [self isKindOfClass:[UICollectionView class]]) &amp;&amp; self.subviews.count &gt; 1) &#123;</div><div class="line">                [self insertSubview:view atIndex:0];</div><div class="line">            &#125;</div><div class="line">            else &#123;</div><div class="line">                [self addSubview:view];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">      	//3.4 清理，重置约束以</div><div class="line">        // Removing view resetting the view and its constraints it very important to guarantee a good state</div><div class="line">        [view prepareForReuse];</div><div class="line">        </div><div class="line">      //3.5 添加你提供的自定义View</div><div class="line">        UIView *customView = [self dzn_customView];</div><div class="line">        </div><div class="line">        // If a non-nil custom view is available, let&apos;s configure it instead</div><div class="line">        if (customView) &#123;</div><div class="line">            view.customView = customView;</div><div class="line">        &#125;</div><div class="line">        else &#123;</div><div class="line">            // Get the data from the data source</div><div class="line">           //3.6 根据emptyDataSetSource提供的数据，配置空数据View的子View</div><div class="line">          //具体代码太长，为避免干扰省略</div><div class="line">        </div><div class="line">          //3.7 通知emptyDataSetDelegate 空数据View已显示</div><div class="line">        // Notifies that the empty dataset view did appear</div><div class="line">        [self dzn_didAppear];</div><div class="line">    &#125;</div><div class="line">    else if (self.isEmptyDataSetVisible) &#123;</div><div class="line">      	//4.空数据View清除操作</div><div class="line">        [self dzn_invalidate];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -350,28 +369,18 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Swift/" rel="tag">#Swift</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/09/What's-New-in-Swift-3/" rel="next" title="Swift 3 新特性【译】">
-                <i class="fa fa-chevron-left"></i> Swift 3 新特性【译】
+              <a href="/2017/04/22/Swift-Algorithm-Club-Insertion-Sort/" rel="next" title="Swift Algorithm Club：插入排序">
+                <i class="fa fa-chevron-left"></i> Swift Algorithm Club：插入排序
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/20/How_To_Be_a_Better_Developer_with_Programming_Challenges/" rel="prev" title="How To Be a Better Developer with Programming Challenges">
-                How To Be a Better Developer with Programming Challenges <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -478,7 +487,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#30天学习Swift"><span class="nav-number">1.</span> <span class="nav-text">30天学习Swift</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义字体"><span class="nav-number">1.1.</span> <span class="nav-text">自定义字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#播放本地视频"><span class="nav-number">1.2.</span> <span class="nav-text">播放本地视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TAP-OR-HOLD-COUNTER"><span class="nav-number">1.3.</span> <span class="nav-text">TAP OR HOLD COUNTER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DELETING-AND-REARRANGING"><span class="nav-number">1.4.</span> <span class="nav-text">DELETING AND REARRANGING</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Add-Self-sizing-Table-View-Cells"><span class="nav-number">1.5.</span> <span class="nav-text">Add Self-sizing Table View Cells</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swipe-To-Dismiss-Keyboard"><span class="nav-number">1.6.</span> <span class="nav-text">Swipe To Dismiss Keyboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AnimateTableViewCell"><span class="nav-number">1.7.</span> <span class="nav-text">AnimateTableViewCell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ImagePickerController"><span class="nav-number">1.8.</span> <span class="nav-text">ImagePickerController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CustomTransitions"><span class="nav-number">1.9.</span> <span class="nav-text">CustomTransitions</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#组成"><span class="nav-number">1.</span> <span class="nav-text">组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIScrollView-DZNEmptyDataSet"><span class="nav-number">2.</span> <span class="nav-text">UIScrollView (DZNEmptyDataSet)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dzn-reloadEmptyDataSet方法"><span class="nav-number">2.1.</span> <span class="nav-text">dzn_reloadEmptyDataSet方法</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

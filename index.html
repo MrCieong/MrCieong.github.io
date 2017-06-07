@@ -238,6 +238,128 @@
             
               
                 
+                <a class="post-title-link" href="/2017/06/07/DZNEmptyDataSet-Source/" itemprop="url">
+                  阅读DZNEmptyDataSet源码笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-07T21:54:15+08:00" content="2017-06-07">
+              2017-06-07
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>分类：</p>
+<ul>
+<li><strong>UIScrollView (DZNEmptyDataSet)</strong></li>
+<li>UIView (DZNConstraintBasedLayoutExtensions)</li>
+</ul>
+<p>协议：</p>
+<ul>
+<li><strong>DZNEmptyDataSetSource</strong></li>
+<li><strong>DZNEmptyDataSetDelegate</strong></li>
+</ul>
+<p>类：</p>
+<ul>
+<li><strong>DZNEmptyDataSetView</strong></li>
+<li>DZNWeakObjectContainer</li>
+</ul>
+<h3 id="UIScrollView-DZNEmptyDataSet"><a href="#UIScrollView-DZNEmptyDataSet" class="headerlink" title="UIScrollView (DZNEmptyDataSet)"></a>UIScrollView (DZNEmptyDataSet)</h3><p>使用运行时添加的属性：</p>
+<ul>
+<li>emptyDataSetSource</li>
+<li>emptyDataSetDelegate</li>
+<li>isEmptyDataSetVisible</li>
+</ul>
+<p>使用runtime Swizzling为<code>reloadData</code>添加方法：</p>
+<ul>
+<li><p>dzn_reloadEmptyDataSet </p>
+<p>即当tableView或collectionView 调用<code>reloadData</code>方法时会执行<code>dzn_reloadEmptyDataSet</code>。这是整个框架的<strong>核心</strong>方法。</p>
+<p>​</p>
+</li>
+</ul>
+<h4 id="dzn-reloadEmptyDataSet方法"><a href="#dzn-reloadEmptyDataSet方法" class="headerlink" title="dzn_reloadEmptyDataSet方法"></a>dzn_reloadEmptyDataSet方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">- (void)dzn_reloadEmptyDataSet</div><div class="line">&#123;</div><div class="line">  	//1.是否能显示 empty dataset view</div><div class="line">    if (![self dzn_canDisplay]) &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">  	//2.一、询问emptyDataSetDelegate是否应该显示  二、itemsCount是否为0：tableView根据tableView:numberOfRowsInSection方法，collectionView根据 collectionView: numberOfItemsInSection:方法</div><div class="line">    if (([self dzn_shouldDisplay] &amp;&amp; [self dzn_itemsCount] == 0) || [self dzn_shouldBeForcedToDisplay])</div><div class="line">    &#123;</div><div class="line">      	//3.创建empty dataset view(空数据View)</div><div class="line">        // Notifies that the empty dataset view will appear</div><div class="line">      	//3.1通知emptyDataSetDelegate代理，dataset view即将显示</div><div class="line">        [self dzn_willAppear];</div><div class="line">      </div><div class="line">        //3.2 创建</div><div class="line">        DZNEmptyDataSetView *view = self.emptyDataSetView;</div><div class="line">        </div><div class="line">        if (!view.superview) &#123;</div><div class="line">          	//3.3添加到ScrollView</div><div class="line">            // Send the view all the way to the back, in case a header and/or footer is present, as well as for sectionHeaders or any other content</div><div class="line">            if (([self isKindOfClass:[UITableView class]] || [self isKindOfClass:[UICollectionView class]]) &amp;&amp; self.subviews.count &gt; 1) &#123;</div><div class="line">                [self insertSubview:view atIndex:0];</div><div class="line">            &#125;</div><div class="line">            else &#123;</div><div class="line">                [self addSubview:view];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">      	//3.4 清理，重置约束以</div><div class="line">        // Removing view resetting the view and its constraints it very important to guarantee a good state</div><div class="line">        [view prepareForReuse];</div><div class="line">        </div><div class="line">      //3.5 添加你提供的自定义View</div><div class="line">        UIView *customView = [self dzn_customView];</div><div class="line">        </div><div class="line">        // If a non-nil custom view is available, let&apos;s configure it instead</div><div class="line">        if (customView) &#123;</div><div class="line">            view.customView = customView;</div><div class="line">        &#125;</div><div class="line">        else &#123;</div><div class="line">            // Get the data from the data source</div><div class="line">           //3.6 根据emptyDataSetSource提供的数据，配置空数据View的子View</div><div class="line">          //具体代码太长，为避免干扰省略</div><div class="line">        </div><div class="line">          //3.7 通知emptyDataSetDelegate 空数据View已显示</div><div class="line">        // Notifies that the empty dataset view did appear</div><div class="line">        [self dzn_didAppear];</div><div class="line">    &#125;</div><div class="line">    else if (self.isEmptyDataSetVisible) &#123;</div><div class="line">      	//4.空数据View清除操作</div><div class="line">        [self dzn_invalidate];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/04/22/Swift-Algorithm-Club-Insertion-Sort/" itemprop="url">
                   Swift Algorithm Club：插入排序
                 </a>
@@ -1272,102 +1394,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/14/MC30DaysOfSwift/" itemprop="url">
-                  MC30DaysOfSwift
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-14T00:00:00+08:00" content="2016-07-14">
-              2016-07-14
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          30天学习Swift
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/14/MC30DaysOfSwift/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1413,7 +1439,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
