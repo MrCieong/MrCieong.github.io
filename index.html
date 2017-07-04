@@ -238,6 +238,164 @@
             
               
                 
+                <a class="post-title-link" href="/2017/06/10/GCD-for-Swift-Part-One/" itemprop="url">
+                  Swift3之GCD教程(一)上【译】
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-10T11:31:11+08:00" content="2017-06-10">
+              2017-06-10
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原文：<a href="https://www.raywenderlich.com/148513/grand-central-dispatch-tutorial-swift-3-part-1" target="_blank" rel="external">Grand Central Dispatch Tutorial for Swift 3:Part1/2</a></p>
+<p>GCD是管理并发操作的底层API。GCD把计算昂贵的任务放到后台执行，来改善你的app响应更灵敏。它是一个容易使用加锁与多线程的并发模型。</p>
+<p>在Swift3中，对GCD进行了大幅度的修改，从基于C API到“Swifter”API，包含了新的Class与新的数据结构。</p>
+<p>在这两篇GCD教程中，你将学习到GCD的来龙去脉。这第一篇教程将介绍GCD能做什么以及展示几个基础的GCD函数。在第二篇教程中，你将学习一些GCD高级函数。</p>
+<p>你将在<strong>GooglyPuff</strong>这个已经提供的应用上进行开发。GooglyPuff是一个没有性能改善，“非线程安全”的app，它使用了CoreImage人脸识别API在脸上覆盖一双Googly Eyes。你可以选择图片库或者从网络下载的图片，来使用这种效果。</p>
+<p>在这篇教程中，你的任务是使用GCD改善这个app并确保你可安全的从不同的线程调用代码。</p>
+<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>下载<a href="https://koenig-media.raywenderlich.com/uploads/2016/12/GooglyPuff_Swift3_Part1_Starter.zip" target="_blank" rel="external">starter project</a>并解压。使用Xcode打开并运行这个项目，看看它都有些什么功能。</p>
+<p>首页初始时为空界面。点击<code>+</code>然后点击<code>Le Internet</code>从网络上下载预备好图片。点击第一张图片，你将会看到Googly Eyes添加到脸上。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/12/starter_app_flow-650x272.png" alt=""> </p>
+<p>在这个篇教程中，这里有4个主要的类你将会用到：</p>
+<ul>
+<li><strong>PhotoCollectionViewController</strong>： 初始的view controller。它显示选择好的图片的缩略图；</li>
+<li><strong>PhotoDetailViewController</strong>：显示从<code>PhotoCollectionViewController</code>中选择的图片以及添加googly eyes到图片上。</li>
+<li><strong>Photo</strong>：这是一个协议，描述了图片的属性。它提供图片，缩略图以及它们相关的状态。有两个类实现了这个协议：<code>DownloadPhoto</code> 实例化一张图片从<code>URL</code>实例，<code>AssetPhoto</code> 实例化一张图片从<code>PHAsset</code>实例。</li>
+<li><strong>PhotoManager</strong>：这是一个管理所有<code>Photo</code>对象。</li>
+</ul>
+<p>这个app还有几个问题。一个总题是你应该注意到的当运行app时下载完成的提示过早的显示。你将在该系列教程的第二篇解决此问题。</p>
+<p>在这第一篇教程中，你要的事情是改善<strong>googly-fying</strong>处理性能以及让<strong>PhotoManager</strong>变得线程安全。</p>
+<h3 id="GCD的概念"><a href="#GCD的概念" class="headerlink" title="GCD的概念"></a>GCD的概念</h3><p>要懂得GCD，你需要理解几个与<strong>concurrency</strong>（并发）与<strong>threading</strong>（线程）相关的概念。</p>
+<h4 id="Concurrency（并发）"><a href="#Concurrency（并发）" class="headerlink" title="Concurrency（并发）"></a>Concurrency（并发）</h4><p>iOS中的process（进程）或应用是由1或多个线程组成。这些线程是由操作系统调度程度独立管理的。所有线程都能并发执行，但这是由系统来决定是否并发执行以及怎样执行。</p>
+<p>单核（Single-core）设备可以通过时间分片（time-slicing）来达到并发。它们将运行在一个线程上，执行上下文切换，然后运行其他另一个线程。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/01/Concurrency_vs_Parallelism.png" alt=""></p>
+<p>而多核（Multi-core）设备则是另一种情况，通过并行（parallelism）在同一时间执行多线程。</p>
+<p>GCD是以线程为基础的。底层的实现是它管理一个共享线程池（shared therad pool）。使用GCD你添加代码块或者work items 到<strong>dispatch queues</strong>，并由GCD来决定它们在哪个线程上执行。</p>
+<p>比如你构建你的代码，你将会发现有的代码块它们应该同时运行，而有的不应该。这就允许你利用GCD的并发执行。</p>
+<p>注意，GCD决定多少并行是必需的是基于系统及闲置系统资源。务必注意的是并行需要并发，但并发不能保证并行。（原文： It’s important to note that parallelism <em>requires</em> concurrency, but concurrency does not <em>guarantee</em> parallelism.）</p>
+<p>总之，并发是并于结构，而并行是关于执行。（原文：Basically, concurrency is about <em>structure</em> while parallelism is about <em>execution</em>.）</p>
+<blockquote>
+<p>译者注：stackoverflow上有关于并发与并行的区别的提问：<a href="https://stackoverflow.com/questions/1050222/concurrency-vs-parallelism-what-is-the-difference" target="_blank" rel="external">Concurrency vs Parallelism - What is the difference?</a></p>
+</blockquote>
+<h4 id="Queues（队列）"><a href="#Queues（队列）" class="headerlink" title="Queues（队列）"></a>Queues（队列）</h4><p>GCD提供<strong>DispatchQueue</strong>（调度队列）来管理你所提交的任务，并按先进先出的顺序来执行，保证第一个被提交的任务第一个开始。</p>
+<p>Dispatch Queue是线程安全的，这意味着你可以从多个线程同时访问它们。当你理解了怎么用dispatch queue为你的部分代码提供线程安全时，GCD的好处是比较明显的。关键是挑选出合适的 dispatch queue 以及正确的使用调度函数（dispatching function）来提交你的代码（work）到这个队列。</p>
+<p>Queues可以为<em>serial</em>（串行）或<em>concurrent</em>（并发）。Serial队列确保任何时刻只有一个任务在运行。GCD控制着执行时间。你不知道当前任务结束与下一任务开始之间的时间为多少：</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/09/Serial-Queue-Swift.png" alt=""></p>
+<p>Concurrent队列允许多个任务在同一时间运行。这些任务将按照添加时的顺序开始。这些任务可能以任何顺序结束并且你即不知道下一个任务什么时候开始，也不知道什么时候有多少个任务在执行。</p>
+<p>下面是任务执行的例子：</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/09/Concurrent-Queue-Swift.png" alt=""></p>
+<p>注意Task1、Task2与Task3三者先后较快的开始执行。另一方面，Task0结束时Task1才开始，同样我们也注意到Task3比Task2慢执行，但Task3先结束。</p>
+<p>什么时候开始一个任务这完全取决于GCD。如果一个任务的运行时间覆盖到了其他任务，它将由GCD决定否应该运行在不同的<strong>核</strong>上，如果有空闲的<strong>核</strong>话，或者执行一个<strong>context switch</strong>（上下文切换）来运行不同的任务。</p>
+<p>GCD提供了三个主要的队列类型：</p>
+<ol>
+<li><p><strong>Main queue</strong>（主队列）： 运行在主线程上，它是serial queue（串行队列）。</p>
+</li>
+<li><p><strong>Global queues</strong>（全局队列）： 整个系统共享的并发队列。它有4种不同优先级的队列：high、default、low以及background。background权限的队列是I/O节流（throttled）。</p>
+</li>
+<li><p><strong>Custom queues</strong>（自定义队列）：你可以创建串行或并行队列。实际上，归根到底它最后还是由一个全局队列来处理。（These actually trickle down into being handled by one of the global queues.）</p>
+<p>当设置一个全局并发队列，你不能直接指定它的优先级。但你可以指定一个<strong>Quality of Service(Qos)</strong>的类属性。它将表明任务的重要性并给GCD决定这个任务的优先级提供参考。</p>
+</li>
+</ol>
+<p>Qos类别有：</p>
+<ul>
+<li><p><strong>User-interactive</strong>：这个表示任务必需立刻完成，从而提供一个比较好的用户体验。使用它来更新UI，事件处理以及低延迟且较小的工作量。在这个类里，所有的工作在你的app执行期间应该比较小。这些应该运行在主线程上。</p>
+</li>
+<li><p><strong>User-initiated</strong>：这个表示从UI初始化的任务并可以异步执行。它应该被用于用户等待的结果需要立刻返回，或需要持续交互的任务。它将被映射到高优先级的全局队列。</p>
+</li>
+<li><p><strong>Utility</strong>：这个表示长时间运行的任务，典型的会有用户可视进度指示器。使用它来计算，I/O，网络，连续的数据提供以及类似的任务。这个类被设计为高能耗。它将被映射到低优先级的全局队列。</p>
+</li>
+<li><p><strong>Background</strong>：这个表示用户并不会直接查觉到的任务。使用它来prefetching（预获取），维护以及其他不需要用户交互与时间不敏感的任务。它将被映射到background优先级的全局队列。 </p>
+</li>
+</ul>
+<h4 id="Synchronous（同步）-vs-Asynchronous（异步）"><a href="#Synchronous（同步）-vs-Asynchronous（异步）" class="headerlink" title="Synchronous（同步） vs. Asynchronous（异步）"></a>Synchronous（同步） vs. Asynchronous（异步）</h4><p>使用GCD，你可以dispatch（调度）一个同步或异步任务。</p>
+<p>一个<em>同步</em>函数控制着调用者在任务完成后返回。</p>
+<p>一个<em>异步</em>函数立即返回，任务会按顺序开始，但不会等待任务完成。 因此，一个异步函数不会堵塞当前线程继续执行下一函数。</p>
+<h4 id="Managing-Tasks"><a href="#Managing-Tasks" class="headerlink" title="Managing Tasks"></a>Managing Tasks</h4><p>关于tasks（任务）你现在已经知道比较多了。出于这篇教程的目的你应该考虑用<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html" target="_blank" rel="external">closure</a>为task。Closures是self-contained，代码回调blocks，它可以被存储或做为参数传递。</p>
+<p>使用<strong>DispatchWorkItem</strong>来封装Tasks提交到<strong>DispatchQueue</strong>中。你可以配置<strong>DispatchWorkItem</strong>的行为，例如QoS类或者产生一个新的独立线程。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/06/07/DZNEmptyDataSet-Source/" itemprop="url">
                   阅读DZNEmptyDataSet源码笔记
                 </a>
@@ -454,7 +612,9 @@
 <li>这里有两个循环在这个函数中。外循环依次查询数组中的所有元素；用来从堆中取出最上面的数字。<code>x</code>变量用来标识排好序部分的结尾与堆起始位置（即<code>|</code>的位置）。记住，任何时刻，数组的起始 — 从0到<code>x</code> — 总是排好序的。剩余的，从<code>x</code>到最后一个元素，是无序堆。</li>
 <li>内循环从<code>x</code>下标的元素开始。这是堆最顶端的数字，它可能小于前面所有元素。内循环一步步向后通过排序数组；每次查找前一个元素是否大于它，如果大于则交换位置。当内循环完成后，数组起始部分们又变成有序了，并且有序部分增加一个元素。</li>
 </ol>
-<p>[^footnote]: <strong><em>注意：</em></strong> 外循环从下标1开始而不是0。移动第一个元素从堆到排序部分，没有发生实质的变化，所以我们跳过了它。</p>
+<blockquote>
+<p><strong><em>注意：</em></strong> 外循环从下标1开始而不是0。移动第一个元素从堆到排序部分，没有发生实质的变化，所以我们跳过了它。</p>
+</blockquote>
 <h4 id="去掉交换"><a href="#去掉交换" class="headerlink" title="去掉交换"></a>去掉交换</h4><p>上面的版本工作的很好，不过可以删除<code>swap()</code>来提升一些速度。</p>
 <p>你已经知道，我们通过交换数字来移动下一个元素到排序位置：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">4</span> | <span class="number">6</span> ]</div><div class="line">        &lt;--&gt;</div><div class="line">        交换</div><div class="line">        </div><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">8</span> | <span class="number">6</span> ]</div><div class="line">     &lt;--&gt;</div><div class="line">     交换</div></pre></td></tr></table></figure>
@@ -1292,108 +1452,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/20/How_To_Be_a_Better_Developer_with_Programming_Challenges/" itemprop="url">
-                  How To Be a Better Developer with Programming Challenges
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-20T12:35:10+08:00" content="2016-08-20">
-              2016-08-20
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>原文：<a href="https://www.raywenderlich.com/135789/brain-cross-training-for-developers" target="_blank" rel="external">https://www.raywenderlich.com/135789/brain-cross-training-for-developers</a></p>
-<p><img src="https://cdn5.raywenderlich.com/wp-content/uploads/2016/08/better-feature.png" alt=""></p>
-<p>If you’ve ever tried a programming challenge, then you know they are fun and addicting.<br>But they’re more than just fun – they also help you become a better developer.<br>Over the past few years, I’ve done hundreds of programming challenges. I’ve noticed the regular practice has made me a smarter, faster, and stronger developer.<br>In this article, I’ll explain how you can do the same:</p>
-<ul>
-<li>First, I’ll explain why programming challenges help you become a better developer.</li>
-<li>Next, I’ll recommend how you can get started with programming challenges.</li>
-<li>Finally, I’ll wrap up with some tips and tricks.</li>
-</ul>
-<p>Get ready to get challenged!</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1439,7 +1497,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1449,7 +1507,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

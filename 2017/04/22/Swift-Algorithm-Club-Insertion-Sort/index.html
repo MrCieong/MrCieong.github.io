@@ -104,7 +104,7 @@
 从堆中取出一个数字。取哪个数字都无所谓，但最简单的做法是从堆顶取；
 把这个数字插入到新的数组中；
 从无序堆中取出下一个数字并同样的插入到数组中。它在第一个被选出来的数字的前面或者后面，这样这两个数字排">
-<meta property="og:updated_time" content="2017-04-30T05:26:14.000Z">
+<meta property="og:updated_time" content="2017-07-04T14:05:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift Algorithm Club：插入排序">
 <meta name="twitter:description" content="原文：Insertion sort
@@ -347,7 +347,9 @@
 <li>这里有两个循环在这个函数中。外循环依次查询数组中的所有元素；用来从堆中取出最上面的数字。<code>x</code>变量用来标识排好序部分的结尾与堆起始位置（即<code>|</code>的位置）。记住，任何时刻，数组的起始 — 从0到<code>x</code> — 总是排好序的。剩余的，从<code>x</code>到最后一个元素，是无序堆。</li>
 <li>内循环从<code>x</code>下标的元素开始。这是堆最顶端的数字，它可能小于前面所有元素。内循环一步步向后通过排序数组；每次查找前一个元素是否大于它，如果大于则交换位置。当内循环完成后，数组起始部分们又变成有序了，并且有序部分增加一个元素。</li>
 </ol>
-<p>[^footnote]: <strong><em>注意：</em></strong> 外循环从下标1开始而不是0。移动第一个元素从堆到排序部分，没有发生实质的变化，所以我们跳过了它。</p>
+<blockquote>
+<p><strong><em>注意：</em></strong> 外循环从下标1开始而不是0。移动第一个元素从堆到排序部分，没有发生实质的变化，所以我们跳过了它。</p>
+</blockquote>
 <h4 id="去掉交换"><a href="#去掉交换" class="headerlink" title="去掉交换"></a>去掉交换</h4><p>上面的版本工作的很好，不过可以删除<code>swap()</code>来提升一些速度。</p>
 <p>你已经知道，我们通过交换数字来移动下一个元素到排序位置：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">4</span> | <span class="number">6</span> ]</div><div class="line">        &lt;--&gt;</div><div class="line">        交换</div><div class="line">        </div><div class="line">[ <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">8</span> | <span class="number">6</span> ]</div><div class="line">     &lt;--&gt;</div><div class="line">     交换</div></pre></td></tr></table></figure>
@@ -487,7 +489,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -497,7 +499,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
