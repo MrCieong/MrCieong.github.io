@@ -85,28 +85,29 @@
 
 
 <meta name="description" content="原文：Grand Central Dispatch Tutorial for Swift 3:Part1/2
-GCD是管理并发操作的底层API。GCD把计算昂贵的任务放到后台执行，来改善你的app响应更灵敏。它是一个容易使用加锁与多线程的并发模型。
-在Swift3中，对GCD进行了大幅度的修改，从基于C API到“Swifter”API，包含了新的Class与新的数据结构。
-在这两篇GCD教程中，">
+GCD 是管理并发操作的底层 API。使用 GCD 把计算昂贵的任务放到后台执行，来改善你的 app 反应灵敏度。它是一个容易使用加锁与多线程的并发模型。
+在 Swift 3 中，对 GCD 进行了大幅度的修改，从基于 C API 到 “Swifter”API，包含了新的 Class 与新">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift3之GCD教程(一)上【译】">
+<meta property="og:title" content="Swift 3 之 GCD 教程(一)【译】">
 <meta property="og:url" content="https://MrCieong.github.io/2017/06/10/GCD-for-Swift-Part-One/index.html">
 <meta property="og:site_name" content="MrCieong's Blog">
 <meta property="og:description" content="原文：Grand Central Dispatch Tutorial for Swift 3:Part1/2
-GCD是管理并发操作的底层API。GCD把计算昂贵的任务放到后台执行，来改善你的app响应更灵敏。它是一个容易使用加锁与多线程的并发模型。
-在Swift3中，对GCD进行了大幅度的修改，从基于C API到“Swifter”API，包含了新的Class与新的数据结构。
-在这两篇GCD教程中，">
+GCD 是管理并发操作的底层 API。使用 GCD 把计算昂贵的任务放到后台执行，来改善你的 app 反应灵敏度。它是一个容易使用加锁与多线程的并发模型。
+在 Swift 3 中，对 GCD 进行了大幅度的修改，从基于 C API 到 “Swifter”API，包含了新的 Class 与新">
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2016/12/starter_app_flow-650x272.png">
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2014/01/Concurrency_vs_Parallelism.png">
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2014/09/Serial-Queue-Swift.png">
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2014/09/Concurrent-Queue-Swift.png">
-<meta property="og:updated_time" content="2017-07-04T14:06:55.000Z">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2016/12/after_background_task_2.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2016/12/app_with_prompt_2.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2014/09/Dispatch-Barrier-Swift.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2016/12/starter_photos_2.png">
+<meta property="og:updated_time" content="2017-08-07T03:38:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift3之GCD教程(一)上【译】">
+<meta name="twitter:title" content="Swift 3 之 GCD 教程(一)【译】">
 <meta name="twitter:description" content="原文：Grand Central Dispatch Tutorial for Swift 3:Part1/2
-GCD是管理并发操作的底层API。GCD把计算昂贵的任务放到后台执行，来改善你的app响应更灵敏。它是一个容易使用加锁与多线程的并发模型。
-在Swift3中，对GCD进行了大幅度的修改，从基于C API到“Swifter”API，包含了新的Class与新的数据结构。
-在这两篇GCD教程中，">
+GCD 是管理并发操作的底层 API。使用 GCD 把计算昂贵的任务放到后台执行，来改善你的 app 反应灵敏度。它是一个容易使用加锁与多线程的并发模型。
+在 Swift 3 中，对 GCD 进行了大幅度的修改，从基于 C API 到 “Swifter”API，包含了新的 Class 与新">
 <meta name="twitter:image" content="https://koenig-media.raywenderlich.com/uploads/2016/12/starter_app_flow-650x272.png">
 
 
@@ -130,7 +131,7 @@ GCD是管理并发操作的底层API。GCD把计算昂贵的任务放到后台�
 
   <link rel="canonical" href="https://MrCieong.github.io/2017/06/10/GCD-for-Swift-Part-One/"/>
 
-  <title> Swift3之GCD教程(一)上【译】 | MrCieong's Blog </title>
+  <title> Swift 3 之 GCD 教程(一)【译】 | MrCieong's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -250,7 +251,7 @@ GCD是管理并发操作的底层API。GCD把计算昂贵的任务放到后台�
             
             
               
-                Swift3之GCD教程(一)上【译】
+                Swift 3 之 GCD 教程(一)【译】
               
             
           </h1>
@@ -291,70 +292,188 @@ GCD是管理并发操作的底层API。GCD把计算昂贵的任务放到后台�
 
       
         <p>原文：<a href="https://www.raywenderlich.com/148513/grand-central-dispatch-tutorial-swift-3-part-1" target="_blank" rel="external">Grand Central Dispatch Tutorial for Swift 3:Part1/2</a></p>
-<p>GCD是管理并发操作的底层API。GCD把计算昂贵的任务放到后台执行，来改善你的app响应更灵敏。它是一个容易使用加锁与多线程的并发模型。</p>
-<p>在Swift3中，对GCD进行了大幅度的修改，从基于C API到“Swifter”API，包含了新的Class与新的数据结构。</p>
-<p>在这两篇GCD教程中，你将学习到GCD的来龙去脉。这第一篇教程将介绍GCD能做什么以及展示几个基础的GCD函数。在第二篇教程中，你将学习一些GCD高级函数。</p>
-<p>你将在<strong>GooglyPuff</strong>这个已经提供的应用上进行开发。GooglyPuff是一个没有性能改善，“非线程安全”的app，它使用了CoreImage人脸识别API在脸上覆盖一双Googly Eyes。你可以选择图片库或者从网络下载的图片，来使用这种效果。</p>
-<p>在这篇教程中，你的任务是使用GCD改善这个app并确保你可安全的从不同的线程调用代码。</p>
-<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>下载<a href="https://koenig-media.raywenderlich.com/uploads/2016/12/GooglyPuff_Swift3_Part1_Starter.zip" target="_blank" rel="external">starter project</a>并解压。使用Xcode打开并运行这个项目，看看它都有些什么功能。</p>
-<p>首页初始时为空界面。点击<code>+</code>然后点击<code>Le Internet</code>从网络上下载预备好图片。点击第一张图片，你将会看到Googly Eyes添加到脸上。</p>
+<p>GCD 是管理并发操作的底层 API。使用 GCD 把计算昂贵的任务放到后台执行，来改善你的 app 反应灵敏度。它是一个容易使用加锁与多线程的并发模型。</p>
+<p>在 Swift 3 中，对 GCD 进行了大幅度的修改，从基于 C API 到 “Swifter”API，包含了新的 Class 与新的数据结构。</p>
+<p>在这两篇 GCD 教程中，你将学习 GCD 的来龙去脉。这第一篇教程将介绍 GCD 能做什么以及展示几个基础的 GCD 函数。在第二篇教程中，你将学习一些 GCD 高级函数。</p>
+<p>你将在 <strong>GooglyPuff</strong> 这个已经提供的应用上进行开发。GooglyPuff 是一个没有性能改善，“非线程安全”的app，它使用了 CoreImage 人脸识别API在脸上覆盖一双 Googly Eyes。你可以选择图片库或者从网络下载的图片，来使用这种效果。</p>
+<p>在这篇教程中，你的任务是使用 GCD 改善这个 app 并确保你可安全的从不同的线程调用代码。</p>
+<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>下载 <a href="https://koenig-media.raywenderlich.com/uploads/2016/12/GooglyPuff_Swift3_Part1_Starter.zip" target="_blank" rel="external">starter project</a> 并解压。使用 Xcode 打开并运行这个项目，看看它都有些什么功能。</p>
+<p>首页初始时为空界面。点击<code>+</code>然后点击<code>Le Internet</code>从网络上下载预备好图片。点击第一张图片，你将会看到 Googly Eyes 添加到脸上。</p>
 <p><img src="https://koenig-media.raywenderlich.com/uploads/2016/12/starter_app_flow-650x272.png" alt=""> </p>
 <p>在这个篇教程中，这里有4个主要的类你将会用到：</p>
 <ul>
-<li><strong>PhotoCollectionViewController</strong>： 初始的view controller。它显示选择好的图片的缩略图；</li>
-<li><strong>PhotoDetailViewController</strong>：显示从<code>PhotoCollectionViewController</code>中选择的图片以及添加googly eyes到图片上。</li>
+<li><strong>PhotoCollectionViewController</strong>： 初始的 view controller。它显示选择好的图片的缩略图；</li>
+<li><strong>PhotoDetailViewController</strong>：显示从<code>PhotoCollectionViewController</code>中选择的图片以及添加 googly eyes 到图片上。</li>
 <li><strong>Photo</strong>：这是一个协议，描述了图片的属性。它提供图片，缩略图以及它们相关的状态。有两个类实现了这个协议：<code>DownloadPhoto</code> 实例化一张图片从<code>URL</code>实例，<code>AssetPhoto</code> 实例化一张图片从<code>PHAsset</code>实例。</li>
 <li><strong>PhotoManager</strong>：这是一个管理所有<code>Photo</code>对象。</li>
 </ul>
-<p>这个app还有几个问题。一个总题是你应该注意到的当运行app时下载完成的提示过早的显示。你将在该系列教程的第二篇解决此问题。</p>
-<p>在这第一篇教程中，你要的事情是改善<strong>googly-fying</strong>处理性能以及让<strong>PhotoManager</strong>变得线程安全。</p>
-<h3 id="GCD的概念"><a href="#GCD的概念" class="headerlink" title="GCD的概念"></a>GCD的概念</h3><p>要懂得GCD，你需要理解几个与<strong>concurrency</strong>（并发）与<strong>threading</strong>（线程）相关的概念。</p>
-<h4 id="Concurrency（并发）"><a href="#Concurrency（并发）" class="headerlink" title="Concurrency（并发）"></a>Concurrency（并发）</h4><p>iOS中的process（进程）或应用是由1或多个线程组成。这些线程是由操作系统调度程度独立管理的。所有线程都能并发执行，但这是由系统来决定是否并发执行以及怎样执行。</p>
+<p>这个 app 还有几个问题。一个总题是你应该注意到的当运行 app 时下载完成的提示过早的显示。你将在该系列教程的第二篇解决此问题。</p>
+<p>在这第一篇教程中，你要的事情是改善 <strong>googly-fying</strong> 处理性能以及让 <strong>PhotoManager </strong>变得线程安全。</p>
+<h3 id="GCD的概念"><a href="#GCD的概念" class="headerlink" title="GCD的概念"></a>GCD的概念</h3><p>要懂得 GCD，你需要理解几个与 <strong>concurrency</strong>（并发）与 <strong>threading</strong>（线程）相关的概念。</p>
+<h4 id="Concurrency（并发）"><a href="#Concurrency（并发）" class="headerlink" title="Concurrency（并发）"></a>Concurrency（并发）</h4><p>iOS中的 process（进程）或应用是由1或多个线程组成。这些线程是由操作系统调度程序独立管理的。所有线程都能并发执行，但这是由系统来决定是否并发执行以及怎样执行。</p>
 <p>单核（Single-core）设备可以通过时间分片（time-slicing）来达到并发。它们将运行在一个线程上，执行上下文切换，然后运行其他另一个线程。</p>
 <p><img src="https://koenig-media.raywenderlich.com/uploads/2014/01/Concurrency_vs_Parallelism.png" alt=""></p>
 <p>而多核（Multi-core）设备则是另一种情况，通过并行（parallelism）在同一时间执行多线程。</p>
-<p>GCD是以线程为基础的。底层的实现是它管理一个共享线程池（shared therad pool）。使用GCD你添加代码块或者work items 到<strong>dispatch queues</strong>，并由GCD来决定它们在哪个线程上执行。</p>
-<p>比如你构建你的代码，你将会发现有的代码块它们应该同时运行，而有的不应该。这就允许你利用GCD的并发执行。</p>
-<p>注意，GCD决定多少并行是必需的是基于系统及闲置系统资源。务必注意的是并行需要并发，但并发不能保证并行。（原文： It’s important to note that parallelism <em>requires</em> concurrency, but concurrency does not <em>guarantee</em> parallelism.）</p>
-<p>总之，并发是并于结构，而并行是关于执行。（原文：Basically, concurrency is about <em>structure</em> while parallelism is about <em>execution</em>.）</p>
+<p>GCD 是以线程为基础的。底层的实现是它管理一个共享线程池（shared therad pool）。使用 GCD 你添加代码块或者 work items 到 <strong>dispatch queues</strong>，并由GCD来决定它们在哪个线程上执行。</p>
+<p>比如你构建你的代码，你将会发现有的代码块它们应该同时运行，而有的不应该。这就允许你利用 GCD 的并发执行。</p>
+<p>注意，GCD 决定多少并行是必需的是基于系统及闲置系统资源。务必注意的是并行需要并发，但并发不能保证并行。（原文： It’s important to note that parallelism <em>requires</em> concurrency, but concurrency does not <em>guarantee</em> parallelism.）</p>
+<p>总之，并发是关于结构，而并行是关于执行。（原文：Basically, concurrency is about <em>structure</em> while parallelism is about <em>execution</em>.）</p>
 <blockquote>
 <p>译者注：stackoverflow上有关于并发与并行的区别的提问：<a href="https://stackoverflow.com/questions/1050222/concurrency-vs-parallelism-what-is-the-difference" target="_blank" rel="external">Concurrency vs Parallelism - What is the difference?</a></p>
 </blockquote>
-<h4 id="Queues（队列）"><a href="#Queues（队列）" class="headerlink" title="Queues（队列）"></a>Queues（队列）</h4><p>GCD提供<strong>DispatchQueue</strong>（调度队列）来管理你所提交的任务，并按先进先出的顺序来执行，保证第一个被提交的任务第一个开始。</p>
-<p>Dispatch Queue是线程安全的，这意味着你可以从多个线程同时访问它们。当你理解了怎么用dispatch queue为你的部分代码提供线程安全时，GCD的好处是比较明显的。关键是挑选出合适的 dispatch queue 以及正确的使用调度函数（dispatching function）来提交你的代码（work）到这个队列。</p>
-<p>Queues可以为<em>serial</em>（串行）或<em>concurrent</em>（并发）。Serial队列确保任何时刻只有一个任务在运行。GCD控制着执行时间。你不知道当前任务结束与下一任务开始之间的时间为多少：</p>
+<h4 id="Queues（队列）"><a href="#Queues（队列）" class="headerlink" title="Queues（队列）"></a>Queues（队列）</h4><p>GCD 提供 <strong>DispatchQueue</strong>（调度队列）来管理你所提交的任务，并按先进先出的顺序来执行，保证第一个被提交的任务第一个开始。</p>
+<p>Dispatch Queue 是线程安全的，这意味着你可以从多个线程同时访问它们。当你理解了怎么用 dispatch queue 为你的部分代码提供线程安全时，GCD 的好处是比较明显的。关键是挑选出合适的 dispatch queue 以及正确的使用调度函数（dispatching function）来提交你的代码（work）到这个队列。</p>
+<p>Queues 可以为 <em>serial</em>（串行）或 <em>concurrent</em>（并发）。Serial队列确保任何时刻只有一个任务在运行。GCD控制着执行时间。你不知道当前任务结束与下一任务开始之间的时间为多少：</p>
 <p><img src="https://koenig-media.raywenderlich.com/uploads/2014/09/Serial-Queue-Swift.png" alt=""></p>
-<p>Concurrent队列允许多个任务在同一时间运行。这些任务将按照添加时的顺序开始。这些任务可能以任何顺序结束并且你即不知道下一个任务什么时候开始，也不知道什么时候有多少个任务在执行。</p>
+<p>Concurrent 队列允许多个任务在同一时间运行。这些任务将按照添加时的顺序开始。这些任务可能以任何顺序结束并且你即不知道下一个任务什么时候开始，也不知道什么时候有多少个任务在执行。</p>
 <p>下面是任务执行的例子：</p>
 <p><img src="https://koenig-media.raywenderlich.com/uploads/2014/09/Concurrent-Queue-Swift.png" alt=""></p>
-<p>注意Task1、Task2与Task3三者先后较快的开始执行。另一方面，Task0结束时Task1才开始，同样我们也注意到Task3比Task2慢执行，但Task3先结束。</p>
-<p>什么时候开始一个任务这完全取决于GCD。如果一个任务的运行时间覆盖到了其他任务，它将由GCD决定否应该运行在不同的<strong>核</strong>上，如果有空闲的<strong>核</strong>话，或者执行一个<strong>context switch</strong>（上下文切换）来运行不同的任务。</p>
+<p>注意 Task 1、Task 2 与 Task 3 三者先后较快的开始执行。另一方面，Task 0 结束时Task1才开始，同样我们也注意到 Task 3 比 Task 2 慢执行，但 Task 3 先结束。</p>
+<p>什么时候开始一个任务这完全取决于 GCD。如果一个任务的运行时间覆盖到了其他任务，它将由GCD决定否应该运行在不同的<strong>核</strong>上，如果有空闲的<strong>核</strong>话，或者执行一个 <strong>context switch</strong>（上下文切换）来运行不同的任务。</p>
 <p>GCD提供了三个主要的队列类型：</p>
 <ol>
-<li><p><strong>Main queue</strong>（主队列）： 运行在主线程上，它是serial queue（串行队列）。</p>
+<li><p><strong>Main queue</strong>（主队列）： 运行在主线程上，它是 serial queue（串行队列）。</p>
 </li>
-<li><p><strong>Global queues</strong>（全局队列）： 整个系统共享的并发队列。它有4种不同优先级的队列：high、default、low以及background。background权限的队列是I/O节流（throttled）。</p>
+<li><p><strong>Global queues</strong>（全局队列）： 整个系统共享的并发队列。它有4种不同优先级的队列：high、default、low 以及 background。background 权限的队列是 I/O 节流（throttled）。</p>
 </li>
 <li><p><strong>Custom queues</strong>（自定义队列）：你可以创建串行或并行队列。实际上，归根到底它最后还是由一个全局队列来处理。（These actually trickle down into being handled by one of the global queues.）</p>
-<p>当设置一个全局并发队列，你不能直接指定它的优先级。但你可以指定一个<strong>Quality of Service(Qos)</strong>的类属性。它将表明任务的重要性并给GCD决定这个任务的优先级提供参考。</p>
+<p>当设置一个全局并发队列，你不能直接指定它的优先级。但你可以指定一个 <strong>Quality of Service(Qos)</strong> 的类属性。它将表明任务的重要性并给GCD决定这个任务的优先级提供参考。</p>
 </li>
 </ol>
-<p>Qos类别有：</p>
+<p>Qos 类别有：</p>
 <ul>
-<li><p><strong>User-interactive</strong>：这个表示任务必需立刻完成，从而提供一个比较好的用户体验。使用它来更新UI，事件处理以及低延迟且较小的工作量。在这个类里，所有的工作在你的app执行期间应该比较小。这些应该运行在主线程上。</p>
+<li><p><strong>User-interactive</strong>：这个表示任务必需立刻完成，从而提供一个比较好的用户体验。使用它来更新 UI，事件处理以及低延迟且较小的工作量。在这个类里，所有的工作在你的 app 执行期间应该比较小。这些应该运行在主线程上。</p>
 </li>
-<li><p><strong>User-initiated</strong>：这个表示从UI初始化的任务并可以异步执行。它应该被用于用户等待的结果需要立刻返回，或需要持续交互的任务。它将被映射到高优先级的全局队列。</p>
+<li><p><strong>User-initiated</strong>：这个表示从 UI 初始化的任务并可以异步执行。它应该被用于用户等待的结果需要立刻返回，或需要持续交互的任务。它将被映射到高优先级的全局队列。</p>
 </li>
 <li><p><strong>Utility</strong>：这个表示长时间运行的任务，典型的会有用户可视进度指示器。使用它来计算，I/O，网络，连续的数据提供以及类似的任务。这个类被设计为高能耗。它将被映射到低优先级的全局队列。</p>
 </li>
-<li><p><strong>Background</strong>：这个表示用户并不会直接查觉到的任务。使用它来prefetching（预获取），维护以及其他不需要用户交互与时间不敏感的任务。它将被映射到background优先级的全局队列。 </p>
+<li><p><strong>Background</strong>：这个表示用户并不会直接查觉到的任务。使用它来 prefetching（预获取），维护以及其他不需要用户交互与时间不敏感的任务。它将被映射到 background 优先级的全局队列。 </p>
 </li>
 </ul>
-<h4 id="Synchronous（同步）-vs-Asynchronous（异步）"><a href="#Synchronous（同步）-vs-Asynchronous（异步）" class="headerlink" title="Synchronous（同步） vs. Asynchronous（异步）"></a>Synchronous（同步） vs. Asynchronous（异步）</h4><p>使用GCD，你可以dispatch（调度）一个同步或异步任务。</p>
+<h4 id="Synchronous（同步）-vs-Asynchronous（异步）"><a href="#Synchronous（同步）-vs-Asynchronous（异步）" class="headerlink" title="Synchronous（同步） vs. Asynchronous（异步）"></a>Synchronous（同步） vs. Asynchronous（异步）</h4><p>使用 GCD，你可以 dispatch（调度）一个同步或异步任务。</p>
 <p>一个<em>同步</em>函数控制着调用者在任务完成后返回。</p>
 <p>一个<em>异步</em>函数立即返回，任务会按顺序开始，但不会等待任务完成。 因此，一个异步函数不会堵塞当前线程继续执行下一函数。</p>
-<h4 id="Managing-Tasks"><a href="#Managing-Tasks" class="headerlink" title="Managing Tasks"></a>Managing Tasks</h4><p>关于tasks（任务）你现在已经知道比较多了。出于这篇教程的目的你应该考虑用<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html" target="_blank" rel="external">closure</a>为task。Closures是self-contained，代码回调blocks，它可以被存储或做为参数传递。</p>
-<p>使用<strong>DispatchWorkItem</strong>来封装Tasks提交到<strong>DispatchQueue</strong>中。你可以配置<strong>DispatchWorkItem</strong>的行为，例如QoS类或者产生一个新的独立线程。</p>
+<h4 id="Managing-Tasks"><a href="#Managing-Tasks" class="headerlink" title="Managing Tasks"></a>Managing Tasks</h4><p>关于 tasks（任务）你现在已经知道比较多了。出于这篇教程的目的你应该考虑用 <a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html" target="_blank" rel="external">closure</a> 为 task。Closures 是 self-contained（自包含），代码回调 blocks，它可以被存储或做为参数传递。</p>
+<p>使用 <strong>DispatchWorkItem</strong> 来封装 Tasks 提交到 <strong>DispatchQueue</strong> 中。你可以配置 <strong>DispatchWorkItem</strong> 的行为，例如 QoS 类或者产生一个新的独立线程。</p>
+<h3 id="处理后台任务"><a href="#处理后台任务" class="headerlink" title="处理后台任务"></a>处理后台任务</h3><p>知道了这么多 GCD 知识后，是时候用来改善你的 app 了。</p>
+<p>回到 app 并通过你的 Photo Library 或者使用  <strong>Le Internet</strong>选项来下载几张图片。点击图片。注意一下 Photot DetailVC 要多久才能显示出来。当在较慢的设备上展示较大的图片时，延迟是非常显示的。</p>
+<p>重载 View Controller 的 <strong>viewDidLoad()</strong> 方法容易导致在View展示之前有较长的等待。如果一些任务在加载时是非必要的，那么可以将这些任务放在后台执行。</p>
+<p>这听上去好像是<strong>DispatchQueue</strong>的 <strong>async</strong> 的工作！</p>
+<p>打开 <strong>PhotoDetailViewController.swift</strong>。修改 <strong>viewDidload()</strong> 并替换这两行代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> overlayImage = faceOverlayImageFromImage(image)</div><div class="line">fadeInNewImage(overlayImage)</div></pre></td></tr></table></figure>
+<p>使用下面的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="type">DispatchQueue</span>.global(qos: .userInitiated).async &#123; <span class="comment">// 1</span></div><div class="line">  <span class="keyword">let</span> overlayImage = <span class="keyword">self</span>.faceOverlayImageFromImage(<span class="keyword">self</span>.image)</div><div class="line">  <span class="type">DispatchQueue</span>.main.async &#123; <span class="comment">// 2</span></div><div class="line">    <span class="keyword">self</span>.fadeInNewImage(overlayImage) <span class="comment">// 3</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们一步一步来解释这些代码做了什么：</p>
+<ol>
+<li>你将work移动到后台全局并在异步闭包中运行 work。这让 <strong>viewDidLoad()</strong> 在主线程上提前完成并使用加载感觉更简短。此时，人脸识别处理已经开始并将在晚一点的时候完成。</li>
+<li>这个时候，人脸识别处理已经完成并生成新的图片。由于你想用这张新图片来更新你的 <strong>UIImageView</strong>，你添加一个新的闭包到主线程队列。记住——你访问 <strong>UIKit</strong> 的类的时候，必须始终在主线程上。</li>
+<li>最后，你调用<strong>fadeInNewImage(_:)</strong>更新UI，该方法执行渐入效果添加新的googly eyes图片。</li>
+</ol>
+<p>Build 并运行 app。通过 <strong>Le Internet</strong> 选项下载一些图片。选择一张图片，你会注意到 view controller 加载的速度明显并快并且在稍候添加一些 googly eyes 上去。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/12/after_background_task_2.png" alt=""></p>
+<p>This lends a nice before and after effect to the app as the googly eyes are added. 甚至，如果你尝试去加载一张更大的图片，app 不会挂起 view controller 同样会加载完成。</p>
+<p>通常，当你需要执行一个在后台中的 network-based （基于网络）或CPU intensive 的任务且并不会阻塞当前线程时，你将会想到使用 <strong>async</strong>。</p>
+<p>这里有一份怎样使用、什么时候使用 <strong>async</strong> 的几种队列的快速指南：</p>
+<ul>
+<li><strong>MainQueue</strong>：当在并发队列上的一个任务完成时，通常会选择这个队列去更新UI。为此，你将编写一个 closure 嵌入到其他队列中。定位到主线程队列并调用 <strong>async</strong> 确保这个新的任务将在当前方法完成后的某个时间执行。</li>
+<li><strong>GlobalQueue</strong>：这个通常使用在非 UI 工作的后台中。</li>
+<li><strong>Custom Serial Queue</strong>：非常好的选择，当你想执行一连串的后台工作或追踪它时。由于同一时间只能执行一个任务，所以它消除了争抢资源的问题。注意，如果你想从一个方法中获取数据，你必须使用内联的 closure 来获取或者考虑使用 <strong>sync</strong>。</li>
+</ul>
+<h4 id="Delaying-Task-Execution（延迟任务执行）"><a href="#Delaying-Task-Execution（延迟任务执行）" class="headerlink" title="Delaying Task Execution（延迟任务执行）"></a>Delaying Task Execution（延迟任务执行）</h4><p><strong>DispatchQueue</strong> 允许你延迟任务的执行。Care should be taken not to use this to solve race conditions or other timing bugs through hacks like introducing delays. 当你希望任务在指定时间运行时使用它。</p>
+<p>先思考一下你的 app 的用户体验。当用户第一次打开app时，他们有可能会困惑这个 app 是干什么用的，不是吗？</p>
+<p>如果在没有图片的情况下，给予用户一些提示会是一个不错的主意。你同样应该考虑到用户的视线是怎样导航首页的。如果提示过早，他们可能没注意到。1秒钟的时间延迟提示信息应该可以足够的引起用户的注意以及引导他们。</p>
+<p>打开<strong>PhotoCollectionViewController.swift</strong>并在<strong>showOrHidNavPromp()</strong>中实现以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> delayInSeconds = <span class="number">1.0</span> <span class="comment">// 1</span></div><div class="line"><span class="type">DispatchQueue</span>.main.asyncAfter(deadline: .now() + delayInSeconds) &#123; <span class="comment">// 2</span></div><div class="line">  <span class="keyword">let</span> <span class="built_in">count</span> = <span class="type">PhotoManager</span>.sharedManager.photos.<span class="built_in">count</span></div><div class="line">  <span class="keyword">if</span> <span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</div><div class="line">    <span class="keyword">self</span>.navigationItem.prompt = <span class="literal">nil</span></div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">self</span>.navigationItem.prompt = <span class="string">"Add photos with faces to Googlyify them!"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>解释一下上面的代码：</p>
+<ol>
+<li>你指定了一个需要延迟多少时间的变量。</li>
+<li>你然后等待指定的时间，然后异步运行更新图片数量和提示信息的 block。</li>
+</ol>
+<p><strong>showOrHidNavPrompt() </strong>在 <strong>viewDidLoad()</strong>中执行并用任意时刻<strong>UICollectionView</strong>重新加载。</p>
+<p>Build 并运行 app。在提示信息显示之前应该有较小的延迟：</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/12/app_with_prompt_2.png" alt=""></p>
+<p>那什么情况下使用 <strong>asyncAfter</strong> 呢？通常情况下，在主队列中使用是比较好的选择。如果在全局后台队列或自定义串行队列中使用的放，你要多加小心。你最好还是坚持在主队列中使用。</p>
+<p>为什么不使用 <strong>Timer</strong> 呢？如果你有重复的任务并容易按照预定时间执行，那么你应该考虑使用它。这里有两点原因支撑使用 <strong>asyncAfter</strong>。</p>
+<p>第一是可读性。使用 <strong>Timer</strong> 你需要定义一个方法然后创建一个带selector或 invocation 的 timer。而 <strong>DispatchQueue</strong> 与 <strong>asyncAfter</strong> 你只要简单的添加一个closure。</p>
+<p><strong>Timer </strong>是 scheduled 在 runloop 上，所以你必需确保它是 scheduled 在runloop上的，你想要开启的（在正确 runloop modes 的情况下）。就这一点而言，使用<strong>asyncAfter</strong>就非常简单了。</p>
+<h4 id="Managing-Singletions（管理单例）"><a href="#Managing-Singletions（管理单例）" class="headerlink" title="Managing Singletions（管理单例）"></a>Managing Singletions（管理单例）</h4><p>单例。爱并恨着，它们在iOS中很普遍，就像猫的图片在web上一样。:]</p>
+<p>单例的一个常见的问题是它们通常不是线程安全的。鉴于使用它们，这种担心也是合理的：单例通常是被多个控制器在同一时间访问单一实例。你的 <strong>PhotoManager</strong> 类就是一个单例，所以你需要考虑这一问题。</p>
+<p>线程安全的代码在多线程或并发任务调用时是安全的，不会出现数据腐化（data corruption）或者导致app崩溃的问题。如果代码不是线程安全的，那么它在同一时间只能在一个上下文中运行。</p>
+<p>这里有两种线程安全情况需要考虑，单实例初始化过程中以及实例对象读写过程中。</p>
+<p>初始化的情况实现起来比较简单，因为有 Swift 管理初始化全局变量。当全局变量第一次访问后，它们将被实例化，并且保证它们是以 atomic 的方式被初始化。也就是说，代码执行初始化是经过临界区（critical section）处理的并且保证在其他任意线程访问全局变量之前完成。</p>
+<p>一个临界区（critical section）是不会并发执行的一段代码，也就是说，两个线程不能在同一时间执行的代码。这是比较常见的，因为一段代码维护一个共享资源，比如一个变量，如果使用并发进程访问的话这个变量将腐化（corrupt）掉。</p>
+<p>打开<strong>PhotoManager.swift</strong>，来看看单例是怎样被初始化的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">let</span> _sharedManager = <span class="type">PhotoManager</span>()</div></pre></td></tr></table></figure>
+<p>这个私有的全局变量 <strong>_sharedManager</strong> 被使用到了 PhototManager 懒加载初始化里。正如下所示，它只有在第一次访问时执行：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">var</span> <span class="title">sharedManager</span>: <span class="title">PhototManager</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> _sharedManager</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个公开的sharedManager变量返回了私有的 _sharedManager 变量。Swift 会确保这一操作是线程安全的。</p>
+<p>当访问单例中共享内部数据代码时，你仍然需要处理线程安全问题。你可以通过使用例如 synchronizing 数据访问的方法来处理它。你将在下一章节中看到一种解决方案。</p>
+<h4 id="Handling-the-Readers-Writers-Problem（处理读者-写者问题）"><a href="#Handling-the-Readers-Writers-Problem（处理读者-写者问题）" class="headerlink" title="Handling the Readers-Writers Problem（处理读者-写者问题）"></a>Handling the Readers-Writers Problem（处理读者-写者问题）</h4><p>在Swift中，使用 <strong>let</strong> 关键字定义的任意变量都会被识别为常量并且是只读与线程安全的。然而使用 <strong>var</strong> 关键字定义的变量，为可变的并且非线程安全的，除非是被设计过的数据类型。当Swift集合类型如 <strong>Array</strong>、<strong>Dictionary</strong> 被定义为可变时，它们是非线程安全的。</p>
+<p>虽然多个线程同时读一个可变数组时没有问题，但当有一个线程在修改这个线程时而其他线程在读时是非线程安全的。在当前的状态中，你的单例并不会阻挡这种状况的发生。</p>
+<p>来看下这个问题，看一下 <strong>PhotoManager.swift</strong> 中的 <strong>addPhoto()</strong>，它被复制到下面：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">addPhoto</span><span class="params">(<span class="number">_</span> photo: Photo)</span></span> &#123;</div><div class="line">  _photos.append(photo)</div><div class="line">  <span class="type">DispatchQueue</span>.main.async &#123;</div><div class="line">    <span class="keyword">self</span>.postContentAddedNotification()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是一个<strong>write</strong>方法，它修改了可变数组对象。</p>
+<p>现在看一下<strong>photos</strong>属性，如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fileprivate <span class="keyword">var</span> _photos: [<span class="type">Photo</span>] = []</div><div class="line"><span class="keyword">var</span> photos: [<span class="type">Photo</span>] &#123;</div><div class="line">  <span class="keyword">return</span> _photos</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个属性的 getter 方法被称为 <strong>read</strong> 方法，读这个可变数据。调用者获取这个数组的复本并且没有合适的保护原来的数组。当一个线程调用写方法 <strong>addPhoto()</strong> 同时其他线程在调用 <strong>photos</strong> 属性的 getter 方法时，这里并没有提供任务保护措施。</p>
+<blockquote>
+<p><strong>Note:</strong> 在上面的代码中，为什么说调用者获取是这个数组的复本呢？在 Swift 中，参数与函数的返回类型是传递引用类型或值类型。</p>
+<p>传递的复本对象是值类型话，修改复本是不会影响原始对象的。在Swift中，默认情况下class实例是引用类型，结构体是值类型。Swift 内置的数据类型，比如 <strong>Array</strong> 与 <strong>Dictionary</strong> 是采用结构体实现的。</p>
+<p>当反复的传递集合类型时，它们看起来会产生大量的复本。不需要担心关于内存使用的问题。Swift 的集合类型是经过性能优化过的，只有在必要的情况下才会复制，例如当经过值传递的数组在通过后第一次被修改。(for instance when an array passed by value is modified for the first time after being passed.)</p>
+</blockquote>
+<p>这就是经典的软件开发<a href="http://en.wikipedia.org/wiki/Readers–writers_problem" target="_blank" rel="external"><strong>读者-写者问题</strong></a>。GCD提供了一个优雅的解决方案，就是使用 <strong>dispatch barriers</strong> 创建一个<a href="http://en.wikipedia.org/wiki/Read/write_lock_pattern" target="_blank" rel="external"><strong>read/write lock</strong></a>。<strong>Dispatch barriers</strong> 是一个函数组，当运行在并发队列上时，它相当于serial-style的瓶颈。</p>
+<p>当你将 <strong>DispatchWorkItem</strong> 提交到一个 dispatch queue 时，你可以设置 flags 来指示它应该是指定排列的特定时间上的唯一任务。这意味着已经所有提到队列的任务必须在 dispatch barrier 执行<strong>DispatchWorkItem</strong>之前完成。</p>
+<p>当 <strong>DispatchWorkItem</strong> 到达时，barrier 会执行它并确保该任务运行期间不会执行队列中的其他任务。一旦执行完毕，该队列将恢复到默认实现状态。</p>
+<p>下图描述了 barrier 任务对其他多个异步任务的影响：</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/09/Dispatch-Barrier-Swift.png" alt=""></p>
+<p>注意这个队列的常规操作就像一个正常的并发队列。但是，当 barrier 执行期间它就像一个串行队列。也就是说，barrier 只执行唯一的任务。等 barrier 完成后，该队列将恢复为一个正常的并发队列。</p>
+<p>当在全局后台队列中使用 barrier 时要小心，因为这些队列是资源共享的。在串行队列中使用 barrier 是多余的，因为它已经是串队执行。在自定义并发中使用 bairrer是很好的选择，它可以处理临界代码原子性的线程安全。</p>
+<p>你将使用一个自定义并发队列来处理你的 barrier 函数与分隔读与写函数。该并发队列允许你进行并发读操作。</p>
+<p>打开 <strong>PhototManager.swift</strong> 并在 <strong>_photots</strong> 上添加一个私有属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fileprivate <span class="keyword">let</span> concurrentPhotoQueue =</div><div class="line">  <span class="type">DispatchQueue</span>(</div><div class="line">    label: <span class="string">"com.raywenderlich.GooglyPuff.photoQueue"</span>, <span class="comment">// 1</span></div><div class="line">    attributes: .concurrent) <span class="comment">// 2</span></div></pre></td></tr></table></figure>
+<p>这里将 <strong>concurrentPhotoQueue</strong> 初始化为并发队列。</p>
+<ol>
+<li>你设置了 <strong>label</strong> 描述名称，在 debug 时它非常在用。一般情况下，你会使用颠倒的 DNS 来命名；</li>
+<li>你指定它为并发队列。</li>
+</ol>
+<p>下一步，使用以下代码覆盖 <strong>addPhoto(_:)</strong> 方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">addPhoto</span><span class="params">(<span class="number">_</span> photo: Photo)</span></span> &#123;</div><div class="line">  concurrentPhotoQueue.async(flags: .barrier) &#123; <span class="comment">// 1</span></div><div class="line">    <span class="keyword">self</span>._photos.append(photo) <span class="comment">// 2</span></div><div class="line">    <span class="type">DispatchQueue</span>.main.async &#123; <span class="comment">// 3</span></div><div class="line">      <span class="keyword">self</span>.postContentAddedNotification()</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以下是这个函数的解释：</p>
+<ol>
+<li>你 dispatch 这个异步写操作为 barrier。当它执行时，它将成为你的队列中的唯一 item；</li>
+<li>你将 photo 对象添加到数组；</li>
+<li>最后你发送了 photo 被添加的通知。这个通知应该在主线程队列中发送，因为它将会做 UI 更新操作。所以你异步的 dispatch 这个任务到主线程队列来触发这个通知。</li>
+</ol>
+<p>这是写方法的实现细节，不过你同样需要实现 <strong>photos</strong> 的读方法。</p>
+<p>为了确保写操作的线程安全，你需要在 <strong>concurrentPhotoQueue</strong> 上执行读写作。你需要在函数调用时返回数据，而使用异步 dispatch 并不会正常返回。在这种情况下，使用 <strong>sync</strong> 是个不错的选择。</p>
+<p>使用 <strong>sync</strong> 来追踪你的 dispatch barriers 任务，或者当你使用 <strong>closure</strong> 进行数据处理之前需要行者之前的任务操作完成。</p>
+<p>使用时要尽可能的小心。想像一下，如果你已经运行在当前队列，你又使用 <strong>sync</strong> 到当前队列。这时将造成 <strong>deadlock</strong>（死锁）的情况。</p>
+<p>两个（或两个以上）items ——通常情况下为线程——如果它们都在等待其他线程完成或执行其他的动作将会产生死锁。第一个不能完成是因为它在等待第二个的运行结束。而第二个不能完成是因为它在等待第一个的结束。</p>
+<p>你的情况是，<strong>sync</strong> 调用将等待直到到 closure 完成，但 closure 不能结束（它甚至都不会开始！）直到当前正在执行的 closure 结束，它结束不了！这使用必须意识到哪些队列应该调用——同样的，哪些队列你可以调入。（原文：This should force you to be conscious of which queue you’re calling from — as well as which queue you’re passing in.）</p>
+<p>以下简短的总结了什么情况下使用 <strong>sync</strong>：</p>
+<ul>
+<li><strong>Main Queue</strong>：非常小心！与上面同样的原因；这种情况会隐患的产生死锁；</li>
+<li><strong>Global Queue</strong>：这是好的选择，使用 sync 搭配 dispatch barriers时或当行等待一个任务完成后再更进一步的处理数据；</li>
+<li><strong>Custom Serial Queue</strong>：这种情况时要非常小心！如果你运行在一个队列中并且你调用 <strong>sync</strong> 到同一队列中时，你明显的创建了一个死锁。</li>
+</ul>
+<p>仍然，在 <strong>PhotoManager.swift</strong> 中修改 <strong>photos</strong> 属性的 getter：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ar photos: [<span class="type">Photo</span>] &#123;</div><div class="line">  <span class="keyword">var</span> photosCopy: [<span class="type">Photo</span>]!</div><div class="line">  concurrentPhotoQueue.sync &#123; <span class="comment">// 1</span></div><div class="line">    photosCopy = <span class="keyword">self</span>._photos <span class="comment">// 2</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> photosCopy</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>解释上面的代码：</p>
+<ol>
+<li>使用同步 Dispatch 到 <strong>concurrentPhotoQueue</strong>执行读操作；</li>
+<li>保存 photo 数据的副本到 <strong>photosCopy</strong> 并作为返回值返回。</li>
+</ol>
+<p>Build 并运行 app。使用 <strong>Le Internet</strong>下载图片。它应该跟之前一样，但这次你使用一些有趣线程来实现它。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/12/starter_photos_2.png" alt=""></p>
+<p>恭喜！现在你的 <strong>PhotoManager</strong> 是线程安全的了。不管理你怎样去读或写操作图片，你可以自信的确保不会出现任何意外，安全的方式完成。</p>
+<h3 id="接下来做什么？"><a href="#接下来做什么？" class="headerlink" title="接下来做什么？"></a>接下来做什么？</h3><p>在这篇教程中，你学习了怎样让你的代码线程安全与在 CPU 执行比较密集任务的情况下，如果维护主线程的响应灵敏。</p>
+<p>你可以下载完整的代码 <a href="https://koenig-media.raywenderlich.com/uploads/2016/12/GooglyPuff_Swift3_Part1_Final_Part2_Starter.zip" target="_blank" rel="external">completed project</a>，它包含了所有的代码改善。在第二部分教程中你将继续改善这个项目。</p>
+<p>如果你计划改善你自己的 app，你应该使用 <strong>Instruments</strong> 中的 <strong>Time Profile</strong> 模块进行测试。使用这些工具是本教程的范畴之外，你可以查看 <a href="https://www.raywenderlich.com/?p=23037" target="_blank" rel="external">How to Use Instruments</a> 它很好介绍了 Instruments。</p>
+<p>确保你 profile 的是真实设备，由于在模拟器上测试与你的用户所体验的结果有非常大的区别。</p>
+<p>你可能想查看 <a href="http://vimeo.com/49718712" target="_blank" rel="external">this excellent talk by Rob Pike</a> 的 Concurrency vs Parallelism。</p>
+<p>我们的 <a href="https://videos.raywenderlich.com/courses/ios-concurrency-with-gcd-and-operations?_ga=2.245257733.1698961780.1502025264-1300493210.1475543606" target="_blank" rel="external">iOS Concurrency with GCD and Operations</a> 视频教程系列同样覆盖了多数相关的主题。</p>
+<p>在<a href="https://www.raywenderlich.com/?p=148515" target="_blank" rel="external">下一篇教程</a>中，你将更加深入的研究一些更酷的 GCD’s API。</p>
 
       
     </div>
@@ -498,7 +617,7 @@ GCD是管理并发操作的底层API。GCD把计算昂贵的任务放到后台�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCD的概念"><span class="nav-number">2.</span> <span class="nav-text">GCD的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Concurrency（并发）"><span class="nav-number">2.1.</span> <span class="nav-text">Concurrency（并发）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Queues（队列）"><span class="nav-number">2.2.</span> <span class="nav-text">Queues（队列）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Synchronous（同步）-vs-Asynchronous（异步）"><span class="nav-number">2.3.</span> <span class="nav-text">Synchronous（同步） vs. Asynchronous（异步）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Managing-Tasks"><span class="nav-number">2.4.</span> <span class="nav-text">Managing Tasks</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCD的概念"><span class="nav-number">2.</span> <span class="nav-text">GCD的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Concurrency（并发）"><span class="nav-number">2.1.</span> <span class="nav-text">Concurrency（并发）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Queues（队列）"><span class="nav-number">2.2.</span> <span class="nav-text">Queues（队列）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Synchronous（同步）-vs-Asynchronous（异步）"><span class="nav-number">2.3.</span> <span class="nav-text">Synchronous（同步） vs. Asynchronous（异步）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Managing-Tasks"><span class="nav-number">2.4.</span> <span class="nav-text">Managing Tasks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理后台任务"><span class="nav-number">3.</span> <span class="nav-text">处理后台任务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Delaying-Task-Execution（延迟任务执行）"><span class="nav-number">3.1.</span> <span class="nav-text">Delaying Task Execution（延迟任务执行）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Managing-Singletions（管理单例）"><span class="nav-number">3.2.</span> <span class="nav-text">Managing Singletions（管理单例）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Handling-the-Readers-Writers-Problem（处理读者-写者问题）"><span class="nav-number">3.3.</span> <span class="nav-text">Handling the Readers-Writers Problem（处理读者-写者问题）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接下来做什么？"><span class="nav-number">4.</span> <span class="nav-text">接下来做什么？</span></a></li></ol></div>
             
           </div>
         </section>
