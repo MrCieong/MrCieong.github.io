@@ -85,36 +85,36 @@
 
 
 <meta name="description" content="红黑树是一种可以自动平衡的二叉查找树。它在二叉查找树的基础上为每个节点添加了额外的属性：红色或黑色的颜色。在进行插入、删除操作后，它会进行自动平衡操作。从而确保该树的树根到叶子的所有路径长度相差保持在2位以下。
-满足条件红黑树需要满足以下条件：
+条件红黑树需要满足以下条件：
 
 所有节点为黑或白色；
 根节点为黑；
 所有叶子（Nil）为黑色；
 如果一个节点为红色，那么它的子节点都为黑色；
-对所有的节点而言，该节点到它的叶子的所有简">
+对所有的节点而言，该节点到它的叶子的所有简单路">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Introduction to Algorithms：红黑树（笔记）">
 <meta property="og:url" content="https://MrCieong.github.io/2017/08/13/Red-Black-Tree/index.html">
 <meta property="og:site_name" content="MrCieong's Blog">
 <meta property="og:description" content="红黑树是一种可以自动平衡的二叉查找树。它在二叉查找树的基础上为每个节点添加了额外的属性：红色或黑色的颜色。在进行插入、删除操作后，它会进行自动平衡操作。从而确保该树的树根到叶子的所有路径长度相差保持在2位以下。
-满足条件红黑树需要满足以下条件：
+条件红黑树需要满足以下条件：
 
 所有节点为黑或白色；
 根节点为黑；
 所有叶子（Nil）为黑色；
 如果一个节点为红色，那么它的子节点都为黑色；
-对所有的节点而言，该节点到它的叶子的所有简">
-<meta property="og:updated_time" content="2017-08-13T08:32:18.000Z">
+对所有的节点而言，该节点到它的叶子的所有简单路">
+<meta property="og:updated_time" content="2017-08-13T10:17:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Introduction to Algorithms：红黑树（笔记）">
 <meta name="twitter:description" content="红黑树是一种可以自动平衡的二叉查找树。它在二叉查找树的基础上为每个节点添加了额外的属性：红色或黑色的颜色。在进行插入、删除操作后，它会进行自动平衡操作。从而确保该树的树根到叶子的所有路径长度相差保持在2位以下。
-满足条件红黑树需要满足以下条件：
+条件红黑树需要满足以下条件：
 
 所有节点为黑或白色；
 根节点为黑；
 所有叶子（Nil）为黑色；
 如果一个节点为红色，那么它的子节点都为黑色；
-对所有的节点而言，该节点到它的叶子的所有简">
+对所有的节点而言，该节点到它的叶子的所有简单路">
 
 
 
@@ -298,7 +298,7 @@
 
       
         <p>红黑树是一种可以自动平衡的二叉查找树。它在二叉查找树的基础上为每个节点添加了额外的属性：红色或黑色的颜色。在进行插入、删除操作后，它会进行自动平衡操作。从而确保该树的树根到叶子的所有路径长度相差保持在2位以下。</p>
-<h4 id="满足条件"><a href="#满足条件" class="headerlink" title="满足条件"></a>满足条件</h4><p>红黑树需要满足以下条件：</p>
+<h4 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h4><p>红黑树需要满足以下条件：</p>
 <ol>
 <li>所有节点为黑或白色；</li>
 <li>根节点为黑；</li>
@@ -306,15 +306,11 @@
 <li>如果一个节点为红色，那么它的子节点都为黑色；</li>
 <li>对所有的节点而言，该节点到它的叶子的所有简单路径所包含的黑色节点是相同的。</li>
 </ol>
-<h4 id="旋转操作"><a href="#旋转操作" class="headerlink" title="旋转操作"></a>旋转操作</h4><p>旋转操作如下图</p>
+<h4 id="旋转操作"><a href="#旋转操作" class="headerlink" title="旋转操作"></a>旋转操作</h4><p>旋转操作如下图：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">     |                        |</div><div class="line">    [y]    Right-Rotate      [x]</div><div class="line">   /   \   ~~~~~~~~~~~&gt;     /   \</div><div class="line"> [x]    c  &lt;~~~~~~~~~~~~   a    [y]</div><div class="line"> / \        Left-Rotate          / \</div><div class="line">a   b                           b   c</div></pre></td></tr></table></figure>
-<ol>
-<li>右旋转 Right Rotate(T, y)</li>
-</ol>
+<p>1.右旋转 Right-Rotate(T, y)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">x = y.left</div><div class="line">y.left = x.right</div><div class="line">if x.right != nil</div><div class="line">	x.right.p = y</div><div class="line">x.p = y.p</div><div class="line">if y.p == nil</div><div class="line">	T.root = x</div><div class="line">else y == y.p.left</div><div class="line">	y.p.left = x</div><div class="line">else</div><div class="line">	y.p.right = x</div><div class="line">x.right = y</div><div class="line">y.p = x</div></pre></td></tr></table></figure>
-<ol>
-<li>左旋转 Left Rotate(T, x)</li>
-</ol>
+<p>2.左旋转 Left-Rotate(T, x)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">y = x.right</div><div class="line">x.right = y.left</div><div class="line">if y.left != nil</div><div class="line">	y.left.p = x</div><div class="line">y.p = x.p</div><div class="line">if x.p == nil</div><div class="line">	T.root = y</div><div class="line">else if x.p.left == x</div><div class="line">	x.p.left = y</div><div class="line">else</div><div class="line">	x.p.right = y</div><div class="line">y.left = x</div><div class="line">x.p = y</div></pre></td></tr></table></figure>
       
     </div>
@@ -458,7 +454,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#满足条件"><span class="nav-number">1.</span> <span class="nav-text">满足条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#旋转操作"><span class="nav-number">2.</span> <span class="nav-text">旋转操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#条件"><span class="nav-number">1.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#旋转操作"><span class="nav-number">2.</span> <span class="nav-text">旋转操作</span></a></li></ol></div>
             
           </div>
         </section>
