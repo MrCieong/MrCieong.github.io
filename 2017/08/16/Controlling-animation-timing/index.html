@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="animation," />
 
 
 
@@ -84,15 +84,19 @@
 
 
 
-<meta name="description" content="If you do not conquer self, you will be conquered by self.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MrCieong's Blog">
-<meta property="og:url" content="https://MrCieong.github.io/archives/2016/07/index.html">
+<meta name="description" content="原文：Controlling Animation Timing
+有个协议叫做 CAMediaTiming ，而 CABasicAnimation 与 CAKeyframeAnimation 的基类 CAAnimation 实现了这个协议。它包含了所有与 timing 相关的属性，比如：duration，beginTime 与 repeatCount 就是来自于它。总而言之，这个协议包含有 8 个属">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Controlling Animation Timing">
+<meta property="og:url" content="https://MrCieong.github.io/2017/08/16/Controlling-animation-timing/index.html">
 <meta property="og:site_name" content="MrCieong's Blog">
-<meta property="og:description" content="If you do not conquer self, you will be conquered by self.">
+<meta property="og:description" content="原文：Controlling Animation Timing
+有个协议叫做 CAMediaTiming ，而 CABasicAnimation 与 CAKeyframeAnimation 的基类 CAAnimation 实现了这个协议。它包含了所有与 timing 相关的属性，比如：duration，beginTime 与 repeatCount 就是来自于它。总而言之，这个协议包含有 8 个属">
+<meta property="og:updated_time" content="2017-08-16T08:50:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MrCieong's Blog">
-<meta name="twitter:description" content="If you do not conquer self, you will be conquered by self.">
+<meta name="twitter:title" content="Controlling Animation Timing">
+<meta name="twitter:description" content="原文：Controlling Animation Timing
+有个协议叫做 CAMediaTiming ，而 CABasicAnimation 与 CAKeyframeAnimation 的基类 CAAnimation 实现了这个协议。它包含了所有与 timing 相关的属性，比如：duration，beginTime 与 repeatCount 就是来自于它。总而言之，这个协议包含有 8 个属">
 
 
 
@@ -113,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="https://MrCieong.github.io/archives/2016/07/"/>
+  <link rel="canonical" href="https://MrCieong.github.io/2017/08/16/Controlling-animation-timing/"/>
 
-  <title> 归档 | MrCieong's Blog </title>
+  <title> Controlling Animation Timing | MrCieong's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -136,7 +140,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,251 +218,122 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 20 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/14/MC30DaysOfSwift/" itemprop="url">
-              
-                <span itemprop="name">MC30DaysOfSwift</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-14T00:00:00+08:00"
-              content="2016-07-14" >
-          07-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/09/What's-New-in-Swift-3/" itemprop="url">
-              
-                <span itemprop="name">Swift 3 新特性【译】</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-09T00:00:00+08:00"
-              content="2016-07-09" >
-          07-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/06/iOS Bubble Animation Tutorial/" itemprop="url">
-              
-                <span itemprop="name">iOS Bubble Animation Tutorial</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-06T00:00:00+08:00"
-              content="2016-07-06" >
-          07-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/05/Self-sizing Table View Cells/" itemprop="url">
-              
-                <span itemprop="name">Self-sizing Table View Cells</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-05T00:00:00+08:00"
-              content="2016-07-05" >
-          07-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/01/how-to-setup-blog-on-github-with-hexo/" itemprop="url">
-              
-                <span itemprop="name">如何使用Hexo在Github上搭建一个博客</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-01T07:46:24+08:00"
-              content="2016-07-01" >
-          07-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/01/how-to-submit-an-app-to-apple-2/" itemprop="url">
-              
-                <span itemprop="name">怎样提交一个 app 到 Apple：从没帐号到App Store（第2部分）</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-01T00:00:00+08:00"
-              content="2016-07-01" >
-          07-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Controlling Animation Timing
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-16T15:40:47+08:00" content="2017-08-16">
+              2017-08-16
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文：<a href="http://ronnqvi.st/controlling-animation-timing/" target="_blank" rel="external">Controlling Animation Timing</a></p>
+<p>有个协议叫做 <strong>CAMediaTiming</strong> ，而 <strong>CABasicAnimation</strong> 与 <strong>CAKeyframeAnimation</strong> 的基类 <strong>CAAnimation</strong> 实现了这个协议。它包含了所有与 timing 相关的属性，比如：<code>duration</code>，<code>beginTime</code> 与 <code>repeatCount</code> 就是来自于它。总而言之，这个协议包含有 8 个属性，这些属性相互搭配使用可以精准的控制 timing。苹果官方文档中这些属性的使用往往只有几句话来说明，所以看完所有这些相关的内容肯定要比这篇文章快。不过，使用视觉化的方法来解释 timing 更加清晰易懂。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/animation/" rel="tag">#animation</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/13/Red-Black-Tree/" rel="next" title="Introduction to Algorithms：红黑树（笔记）">
+                <i class="fa fa-chevron-left"></i> Introduction to Algorithms：红黑树（笔记）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -466,6 +341,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -485,8 +364,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -529,6 +417,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -632,11 +531,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
