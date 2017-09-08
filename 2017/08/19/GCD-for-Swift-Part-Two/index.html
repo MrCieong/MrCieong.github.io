@@ -1,0 +1,623 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="GCD,Swift," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="原文：Grand Central Dispatch Tutorial for Swift 3: Part 2/2
+欢迎来到 GCD 系列教程的第二篇，也是最后一篇。
+在该系列的第一篇（原文链接）中，你学习了关于并发、线程以及怎么使用 GCD。你为读出图片实现了一个单例，并且利用 dispatch barriers 与 synchronous dispatch queues 决了读者-写者问题以达到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 3 之 GCD 教程（二）【译】">
+<meta property="og:url" content="https://MrCieong.github.io/2017/08/19/GCD-for-Swift-Part-Two/index.html">
+<meta property="og:site_name" content="MrCieong's Blog">
+<meta property="og:description" content="原文：Grand Central Dispatch Tutorial for Swift 3: Part 2/2
+欢迎来到 GCD 系列教程的第二篇，也是最后一篇。
+在该系列的第一篇（原文链接）中，你学习了关于并发、线程以及怎么使用 GCD。你为读出图片实现了一个单例，并且利用 dispatch barriers 与 synchronous dispatch queues 决了读者-写者问题以达到">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2016/11/photos_early_alert_2.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2016/12/fixed_early_popup.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2016/12/fixed_early_popup_3.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2014/01/Thread_All_The_Code_Meme.jpg">
+<meta property="og:updated_time" content="2017-09-08T06:04:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift 3 之 GCD 教程（二）【译】">
+<meta name="twitter:description" content="原文：Grand Central Dispatch Tutorial for Swift 3: Part 2/2
+欢迎来到 GCD 系列教程的第二篇，也是最后一篇。
+在该系列的第一篇（原文链接）中，你学习了关于并发、线程以及怎么使用 GCD。你为读出图片实现了一个单例，并且利用 dispatch barriers 与 synchronous dispatch queues 决了读者-写者问题以达到">
+<meta name="twitter:image" content="https://koenig-media.raywenderlich.com/uploads/2016/11/photos_early_alert_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://MrCieong.github.io/2017/08/19/GCD-for-Swift-Part-Two/"/>
+
+  <title> Swift 3 之 GCD 教程（二）【译】 | MrCieong's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">MrCieong's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Swift 3 之 GCD 教程（二）【译】
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-19T10:46:01+08:00" content="2017-08-19">
+              2017-08-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文：<a href="https://www.raywenderlich.com/148515/grand-central-dispatch-tutorial-swift-3-part-2" target="_blank" rel="external">Grand Central Dispatch Tutorial for Swift 3: Part 2/2</a></p>
+<p>欢迎来到 GCD 系列教程的第二篇，也是最后一篇。</p>
+<p>在该系列的<a href="https://mrcieong.github.io/2017/06/10/GCD-for-Swift-Part-One/">第一篇</a>（<a href="https://www.raywenderlich.com/?p=148513" target="_blank" rel="external">原文链接</a>）中，你学习了关于并发、线程以及怎么使用 GCD。你为读出图片实现了一个单例，并且利用 dispatch barriers 与 synchronous dispatch queues 决了读者-写者问题以达到线程安全。同时，你使用 dispatch queues 来延迟提示信息的显示来提高 app 的用户体验，以及当初始化 ViewController 时异步分流 CPU 密集工作。</p>
+<p>在这一篇的 GCD 教程中，同样会使到上篇中的 <strong>GooglyPuff</strong> app。你将深入研究高级的 GCD 概念，包括 dispatch groups、取消 dispatch blocks、异步测试技术以及 dispatch sources。</p>
+<p>是时候探索更多的GCD了！</p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>你可选择继续使用上一篇教程的工程项目。或者，你可以<a href="https://koenig-media.raywenderlich.com/uploads/2016/12/GooglyPuff_Swift3_Part1_Final_Part2_Starter.zip" target="_blank" rel="external">下载准备好的项目</a>。</p>
+<p>运行 app，点击 <strong>+</strong> 并选择 <strong>Le Internet</strong> 来添加网络照片。你应该注意到了图片还没在下载完成而 <code>Download Complete</code> 提示框已经提前显示出来。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/11/photos_early_alert_2.png" alt=""></p>
+<p>这就是你需要解决的第一个问题。</p>
+<h2 id="Dispatch-Groups"><a href="#Dispatch-Groups" class="headerlink" title="Dispatch Groups"></a>Dispatch Groups</h2><p>打开 <strong>PhotoManager.swift</strong> 并查看 <strong>downloadPhotosWithCompletion(_:)：</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">downloadPhotosWithCompletion</span><span class="params">(</span></span></div><div class="line">  <span class="number">_</span> completion: BatchPhotoDownloadingCompletionClosure?) &#123;</div><div class="line">  <span class="keyword">var</span> storedError: <span class="type">NSError</span>?</div><div class="line">  <span class="keyword">for</span> address <span class="keyword">in</span> [overlyAttachedGirlfriendURLString,</div><div class="line">                  successKidURLString,</div><div class="line">                  lotsOfFacesURLString] &#123;</div><div class="line">                    <span class="keyword">let</span> url = <span class="type">URL</span>(string: address)</div><div class="line">                    <span class="keyword">let</span> photo = <span class="type">DownloadPhoto</span>(url: url!) &#123;</div><div class="line">                      <span class="number">_</span>, error <span class="keyword">in</span></div><div class="line">                      <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">                        storedError = error</div><div class="line">                      &#125;</div><div class="line">                    &#125;</div><div class="line">                    <span class="type">PhotoManager</span>.sharedManager.addPhoto(photo)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    completion?(storedError)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>提示框是通过该方法传入的参数 <strong>completion</strong> 闭包调用的。它是在图片下载的 <strong>for</strong> 循环后直接调用的。你误以为下载图片会在该闭包调用之前完成。</p>
+<p>图片下载是通过调用 <strong>DownloadPhoto(url)</strong> 完成的。该调用的结果会立即返回，但实际上下载过程是异步的。所以当 <strong>completion</strong> 调用时，并不能保证所有的图片已经下载完成。</p>
+<p>What you want is for <code>downloadPhotosWithCompletion(_:)</code> to call its completion closure <em>after</em> all the photo download tasks are complete. How can you monitor these concurrent asynchronous events to achieve this? With the current methodology, you don’t know when the tasks are complete and they can finish in any order.</p>
+<p>好消息！<code>Dispatch groups</code>的设计就是用来解决该问题的。你可以使用 dispatch group 把多个任务组合在一起并等待它们完成，或者当它们一旦完成后收到通知。这些任务可以是异步或，甚至可以是不同队列的任务。</p>
+<p><strong>DispatchGroup</strong> 管理调度组。你第一个要关注的是 <strong>wait</strong> 方法。 在该 group 所有的调度任务完成之前它会阻塞当前线程。（原谅：This blocks your current thread until all the group’s enqueued tasks have been completed.）</p>
+<p>在 <strong>PhotoManager.swfit</strong> 中使用下面的代码覆盖 <code>downloadPhotosWithCompletion(_:)</code> 中的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="type">DispatchQueue</span>.global(qos: .userInitiated).async &#123; <span class="comment">// 1</span></div><div class="line">  <span class="keyword">var</span> storedError: <span class="type">NSError</span>?</div><div class="line">  <span class="keyword">let</span> downloadGroup = <span class="type">DispatchGroup</span>() <span class="comment">// 2</span></div><div class="line">  <span class="keyword">for</span> address <span class="keyword">in</span> [overlyAttachedGirlfriendURLString, </div><div class="line">                  successKidURLString,</div><div class="line">                  lotsOfFacesURLString] &#123;</div><div class="line">    <span class="keyword">let</span> url = <span class="type">URL</span>(string: address)</div><div class="line">    downloadGroup.enter() <span class="comment">// 3</span></div><div class="line">    <span class="keyword">let</span> photo = <span class="type">DownloadPhoto</span>(url: url!) &#123;</div><div class="line">      <span class="number">_</span>, error <span class="keyword">in</span></div><div class="line">      <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">        storedError = error</div><div class="line">      &#125;   </div><div class="line">      downloadGroup.leave() <span class="comment">// 4</span></div><div class="line">    &#125;   </div><div class="line">    <span class="type">PhotoManager</span>.sharedManager.addPhoto(photo)</div><div class="line">  &#125;   </div><div class="line">      </div><div class="line">  downloadGroup.wait() <span class="comment">// 5</span></div><div class="line">  <span class="type">DispatchQueue</span>.main.async &#123; <span class="comment">// 6</span></div><div class="line">    completion?(storedError)</div><div class="line">  &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里，一步一步的讲解上面的代码具体做了什么：</p>
+<ol>
+<li>由于你使用了同步的 <strong>wait</strong> 方法会阻塞当前线程，所以你使用 <strong>async </strong> 把整个方法放入后台队列中进行，以确保该方法不会阻塞主线程。</li>
+<li>这里你创建了一个新的 dispatch group。</li>
+<li>你调用 <strong>enter()</strong> 来手动通知 goup 该任务已经开始了。你必须使用 <strong>leave()</strong> 的调用次数来平衡 <strong>enter()</strong>的调用次数，否则你的 app 将会崩溃。</li>
+<li>在这里，你通知 group 该任务已经完成。</li>
+<li>你调用 <strong>wait()</strong> 来阻塞当前线程，等待所有任务完成。这种永远的等待是好的因为 photos 创建的任务总是会完成。你可以使用 <strong>wait(timeout:)</strong> 来指定一个超时并且当超时后将不再等待。</li>
+<li>这里，你保证所有的图片下载任务完成或者超时。然后在主线程回调上执行你的  completion 闭包。</li>
+</ol>
+<p>Bulid 并运行你的 app。通过 <strong>Le Internet</strong> 选项下载图片并检查所有图片下载完成前提示框是否弹出。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/12/fixed_early_popup.png" alt=""></p>
+<blockquote>
+<p>笔记：TODO</p>
+</blockquote>
+<p>Dispatch group 对于所有类型的队列来说是个很好选择。你应该警惕的是在主线程中，如果你同步的等待所有任务完成，由于你不希望占用主线程。然而，异步模型是非常好的方法用来更新 UI，尤其是在几个需要长时间运行的任务完成后更新 UI，例如网络调用。</p>
+<p>当前的解决方法是不错的，不过在通常情况下应该尽可能的避免阻塞当前线程。下一任务是当任务完成后使用异步通知的方式来重写它。</p>
+<h2 id="Dispatch-Groups，Take-2（第二种使用方式）"><a href="#Dispatch-Groups，Take-2（第二种使用方式）" class="headerlink" title="Dispatch Groups，Take 2（第二种使用方式）"></a>Dispatch Groups，Take 2（第二种使用方式）</h2><p>异步调度到另一个队列然后使用 <strong>wait</strong> 阻塞当前队列的做法是不够优雅的。幸好，这是有一个更好的方法。当 group 的所有任务完成时，可以使用 <strong>DispatchGroup</strong> 的 <strong>notify</strong> 来代替。</p>
+<p>仍然在 <strong>PhotoManager.swift </strong> 中，使用下面的代码替换  <strong>downloadPhotosWithCompletion(_:)</strong> 中的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">var</span> storedError: <span class="type">NSError</span>?</div><div class="line"><span class="keyword">let</span> downloadGroup = <span class="type">DispatchGroup</span>()</div><div class="line"><span class="keyword">for</span> address <span class="keyword">in</span> [overlyAttachedGirlfriendURLString,</div><div class="line">                successKidURLString,</div><div class="line">                lotsOfFacesURLString] &#123;</div><div class="line">  <span class="keyword">let</span> url = <span class="type">URL</span>(string: address)</div><div class="line">  downloadGroup.enter()</div><div class="line">  <span class="keyword">let</span> photo = <span class="type">DownloadPhoto</span>(url: url!) &#123;</div><div class="line">    <span class="number">_</span>, error <span class="keyword">in</span></div><div class="line">    <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">      storedError = error</div><div class="line">    &#125;   </div><div class="line">    downloadGroup.leave()</div><div class="line">  &#125;   </div><div class="line">  <span class="type">PhotoManager</span>.sharedManager.addPhoto(photo)</div><div class="line">&#125;   </div><div class="line">    </div><div class="line">downloadGroup.notify(queue: <span class="type">DispatchQueue</span>.main) &#123; <span class="comment">// 2</span></div><div class="line">  completion?(storedError)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>解释下这里做了些什么：</p>
+<ol>
+<li>在这新实现方法中，你不再需要使用 <strong>async</strong> 来包含这些代码，因为它并不会阻塞主线程。</li>
+<li><strong>notify(queue:work:)</strong> 处理异步完成闭包。当 group 中的所有任务执行完成后它将被调用。你指定了 completion 任务将在主线程上运行。</li>
+</ol>
+<p>这是一个非常清晰方式来处理这个特定的任务，并且它不会阻塞任何线程。</p>
+<p>Build 并运行 app。检验一下当所有网络图片下载完成后提示框才弹出：</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/12/fixed_early_popup_3.png" alt="img -w375"></p>
+<h2 id="Concurrency-Looping-（并发循环）"><a href="#Concurrency-Looping-（并发循环）" class="headerlink" title="Concurrency Looping （并发循环）"></a>Concurrency Looping （并发循环）</h2><p>所有这些新的工具任你使用，你应该很使用线程来做任何事，是吗？</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/01/Thread_All_The_Code_Meme.jpg" alt=""></p>
+<p>看一下 <strong>PhotoManager</strong> 中的 <strong>downloadPhotosWithCompletion(_:)</strong>。你应该注意到了，这里使用了 <strong>for</strong> 循环来迭代下载三张图片。你的任务是在 <strong>for</strong> 循环中尝试使用并发来加速下载。</p>
+<p>这正好是 <strong>DispatchQueue.concurrent(iterations:execute:)</strong> 的工作。（未完待续…）</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GCD-Swift/" rel="tag">#GCD,Swift</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/16/Controlling-animation-timing/" rel="next" title="Controlling Animation Timing">
+                <i class="fa fa-chevron-left"></i> Controlling Animation Timing
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/08/Core-Graphics-Tutorial-Note/" rel="prev" title="Core Graphics Tutorial 笔记">
+                Core Graphics Tutorial 笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Mr Cieong" />
+          <p class="site-author-name" itemprop="name">Mr Cieong</p>
+          <p class="site-description motion-element" itemprop="description">If you do not conquer self, you will be conquered by self.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dispatch-Groups"><span class="nav-number">1.1.</span> <span class="nav-text">Dispatch Groups</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dispatch-Groups，Take-2（第二种使用方式）"><span class="nav-number">1.2.</span> <span class="nav-text">Dispatch Groups，Take 2（第二种使用方式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Concurrency-Looping-（并发循环）"><span class="nav-number">1.3.</span> <span class="nav-text">Concurrency Looping （并发循环）</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr Cieong</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

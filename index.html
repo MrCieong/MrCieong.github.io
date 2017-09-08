@@ -238,6 +238,276 @@
             
               
                 
+                <a class="post-title-link" href="/2017/09/08/Core-Graphics-Tutorial-Note/" itemprop="url">
+                  Core Graphics Tutorial 笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-09-08T13:26:04+08:00" content="2017-09-08">
+              2017-09-08
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>教程一原文：<a href="https://www.raywenderlich.com/162315/core-graphics-tutorial-part-1-getting-started" target="_blank" rel="external">Core Graphics Tutorial Part 1: Getting Started</a></p>
+<h1 id="Behind-the-scenes-in-Core-Graphics"><a href="#Behind-the-scenes-in-Core-Graphics" class="headerlink" title="Behind the scenes in Core Graphics"></a>Behind the scenes in Core Graphics</h1><p>Each <code>UIView</code> has a graphics <em>context</em>, and all drawing for the view renders into this context before being transferred to the device’s hardware.</p>
+<p>iOS updates the context by calling <code>draw(_:)</code> whenever the view needs to be updated. This happens when:</p>
+<ul>
+<li>The view is new to the screen.</li>
+<li>Other views on top of it are moved.</li>
+<li>The view’s <code>hidden</code> property is changed.</li>
+<li>Your app explicitly calls the <code>setNeedsDisplay()</code> or <code>setNeedsDisplayInRect()</code> methods on the view.</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Any drawing done in <code>draw(_:)</code> goes into the view’ graphics context.  be aware that if you start drawing outside of <code>draw(_:)</code>, as you’ll do in the final part of this tutorial you’ll have to create your own graphics context.</p>
+</blockquote>
+<p>you haven’t used Core Graphics yet in this tutorial because UIKit has wrappers around many of the Core Graphics functions. A <code>UIBezierPath</code>, for example, is a wrapper for a <code>CGMutablePath</code>, which is the lower-level Core Graphics API.</p>
+<blockquote>
+<p><strong>Note:</strong>  <em>Never</em> call <code>draw(_:)</code> directly. If your view is not being updated, then call <code>setNeedsDisplay()</code> on the view.</p>
+<p><code>setNeedsDisplay()</code> does not itself call <code>draw(_:)</code>, but it flags the view as ‘dirty’, triggering a redraw using <code>draw(_:)</code> on the next screen update cycle. Even if you call <code>setNeedsDisplay()</code> five times in the same method you’ll only ever actually call <code>draw(_:)</code> once.</p>
+</blockquote>
+<h1 id="Drawing-Into-the-Context"><a href="#Drawing-Into-the-Context" class="headerlink" title="Drawing Into the Context"></a>Drawing Into the Context</h1><p>Core Graphics uses a “painter’s model”. When you draw into a context, it’s almost like making a painting. You lay down a path and fill it, and then lay down another path on top and fill it. You can’t change the pixels that have been laid down, but you can “paint” over them.</p>
+<p>This image from Apple’s documentation describes how this works. Just as it is when you’re painting on a canvas, the order in which you draw is critical.</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/12/1-PaintersModel.gif" alt="1-PaintersModel"></p>
+<blockquote>
+<p><strong>Note:</strong> Remember that a path simply consists of points. Here’s an easy way to grasp the concept: when creating the path imagine that you have a pen in hand. Put two dots on a page, then place the pen at the starting point, and then draw a line to the next point by drawing a line. </p>
+<p>That’s essentially what you do with the above code by using <code>move(to:)</code> and <code>addLine(to:)</code>.</p>
+</blockquote>
+<h1 id="Points-and-Pixels"><a href="#Points-and-Pixels" class="headerlink" title="Points and Pixels"></a>Points and Pixels</h1><p> iPad 2：1 point = 1 pixel；</p>
+<p> iPhone 6：2x retina screen，1 point  = 2 * 2 pixels；</p>
+<p> iPhone 6 Plus：3x retina screen，1 point = 3 * 3 pixels。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/12/1-Pixels-700x263.png" alt="1-Pixels"></p>
+<p>iOS <em>anti-aliases</em> the half-filled pixels with a color half way between the two colors, and the line looks fuzzy.</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/12/1-PixelLineDemonstrated.png" alt=""></p>
+<p>If you have oddly sized straight lines, you’ll need to position them at plus or minus 0.5 points to prevent anti-aliasing. If you look at the diagrams above, you’ll see that a half point on the iPad 2 will move the line up half a pixel, on the iPhone 6, up one whole pixel, and on the iPhone 6 Plus, up one and a half pixels.</p>
+<hr>
+<p>教程二原文：<a href="https://www.raywenderlich.com/162313/core-graphics-tutorial-part-2-gradients-contexts" target="_blank" rel="external">Core Graphics Tutorial Part 2: Gradients and Contexts</a></p>
+<h1 id="Core-Graphics"><a href="#Core-Graphics" class="headerlink" title="Core Graphics"></a>Core Graphics</h1><p>This image from Apple describes the relevant frameworks conceptually:</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2017/07/drawing_diagram.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/19/GCD-for-Swift-Part-Two/" itemprop="url">
+                  Swift 3 之 GCD 教程（二）【译】
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-19T10:46:01+08:00" content="2017-08-19">
+              2017-08-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原文：<a href="https://www.raywenderlich.com/148515/grand-central-dispatch-tutorial-swift-3-part-2" target="_blank" rel="external">Grand Central Dispatch Tutorial for Swift 3: Part 2/2</a></p>
+<p>欢迎来到 GCD 系列教程的第二篇，也是最后一篇。</p>
+<p>在该系列的<a href="https://mrcieong.github.io/2017/06/10/GCD-for-Swift-Part-One/">第一篇</a>（<a href="https://www.raywenderlich.com/?p=148513" target="_blank" rel="external">原文链接</a>）中，你学习了关于并发、线程以及怎么使用 GCD。你为读出图片实现了一个单例，并且利用 dispatch barriers 与 synchronous dispatch queues 决了读者-写者问题以达到线程安全。同时，你使用 dispatch queues 来延迟提示信息的显示来提高 app 的用户体验，以及当初始化 ViewController 时异步分流 CPU 密集工作。</p>
+<p>在这一篇的 GCD 教程中，同样会使到上篇中的 <strong>GooglyPuff</strong> app。你将深入研究高级的 GCD 概念，包括 dispatch groups、取消 dispatch blocks、异步测试技术以及 dispatch sources。</p>
+<p>是时候探索更多的GCD了！</p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>你可选择继续使用上一篇教程的工程项目。或者，你可以<a href="https://koenig-media.raywenderlich.com/uploads/2016/12/GooglyPuff_Swift3_Part1_Final_Part2_Starter.zip" target="_blank" rel="external">下载准备好的项目</a>。</p>
+<p>运行 app，点击 <strong>+</strong> 并选择 <strong>Le Internet</strong> 来添加网络照片。你应该注意到了图片还没在下载完成而 <code>Download Complete</code> 提示框已经提前显示出来。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/11/photos_early_alert_2.png" alt=""></p>
+<p>这就是你需要解决的第一个问题。</p>
+<h2 id="Dispatch-Groups"><a href="#Dispatch-Groups" class="headerlink" title="Dispatch Groups"></a>Dispatch Groups</h2><p>打开 <strong>PhotoManager.swift</strong> 并查看 <strong>downloadPhotosWithCompletion(_:)：</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">downloadPhotosWithCompletion</span><span class="params">(</span></span></div><div class="line">  <span class="number">_</span> completion: BatchPhotoDownloadingCompletionClosure?) &#123;</div><div class="line">  <span class="keyword">var</span> storedError: <span class="type">NSError</span>?</div><div class="line">  <span class="keyword">for</span> address <span class="keyword">in</span> [overlyAttachedGirlfriendURLString,</div><div class="line">                  successKidURLString,</div><div class="line">                  lotsOfFacesURLString] &#123;</div><div class="line">                    <span class="keyword">let</span> url = <span class="type">URL</span>(string: address)</div><div class="line">                    <span class="keyword">let</span> photo = <span class="type">DownloadPhoto</span>(url: url!) &#123;</div><div class="line">                      <span class="number">_</span>, error <span class="keyword">in</span></div><div class="line">                      <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">                        storedError = error</div><div class="line">                      &#125;</div><div class="line">                    &#125;</div><div class="line">                    <span class="type">PhotoManager</span>.sharedManager.addPhoto(photo)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    completion?(storedError)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>提示框是通过该方法传入的参数 <strong>completion</strong> 闭包调用的。它是在图片下载的 <strong>for</strong> 循环后直接调用的。你误以为下载图片会在该闭包调用之前完成。</p>
+<p>图片下载是通过调用 <strong>DownloadPhoto(url)</strong> 完成的。该调用的结果会立即返回，但实际上下载过程是异步的。所以当 <strong>completion</strong> 调用时，并不能保证所有的图片已经下载完成。</p>
+<p>What you want is for <code>downloadPhotosWithCompletion(_:)</code> to call its completion closure <em>after</em> all the photo download tasks are complete. How can you monitor these concurrent asynchronous events to achieve this? With the current methodology, you don’t know when the tasks are complete and they can finish in any order.</p>
+<p>好消息！<code>Dispatch groups</code>的设计就是用来解决该问题的。你可以使用 dispatch group 把多个任务组合在一起并等待它们完成，或者当它们一旦完成后收到通知。这些任务可以是异步或，甚至可以是不同队列的任务。</p>
+<p><strong>DispatchGroup</strong> 管理调度组。你第一个要关注的是 <strong>wait</strong> 方法。 在该 group 所有的调度任务完成之前它会阻塞当前线程。（原谅：This blocks your current thread until all the group’s enqueued tasks have been completed.）</p>
+<p>在 <strong>PhotoManager.swfit</strong> 中使用下面的代码覆盖 <code>downloadPhotosWithCompletion(_:)</code> 中的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="type">DispatchQueue</span>.global(qos: .userInitiated).async &#123; <span class="comment">// 1</span></div><div class="line">  <span class="keyword">var</span> storedError: <span class="type">NSError</span>?</div><div class="line">  <span class="keyword">let</span> downloadGroup = <span class="type">DispatchGroup</span>() <span class="comment">// 2</span></div><div class="line">  <span class="keyword">for</span> address <span class="keyword">in</span> [overlyAttachedGirlfriendURLString, </div><div class="line">                  successKidURLString,</div><div class="line">                  lotsOfFacesURLString] &#123;</div><div class="line">    <span class="keyword">let</span> url = <span class="type">URL</span>(string: address)</div><div class="line">    downloadGroup.enter() <span class="comment">// 3</span></div><div class="line">    <span class="keyword">let</span> photo = <span class="type">DownloadPhoto</span>(url: url!) &#123;</div><div class="line">      <span class="number">_</span>, error <span class="keyword">in</span></div><div class="line">      <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">        storedError = error</div><div class="line">      &#125;   </div><div class="line">      downloadGroup.leave() <span class="comment">// 4</span></div><div class="line">    &#125;   </div><div class="line">    <span class="type">PhotoManager</span>.sharedManager.addPhoto(photo)</div><div class="line">  &#125;   </div><div class="line">      </div><div class="line">  downloadGroup.wait() <span class="comment">// 5</span></div><div class="line">  <span class="type">DispatchQueue</span>.main.async &#123; <span class="comment">// 6</span></div><div class="line">    completion?(storedError)</div><div class="line">  &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里，一步一步的讲解上面的代码具体做了什么：</p>
+<ol>
+<li>由于你使用了同步的 <strong>wait</strong> 方法会阻塞当前线程，所以你使用 <strong>async </strong> 把整个方法放入后台队列中进行，以确保该方法不会阻塞主线程。</li>
+<li>这里你创建了一个新的 dispatch group。</li>
+<li>你调用 <strong>enter()</strong> 来手动通知 goup 该任务已经开始了。你必须使用 <strong>leave()</strong> 的调用次数来平衡 <strong>enter()</strong>的调用次数，否则你的 app 将会崩溃。</li>
+<li>在这里，你通知 group 该任务已经完成。</li>
+<li>你调用 <strong>wait()</strong> 来阻塞当前线程，等待所有任务完成。这种永远的等待是好的因为 photos 创建的任务总是会完成。你可以使用 <strong>wait(timeout:)</strong> 来指定一个超时并且当超时后将不再等待。</li>
+<li>这里，你保证所有的图片下载任务完成或者超时。然后在主线程回调上执行你的  completion 闭包。</li>
+</ol>
+<p>Bulid 并运行你的 app。通过 <strong>Le Internet</strong> 选项下载图片并检查所有图片下载完成前提示框是否弹出。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/12/fixed_early_popup.png" alt=""></p>
+<blockquote>
+<p>笔记：TODO</p>
+</blockquote>
+<p>Dispatch group 对于所有类型的队列来说是个很好选择。你应该警惕的是在主线程中，如果你同步的等待所有任务完成，由于你不希望占用主线程。然而，异步模型是非常好的方法用来更新 UI，尤其是在几个需要长时间运行的任务完成后更新 UI，例如网络调用。</p>
+<p>当前的解决方法是不错的，不过在通常情况下应该尽可能的避免阻塞当前线程。下一任务是当任务完成后使用异步通知的方式来重写它。</p>
+<h2 id="Dispatch-Groups，Take-2（第二种使用方式）"><a href="#Dispatch-Groups，Take-2（第二种使用方式）" class="headerlink" title="Dispatch Groups，Take 2（第二种使用方式）"></a>Dispatch Groups，Take 2（第二种使用方式）</h2><p>异步调度到另一个队列然后使用 <strong>wait</strong> 阻塞当前队列的做法是不够优雅的。幸好，这是有一个更好的方法。当 group 的所有任务完成时，可以使用 <strong>DispatchGroup</strong> 的 <strong>notify</strong> 来代替。</p>
+<p>仍然在 <strong>PhotoManager.swift </strong> 中，使用下面的代码替换  <strong>downloadPhotosWithCompletion(_:)</strong> 中的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">var</span> storedError: <span class="type">NSError</span>?</div><div class="line"><span class="keyword">let</span> downloadGroup = <span class="type">DispatchGroup</span>()</div><div class="line"><span class="keyword">for</span> address <span class="keyword">in</span> [overlyAttachedGirlfriendURLString,</div><div class="line">                successKidURLString,</div><div class="line">                lotsOfFacesURLString] &#123;</div><div class="line">  <span class="keyword">let</span> url = <span class="type">URL</span>(string: address)</div><div class="line">  downloadGroup.enter()</div><div class="line">  <span class="keyword">let</span> photo = <span class="type">DownloadPhoto</span>(url: url!) &#123;</div><div class="line">    <span class="number">_</span>, error <span class="keyword">in</span></div><div class="line">    <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">      storedError = error</div><div class="line">    &#125;   </div><div class="line">    downloadGroup.leave()</div><div class="line">  &#125;   </div><div class="line">  <span class="type">PhotoManager</span>.sharedManager.addPhoto(photo)</div><div class="line">&#125;   </div><div class="line">    </div><div class="line">downloadGroup.notify(queue: <span class="type">DispatchQueue</span>.main) &#123; <span class="comment">// 2</span></div><div class="line">  completion?(storedError)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>解释下这里做了些什么：</p>
+<ol>
+<li>在这新实现方法中，你不再需要使用 <strong>async</strong> 来包含这些代码，因为它并不会阻塞主线程。</li>
+<li><strong>notify(queue:work:)</strong> 处理异步完成闭包。当 group 中的所有任务执行完成后它将被调用。你指定了 completion 任务将在主线程上运行。</li>
+</ol>
+<p>这是一个非常清晰方式来处理这个特定的任务，并且它不会阻塞任何线程。</p>
+<p>Build 并运行 app。检验一下当所有网络图片下载完成后提示框才弹出：</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/12/fixed_early_popup_3.png" alt="img -w375"></p>
+<h2 id="Concurrency-Looping-（并发循环）"><a href="#Concurrency-Looping-（并发循环）" class="headerlink" title="Concurrency Looping （并发循环）"></a>Concurrency Looping （并发循环）</h2><p>所有这些新的工具任你使用，你应该很使用线程来做任何事，是吗？</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/01/Thread_All_The_Code_Meme.jpg" alt=""></p>
+<p>看一下 <strong>PhotoManager</strong> 中的 <strong>downloadPhotosWithCompletion(_:)</strong>。你应该注意到了，这里使用了 <strong>for</strong> 循环来迭代下载三张图片。你的任务是在 <strong>for</strong> 循环中尝试使用并发来加速下载。</p>
+<p>这正好是 <strong>DispatchQueue.concurrent(iterations:execute:)</strong> 的工作。（未完待续…）</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/08/16/Controlling-animation-timing/" itemprop="url">
                   Controlling Animation Timing
                 </a>
@@ -378,7 +648,7 @@
         
           
             <p>红黑树是一种可以自动平衡的二叉查找树。它在二叉查找树的基础上为每个节点添加了额外的属性：红色或黑色的颜色。在进行插入、删除操作后，它会进行自动平衡操作。从而确保该树的树根到叶子的所有路径长度相差保持在2位以下。</p>
-<h4 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h4><p>红黑树需要满足以下条件：</p>
+<h2 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h2><p>红黑树需要满足以下条件：</p>
 <ol>
 <li>所有节点为黑或白色；</li>
 <li>根节点为黑；</li>
@@ -386,7 +656,7 @@
 <li>如果一个节点为红色，那么它的子节点都为黑色；</li>
 <li>对所有的节点而言，该节点到它的叶子的所有简单路径所包含的黑色节点是相同的。</li>
 </ol>
-<h4 id="旋转操作"><a href="#旋转操作" class="headerlink" title="旋转操作"></a>旋转操作</h4><p>旋转操作如下图：</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="旋转操作"><a href="#旋转操作" class="headerlink" title="旋转操作"></a>旋转操作</h3><p>旋转操作如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">     |                        |</div><div class="line">    [y]    Right-Rotate      [x]</div><div class="line">   /   \   ~~~~~~~~~~~&gt;     /   \</div><div class="line"> [x]    c  &lt;~~~~~~~~~~~~   a    [y]</div><div class="line"> / \        Left-Rotate          / \</div><div class="line">a   b                           b   c</div></pre></td></tr></table></figure>
 <p>1.右旋转 Right-Rotate(T, y)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">x = y.left</div><div class="line">y.left = x.right</div><div class="line">if x.right != nil</div><div class="line">	x.right.p = y</div><div class="line">x.p = y.p</div><div class="line">if y.p == nil</div><div class="line">	T.root = x</div><div class="line">else y == y.p.left</div><div class="line">	y.p.left = x</div><div class="line">else</div><div class="line">	y.p.right = x</div><div class="line">x.right = y</div><div class="line">y.p = x</div></pre></td></tr></table></figure>
@@ -441,7 +711,7 @@
               
                 
                 <a class="post-title-link" href="/2017/06/10/GCD-for-Swift-Part-One/" itemprop="url">
-                  Swift 3 之 GCD 教程(一)【译】
+                  Swift 3 之 GCD 教程（一）【译】
                 </a>
               
             
@@ -1232,107 +1502,6 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/07/How-Can-I-Study-More-Effectively/" itemprop="url">
-                  Quora：怎样高效学习？
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-04-07T23:25:27+08:00" content="2017-04-07">
-              2017-04-07
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>原文：<a href="https://www.quora.com/How-can-I-study-more-effectively" target="_blank" rel="external">https://www.quora.com/How-can-I-study-more-effectively</a></p>
-<p>有两个重要概念需要搞懂：</p>
-<p><strong>1.人类记忆图</strong></p>
-<p><img src="https://qph.ec.quoracdn.net/main-qimg-0412cd31b999f6a006eea6971dd903b4-c" alt=""></p>
-<p><strong>2.人类注意力持续时间</strong></p>
-<p><img src="https://qph.ec.quoracdn.net/main-qimg-9e78b6f662726db2dad951bf9dfe3e71-c" alt=""></p>
-<p><strong>计划并管理你的学习</strong></p>
-<p><strong>具体主题技术的学习</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2017/04/02/Swift_Algorithm_Club_Stack/" itemprop="url">
                   Swift Algorithm Club:堆栈【译】
                 </a>
@@ -1425,120 +1594,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/26/Arnold-Dumbbell-Press/" itemprop="url">
-                  阿诺德哑铃推举【译】
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-03-26T19:51:51+08:00" content="2017-03-26">
-              2017-03-26
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>原文：<a href="https://www.bodybuilding.com/exercises/detail/view/name/arnold-dumbbell-press" target="_blank" rel="external">https://www.bodybuilding.com/exercises/detail/view/name/arnold-dumbbell-press</a></p>
-<p>类型：<a href="https://www.bodybuilding.com/exercises/finder/lookup/filter/exercisetype/id/1/exercisetype/strength" target="_blank" rel="external">力量</a></p>
-<p>锻炼主要肌肉：<a href="https://www.bodybuilding.com/exercises/finder/lookup/filter/muscle/id/12/muscle/shoulders" target="_blank" rel="external">肩</a></p>
-<p>器械：<a href="https://www.bodybuilding.com/exercises/finder/lookup/filter/equipment/id/1/equipment/dumbbell" target="_blank" rel="external">哑铃</a></p>
-<p>级别：<a href="https://www.bodybuilding.com/exercises/finder/lookup/filter/level/id/2/level/intermediate" target="_blank" rel="external">中等</a></p>
-<h4 id="阿诺德哑铃推举图"><a href="#阿诺德哑铃推举图" class="headerlink" title="阿诺德哑铃推举图"></a>阿诺德哑铃推举图</h4><p><img src="http://www.bodybuilding.com/exercises/exerciseImages/sequences/82/Male/l/82_1.jpg" alt=""></p>
-<p><img src="https://www.bodybuilding.com/exercises/exerciseImages/sequences/82/Male/m/82_2.jpg" alt=""></p>
-<h4 id="指南"><a href="#指南" class="headerlink" title="指南"></a>指南</h4><ol>
-<li><p>坐在有背部支撑的训练椅上，双手持哑铃弯曲手肘，使哑铃到胸部的位置，手掌朝向你的身体；</p>
-</li>
-<li><p>现在开始训练动作，举起哑铃并按手掌朝前的方向旋转手臂；</p>
-</li>
-<li><p>继续举起哑铃直到手臂成直线。这部分动作应该呼气；</p>
-</li>
-<li><p>保持1秒，然后开始通过旋转放下哑铃到起始位置；</p>
-</li>
-<li><p>重复训练推荐的重复次数。</p>
-<p>​</p>
-</li>
-</ol>
-<h4 id="主要肌肉"><a href="#主要肌肉" class="headerlink" title="主要肌肉"></a>主要肌肉</h4><p><img src="https://assets.bodybuilding.com/images/trackers/exercise/heatmap/12.gif" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1584,7 +1639,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

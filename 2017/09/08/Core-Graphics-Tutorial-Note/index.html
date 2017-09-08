@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据结构," />
+  <meta name="keywords" content="CoreGraphics," />
 
 
 
@@ -84,37 +84,24 @@
 
 
 
-<meta name="description" content="红黑树是一种可以自动平衡的二叉查找树。它在二叉查找树的基础上为每个节点添加了额外的属性：红色或黑色的颜色。在进行插入、删除操作后，它会进行自动平衡操作。从而确保该树的树根到叶子的所有路径长度相差保持在2位以下。
-条件红黑树需要满足以下条件：
-
-所有节点为黑或白色；
-根节点为黑；
-所有叶子（Nil）为黑色；
-如果一个节点为红色，那么它的子节点都为黑色；
-对所有的节点而言，该节点到它的叶子的所有简单路">
+<meta name="description" content="教程一原文：Core Graphics Tutorial Part 1: Getting Started
+Behind the scenes in Core GraphicsEach UIView has a graphics context, and all drawing for the view renders into this context before being transferr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Introduction to Algorithms：红黑树（笔记）">
-<meta property="og:url" content="https://MrCieong.github.io/2017/08/13/Red-Black-Tree/index.html">
+<meta property="og:title" content="Core Graphics Tutorial 笔记">
+<meta property="og:url" content="https://MrCieong.github.io/2017/09/08/Core-Graphics-Tutorial-Note/index.html">
 <meta property="og:site_name" content="MrCieong's Blog">
-<meta property="og:description" content="红黑树是一种可以自动平衡的二叉查找树。它在二叉查找树的基础上为每个节点添加了额外的属性：红色或黑色的颜色。在进行插入、删除操作后，它会进行自动平衡操作。从而确保该树的树根到叶子的所有路径长度相差保持在2位以下。
-条件红黑树需要满足以下条件：
-
-所有节点为黑或白色；
-根节点为黑；
-所有叶子（Nil）为黑色；
-如果一个节点为红色，那么它的子节点都为黑色；
-对所有的节点而言，该节点到它的叶子的所有简单路">
-<meta property="og:updated_time" content="2017-08-16T15:10:14.000Z">
+<meta property="og:description" content="教程一原文：Core Graphics Tutorial Part 1: Getting Started
+Behind the scenes in Core GraphicsEach UIView has a graphics context, and all drawing for the view renders into this context before being transferr">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2014/12/1-PaintersModel.gif">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2014/12/1-Pixels-700x263.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2014/12/1-PixelLineDemonstrated.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2017/07/drawing_diagram.png">
+<meta property="og:updated_time" content="2017-09-08T06:02:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Introduction to Algorithms：红黑树（笔记）">
-<meta name="twitter:description" content="红黑树是一种可以自动平衡的二叉查找树。它在二叉查找树的基础上为每个节点添加了额外的属性：红色或黑色的颜色。在进行插入、删除操作后，它会进行自动平衡操作。从而确保该树的树根到叶子的所有路径长度相差保持在2位以下。
-条件红黑树需要满足以下条件：
-
-所有节点为黑或白色；
-根节点为黑；
-所有叶子（Nil）为黑色；
-如果一个节点为红色，那么它的子节点都为黑色；
-对所有的节点而言，该节点到它的叶子的所有简单路">
+<meta name="twitter:title" content="Core Graphics Tutorial 笔记">
+<meta name="twitter:description" content="教程一原文：Core Graphics Tutorial Part 1: Getting Started
+Behind the scenes in Core GraphicsEach UIView has a graphics context, and all drawing for the view renders into this context before being transferr">
+<meta name="twitter:image" content="https://koenig-media.raywenderlich.com/uploads/2014/12/1-PaintersModel.gif">
 
 
 
@@ -135,9 +122,9 @@
 
 
 
-  <link rel="canonical" href="https://MrCieong.github.io/2017/08/13/Red-Black-Tree/"/>
+  <link rel="canonical" href="https://MrCieong.github.io/2017/09/08/Core-Graphics-Tutorial-Note/"/>
 
-  <title> Introduction to Algorithms：红黑树（笔记） | MrCieong's Blog </title>
+  <title> Core Graphics Tutorial 笔记 | MrCieong's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -257,7 +244,7 @@
             
             
               
-                Introduction to Algorithms：红黑树（笔记）
+                Core Graphics Tutorial 笔记
               
             
           </h1>
@@ -269,8 +256,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-08-13T15:45:10+08:00" content="2017-08-13">
-              2017-08-13
+            <time itemprop="dateCreated" datetime="2017-09-08T13:26:04+08:00" content="2017-09-08">
+              2017-09-08
             </time>
           </span>
 
@@ -297,21 +284,42 @@
       
 
       
-        <p>红黑树是一种可以自动平衡的二叉查找树。它在二叉查找树的基础上为每个节点添加了额外的属性：红色或黑色的颜色。在进行插入、删除操作后，它会进行自动平衡操作。从而确保该树的树根到叶子的所有路径长度相差保持在2位以下。</p>
-<h2 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h2><p>红黑树需要满足以下条件：</p>
-<ol>
-<li>所有节点为黑或白色；</li>
-<li>根节点为黑；</li>
-<li>所有叶子（Nil）为黑色；</li>
-<li>如果一个节点为红色，那么它的子节点都为黑色；</li>
-<li>对所有的节点而言，该节点到它的叶子的所有简单路径所包含的黑色节点是相同的。</li>
-</ol>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="旋转操作"><a href="#旋转操作" class="headerlink" title="旋转操作"></a>旋转操作</h3><p>旋转操作如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">     |                        |</div><div class="line">    [y]    Right-Rotate      [x]</div><div class="line">   /   \   ~~~~~~~~~~~&gt;     /   \</div><div class="line"> [x]    c  &lt;~~~~~~~~~~~~   a    [y]</div><div class="line"> / \        Left-Rotate          / \</div><div class="line">a   b                           b   c</div></pre></td></tr></table></figure>
-<p>1.右旋转 Right-Rotate(T, y)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">x = y.left</div><div class="line">y.left = x.right</div><div class="line">if x.right != nil</div><div class="line">	x.right.p = y</div><div class="line">x.p = y.p</div><div class="line">if y.p == nil</div><div class="line">	T.root = x</div><div class="line">else y == y.p.left</div><div class="line">	y.p.left = x</div><div class="line">else</div><div class="line">	y.p.right = x</div><div class="line">x.right = y</div><div class="line">y.p = x</div></pre></td></tr></table></figure>
-<p>2.左旋转 Left-Rotate(T, x)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">y = x.right</div><div class="line">x.right = y.left</div><div class="line">if y.left != nil</div><div class="line">	y.left.p = x</div><div class="line">y.p = x.p</div><div class="line">if x.p == nil</div><div class="line">	T.root = y</div><div class="line">else if x.p.left == x</div><div class="line">	x.p.left = y</div><div class="line">else</div><div class="line">	x.p.right = y</div><div class="line">y.left = x</div><div class="line">x.p = y</div></pre></td></tr></table></figure>
+        <p>教程一原文：<a href="https://www.raywenderlich.com/162315/core-graphics-tutorial-part-1-getting-started" target="_blank" rel="external">Core Graphics Tutorial Part 1: Getting Started</a></p>
+<h1 id="Behind-the-scenes-in-Core-Graphics"><a href="#Behind-the-scenes-in-Core-Graphics" class="headerlink" title="Behind the scenes in Core Graphics"></a>Behind the scenes in Core Graphics</h1><p>Each <code>UIView</code> has a graphics <em>context</em>, and all drawing for the view renders into this context before being transferred to the device’s hardware.</p>
+<p>iOS updates the context by calling <code>draw(_:)</code> whenever the view needs to be updated. This happens when:</p>
+<ul>
+<li>The view is new to the screen.</li>
+<li>Other views on top of it are moved.</li>
+<li>The view’s <code>hidden</code> property is changed.</li>
+<li>Your app explicitly calls the <code>setNeedsDisplay()</code> or <code>setNeedsDisplayInRect()</code> methods on the view.</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Any drawing done in <code>draw(_:)</code> goes into the view’ graphics context.  be aware that if you start drawing outside of <code>draw(_:)</code>, as you’ll do in the final part of this tutorial you’ll have to create your own graphics context.</p>
+</blockquote>
+<p>you haven’t used Core Graphics yet in this tutorial because UIKit has wrappers around many of the Core Graphics functions. A <code>UIBezierPath</code>, for example, is a wrapper for a <code>CGMutablePath</code>, which is the lower-level Core Graphics API.</p>
+<blockquote>
+<p><strong>Note:</strong>  <em>Never</em> call <code>draw(_:)</code> directly. If your view is not being updated, then call <code>setNeedsDisplay()</code> on the view.</p>
+<p><code>setNeedsDisplay()</code> does not itself call <code>draw(_:)</code>, but it flags the view as ‘dirty’, triggering a redraw using <code>draw(_:)</code> on the next screen update cycle. Even if you call <code>setNeedsDisplay()</code> five times in the same method you’ll only ever actually call <code>draw(_:)</code> once.</p>
+</blockquote>
+<h1 id="Drawing-Into-the-Context"><a href="#Drawing-Into-the-Context" class="headerlink" title="Drawing Into the Context"></a>Drawing Into the Context</h1><p>Core Graphics uses a “painter’s model”. When you draw into a context, it’s almost like making a painting. You lay down a path and fill it, and then lay down another path on top and fill it. You can’t change the pixels that have been laid down, but you can “paint” over them.</p>
+<p>This image from Apple’s documentation describes how this works. Just as it is when you’re painting on a canvas, the order in which you draw is critical.</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/12/1-PaintersModel.gif" alt="1-PaintersModel"></p>
+<blockquote>
+<p><strong>Note:</strong> Remember that a path simply consists of points. Here’s an easy way to grasp the concept: when creating the path imagine that you have a pen in hand. Put two dots on a page, then place the pen at the starting point, and then draw a line to the next point by drawing a line. </p>
+<p>That’s essentially what you do with the above code by using <code>move(to:)</code> and <code>addLine(to:)</code>.</p>
+</blockquote>
+<h1 id="Points-and-Pixels"><a href="#Points-and-Pixels" class="headerlink" title="Points and Pixels"></a>Points and Pixels</h1><p> iPad 2：1 point = 1 pixel；</p>
+<p> iPhone 6：2x retina screen，1 point  = 2 * 2 pixels；</p>
+<p> iPhone 6 Plus：3x retina screen，1 point = 3 * 3 pixels。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/12/1-Pixels-700x263.png" alt="1-Pixels"></p>
+<p>iOS <em>anti-aliases</em> the half-filled pixels with a color half way between the two colors, and the line looks fuzzy.</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2014/12/1-PixelLineDemonstrated.png" alt=""></p>
+<p>If you have oddly sized straight lines, you’ll need to position them at plus or minus 0.5 points to prevent anti-aliasing. If you look at the diagrams above, you’ll see that a half point on the iPad 2 will move the line up half a pixel, on the iPhone 6, up one whole pixel, and on the iPhone 6 Plus, up one and a half pixels.</p>
+<hr>
+<p>教程二原文：<a href="https://www.raywenderlich.com/162313/core-graphics-tutorial-part-2-gradients-contexts" target="_blank" rel="external">Core Graphics Tutorial Part 2: Gradients and Contexts</a></p>
+<h1 id="Core-Graphics"><a href="#Core-Graphics" class="headerlink" title="Core Graphics"></a>Core Graphics</h1><p>This image from Apple describes the relevant frameworks conceptually:</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2017/07/drawing_diagram.png" alt=""></p>
+
       
     </div>
 
@@ -332,7 +340,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag">#数据结构</a>
+            <a href="/tags/CoreGraphics/" rel="tag">#CoreGraphics</a>
           
         </div>
       
@@ -341,17 +349,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/10/GCD-for-Swift-Part-One/" rel="next" title="Swift 3 之 GCD 教程（一）【译】">
-                <i class="fa fa-chevron-left"></i> Swift 3 之 GCD 教程（一）【译】
+              <a href="/2017/08/19/GCD-for-Swift-Part-Two/" rel="next" title="Swift 3 之 GCD 教程（二）【译】">
+                <i class="fa fa-chevron-left"></i> Swift 3 之 GCD 教程（二）【译】
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/16/Controlling-animation-timing/" rel="prev" title="Controlling Animation Timing">
-                Controlling Animation Timing <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -458,7 +462,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件"><span class="nav-number">1.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作"><span class="nav-number">2.</span> <span class="nav-text">操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#旋转操作"><span class="nav-number">2.1.</span> <span class="nav-text">旋转操作</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Behind-the-scenes-in-Core-Graphics"><span class="nav-number">1.</span> <span class="nav-text">Behind the scenes in Core Graphics</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Drawing-Into-the-Context"><span class="nav-number">2.</span> <span class="nav-text">Drawing Into the Context</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Points-and-Pixels"><span class="nav-number">3.</span> <span class="nav-text">Points and Pixels</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Core-Graphics"><span class="nav-number">4.</span> <span class="nav-text">Core Graphics</span></a></li></ol></div>
             
           </div>
         </section>
